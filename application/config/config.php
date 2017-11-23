@@ -23,7 +23,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$domain = (ENVIRONMENT === 'production') ? 'intime.wellmade.club' : 'intime.hyum.zone';
+
+if (empty($_SERVER['HTTPS']))
+{
+	$config['base_url'] = 'http://' . $domain;
+}
+else
+{
+	$config['base_url'] = 'https://' . $domain;
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -324,7 +333,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = base64_encode('Timetable for INHA UNIVERSITY students');
 
 /*
 |--------------------------------------------------------------------------
