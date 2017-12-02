@@ -27,11 +27,11 @@ $domain = (ENVIRONMENT === 'production') ? 'intime.wellmade.club' : 'intime.hyum
 
 if (empty($_SERVER['HTTPS']))
 {
-	$config['base_url'] = 'http://' . $domain;
+	$config['base_url'] = 'http://' . $domain . '/';
 }
 else
 {
-	$config['base_url'] = 'https://' . $domain;
+	$config['base_url'] = 'https://' . $domain . '/';
 }
 
 /*
