@@ -30,7 +30,7 @@
 							</a>
 						</div>
 						<div class="column has-text-centered">
-							<a class="button is-fullwidth is-link is-inverted">
+							<a href="/lecture" class="button is-fullwidth is-link is-inverted">
 								<span class="icon is-medium">
 									<i class="fa fa-calendar fa-lg"></i>
 								</span>

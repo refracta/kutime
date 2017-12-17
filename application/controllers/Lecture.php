@@ -1,7 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Demo extends CI_Controller {
+class Lecture extends CI_Controller {
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
 	public function index()
 	{
@@ -13,6 +18,6 @@ class Demo extends CI_Controller {
 			'lect_code_list' => $intime_data['department'][0]['lect_code_list'],
 		);
 
-		$this->load->view('demo/index', $vars);
+		$this->load->view('lecture/index', $vars);
 	}
 }

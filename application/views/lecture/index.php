@@ -60,7 +60,7 @@
 				<div class="level is-mobile">
 					<div class="level-item is-marginless columns is-mobile is-gapless">
 						<div class="column has-text-centered">
-							<a class="button is-fullwidth is-link is-inverted">
+							<a href="/intro" class="button is-fullwidth is-link is-inverted">
 								<span class="icon is-medium">
 									<i class="fa fa-home fa-lg"></i>
 								</span>
