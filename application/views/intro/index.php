@@ -1,5 +1,5 @@
 <?php require_once(VIEWPATH . 'global_header.php'); ?>
-	<section class="hero is-fullheight">
+	<section id="intime-app" class="hero is-fullheight">
 		<main class="hero-body is-vertical-paddingless">
 			<div class="container">
 				<span>인하대 시간표 인트로 페이지</span>
@@ -23,11 +23,7 @@
 				<div class="level is-mobile">
 					<div class="level-item is-marginless columns is-mobile is-gapless">
 						<div class="column has-text-centered">
-							<a class="button is-fullwidth is-primary is-inverted">
-								<span class="icon is-medium">
-									<i class="fa fa-home fa-lg"></i>
-								</span>
-							</a>
+							<appnav-button/>
 						</div>
 						<div class="column has-text-centered">
 							<a href="/lecture" class="button is-fullwidth is-link is-inverted">
