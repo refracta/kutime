@@ -2,7 +2,13 @@
 'use strict';
 
 Vue.component('appnav-button', {
+	props: ['anchor'],
 	template: '#template-appnav-button'
+});
+
+Vue.component('appnav-column', {
+	props: ['anchor'],
+	template: '#template-appnav-column'
 });
 
 },{}],2:[function(require,module,exports){
@@ -15,7 +21,12 @@ intime.run = function () {
 		intime.vm = new Vue({
 			el: '#intime-app',
 			data: {
-				message: 'test message',
+				anchors: [
+					{ icon: 'fa-home', active: true, disable: false, href: '/intro' },
+					{ icon: 'fa-calendar', active: false, disable: false, href: '/lecture' },
+					{ icon: 'fa-calculator', active: false, disable: false, href: '/calc' },
+					{ icon: 'fa-user', active: false, disable: true }
+				]
 			},
 			computed: {},
 			methods: {}

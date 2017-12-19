@@ -7,7 +7,12 @@ intime.run = function () {
 		intime.vm = new Vue({
 			el: '#intime-app',
 			data: {
-				message: 'test message',
+				anchors: [
+					{ icon: 'fa-home', active: true, disable: false, href: '/intro' },
+					{ icon: 'fa-calendar', active: false, disable: false, href: '/lecture' },
+					{ icon: 'fa-calculator', active: false, disable: false, href: '/calc' },
+					{ icon: 'fa-user', active: false, disable: true }
+				]
 			},
 			computed: {},
 			methods: {}

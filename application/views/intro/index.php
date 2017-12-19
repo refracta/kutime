@@ -22,30 +22,11 @@
 			<div class="container">
 				<div class="level is-mobile">
 					<div class="level-item is-marginless columns is-mobile is-gapless">
-						<div class="column has-text-centered">
-							<appnav-button/>
-						</div>
-						<div class="column has-text-centered">
-							<a href="/lecture" class="button is-fullwidth is-link is-inverted">
-								<span class="icon is-medium">
-									<i class="fa fa-calendar fa-lg"></i>
-								</span>
-							</a>
-						</div>
-						<div class="column has-text-centered">
-							<a class="button is-fullwidth is-link is-inverted">
-								<span class="icon is-medium">
-									<i class="fa fa-calculator fa-lg"></i>
-								</span>
-							</a>
-						</div>
-						<div class="column has-text-centered">
-							<a class="button is-fullwidth is-link is-inverted" disabled>
-								<span class="icon is-medium">
-									<i class="fa fa-user fa-lg"></i>
-								</span>
-							</a>
-						</div>
+						<appnav-column
+							v-for="(anchor, index) in anchors"
+							:key="index"
+							:anchor="anchor">
+						</appnav-column>
 					</div>
 				</div>
 			</div>
