@@ -14,4 +14,19 @@
 			<appnav-button :anchor="anchor"></appnav-button>
 		</div>
 	</template>
+	<template id="template-appnav">
+		<nav class="navbar is-fixed-bottom box is-paddingless is-radiusless" role="navigation">
+			<div class="container">
+				<div class="level is-mobile">
+					<div class="level-item is-marginless columns is-mobile is-gapless">
+						<appnav-column
+							v-for="(anchor, index) in anchors"
+							:key="index"
+							:anchor="anchor">
+						</appnav-column>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</template>
 <?php /* These templates positioned before footer. */ ?>

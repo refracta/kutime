@@ -11,6 +11,11 @@ Vue.component('appnav-column', {
 	template: '#template-appnav-column'
 });
 
+Vue.component('appnav', {
+	props: ['anchors'],
+	template: '#template-appnav'
+});
+
 },{}],2:[function(require,module,exports){
 'use strict';
 
