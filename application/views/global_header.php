@@ -17,3 +17,4 @@
 <?php endif; ?>
 </head>
 <body>
+	<section id="intime-app" class="hero is-fullheight">

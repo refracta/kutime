@@ -1,5 +1,5 @@
 <?php require_once(VIEWPATH . 'global_header.php'); ?>
-	<section class="hero is-fullheight">
+<?php /* Global header ends with 1 depth section. */ ?>
 		<main class="hero-body is-vertical-paddingless">
 			<div class="container">
 				<ul>
@@ -91,5 +91,5 @@
 				</div>
 			</div>
 		</nav>
-	</section>
+<?php /* Global footer starts with 1 depth section. */ ?>
 <?php require_once(VIEWPATH . 'global_footer.php'); ?>

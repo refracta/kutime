@@ -1,5 +1,5 @@
 <?php require_once(VIEWPATH . 'global_header.php'); ?>
-	<section id="intime-app" class="hero is-fullheight">
+<?php /* Global header ends with 1 depth section. */ ?>
 		<main class="hero-body is-vertical-paddingless">
 			<div class="container">
 				<span>인하대 시간표 인트로 페이지</span>
@@ -19,5 +19,5 @@
 			</div>
 		</nav>
 		<appnav :anchors="anchors"></appnav>
-	</section>
+<?php /* Global footer starts with 1 depth section. */ ?>
 <?php require_once(VIEWPATH . 'global_footer.php'); ?>
