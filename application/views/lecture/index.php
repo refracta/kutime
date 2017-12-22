@@ -55,41 +55,6 @@
 				</div>
 			</div>
 		</nav>
-		<nav class="navbar is-fixed-bottom box is-paddingless is-radiusless" role="navigation">
-			<div class="container">
-				<div class="level is-mobile">
-					<div class="level-item is-marginless columns is-mobile is-gapless">
-						<div class="column has-text-centered">
-							<a href="/intro" class="button is-fullwidth is-link is-inverted">
-								<span class="icon is-medium">
-									<i class="fa fa-home fa-lg"></i>
-								</span>
-							</a>
-						</div>
-						<div class="column has-text-centered">
-							<a class="button is-fullwidth is-primary is-inverted">
-								<span class="icon is-medium">
-									<i class="fa fa-calendar fa-lg"></i>
-								</span>
-							</a>
-						</div>
-						<div class="column has-text-centered">
-							<a class="button is-fullwidth is-link is-inverted">
-								<span class="icon is-medium">
-									<i class="fa fa-calculator fa-lg"></i>
-								</span>
-							</a>
-						</div>
-						<div class="column has-text-centered">
-							<a class="button is-fullwidth is-link is-inverted" disabled>
-								<span class="icon is-medium">
-									<i class="fa fa-user fa-lg"></i>
-								</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</nav>
+		<appnav :anchors="anchors"></appnav>
 <?php /* Global footer starts with 1 depth section. */ ?>
 <?php require_once(VIEWPATH . 'global_footer.php'); ?>

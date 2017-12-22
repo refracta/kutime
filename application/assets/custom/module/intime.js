@@ -1,18 +1,35 @@
 'use strict';
 
-var intime = {};
+var intime = {
+	anchors: [
+		{ icon: 'fa-home', href: '/intro' },
+		{ icon: 'fa-calendar', href: '/lecture' },
+		{ icon: 'fa-calculator', href: '/calc' },
+		{ icon: 'fa-user' }
+	]
+};
 
 intime.run = function () {
+	var pathname = location.pathname;
+
+	if (pathname.endsWith('/')) {
+		pathname = pathname.slice(0, -1);
+	}
+
+	intime.pathname = pathname || '/intro';
+
+	for (var idx = 0; idx < intime.anchors.length; idx += 1) {
+		var anchor = intime.anchors[idx];
+
+		anchor.active = (anchor.href === intime.pathname);
+		anchor.disable = (anchor.href === undefined);
+	}
+
 	if (document.querySelectorAll('#intime-app').length > 0) {
 		intime.vm = new Vue({
 			el: '#intime-app',
 			data: {
-				anchors: [
-					{ icon: 'fa-home', active: true, disable: false, href: '/intro' },
-					{ icon: 'fa-calendar', active: false, disable: false, href: '/lecture' },
-					{ icon: 'fa-calculator', active: false, disable: false, href: '/calc' },
-					{ icon: 'fa-user', active: false, disable: true }
-				]
+				anchors: intime.anchors
 			},
 			computed: {},
 			methods: {}
