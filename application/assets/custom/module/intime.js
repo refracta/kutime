@@ -29,10 +29,51 @@ intime.run = function () {
 		intime.vm = new Vue({
 			el: '#intime-app',
 			data: {
-				anchors: intime.anchors
+				anchors: intime.anchors,
+				depts: [],
+				others: [],
+				activeCode: null,
+				lectures: []
 			},
 			computed: {},
-			methods: {}
+			methods: {
+				getLectures: _.debounce(function () {
+					axios({
+						url: ('/api/lectures/' + this.activeCode),
+						method: 'get'
+					})
+					.then(function (response) {
+						intime.vm.lectures = response.data.lectures.slice();
+					});
+				}, 200)
+			},
+			watch: {
+				activeCode: function () {
+					this.getLectures();
+				}
+			},
+			mounted: function () {
+				this.$nextTick(function () {
+					if (intime.pathname === intime.anchors[1].href) {
+						axios({
+							url: '/api/departments',
+							method: 'get'
+						})
+						.then(function (response) {
+							intime.vm.depts = response.data.slice();
+							intime.vm.activeCode = response.data[0].code;
+						});
+
+						axios({
+							url: '/api/others',
+							method: 'get'
+						})
+						.then(function (response) {
+							intime.vm.others = response.data.slice();
+						});
+					}
+				});
+			},
 		});
 	}
 };

@@ -14,3 +14,8 @@ Vue.component('appnav', {
 	props: ['anchors'],
 	template: '#template-appnav'
 });
+
+Vue.component('lecture-list', {
+	props: ['lectures'],
+	template: '#template-lecture-list'
+});

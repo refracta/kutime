@@ -29,4 +29,37 @@
 			</div>
 		</nav>
 	</template>
+	<template id="template-lecture-list">
+		<ul>
+			<li class="box"
+				v-for="(lect, index) in lectures"
+				:key="index">
+				<article class="media">
+					<div class="media-content">
+						<div class="media-content">
+							<div class="content is-size-7-mobile">
+								<p>
+									<strong>{{ lect[2] }}</strong> <small>{{ lect[0] }}</small>
+									<br>
+									<small>{{ lect[6] }}</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="media-right">
+						<a class="button is-white">
+							<span class="icon is-medium">
+								<i class="fa fa-star-o fa-lg"></i>
+							</span>
+						</a>
+						<a class="button is-white">
+							<span class="icon is-medium">
+								<i class="fa fa-ellipsis-h fa-lg"></i>
+							</span>
+						</a>
+					</div>
+				</article>
+			</li>
+		</ul>
+	</template>
 <?php /* These templates positioned before footer. */ ?>
