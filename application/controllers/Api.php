@@ -52,4 +52,54 @@ class Api extends CI_Controller {
 
 		echo json_encode($this->intime_data['additional']);
 	}
+
+	public function lectures($code)
+	{
+		$allowed_methods = array('GET');
+
+		header('Access-Control-Allow-Methods: ' . implode(', ', $allowed_methods));
+
+		if ( ! in_array($this->input->server('REQUEST_METHOD'), $allowed_methods))
+		{
+			show_error('Request method is not supported.', 405, '405 Method Not Allowed');
+		}
+
+		$response_data = array();
+
+		foreach ($this->intime_data['department'] as $data)
+		{
+			if ($data['code'] === $code)
+			{
+				$response_data = $data;
+				break;
+			}
+		}
+
+		if (empty($response_data))
+		{
+			foreach ($this->intime_data['additional'] as $data)
+			{
+				if ($data['code'] === $code)
+				{
+					$response_data = $data;
+					break;
+				}
+			}
+		}
+
+		if (empty($response_data))
+		{
+			show_404();
+		}
+
+		$response_data['lectures'] = array();
+
+		foreach ($response_data['lect_code_list'] as $lect_code)
+		{
+			$response_data['lectures'][] = $this->intime_data['lecture']['list'][$lect_code];
+		}
+		unset($response_data['lect_code_list']);
+
+		echo json_encode($response_data);
+	}
 }
