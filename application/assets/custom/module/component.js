@@ -16,6 +16,6 @@ Vue.component('appnav', {
 });
 
 Vue.component('lecture-list', {
-	props: ['lectures'],
+	props: ['lectures', 'state'],
 	template: '#template-lecture-list'
 });

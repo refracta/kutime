@@ -60,6 +60,9 @@
 					</div>
 				</article>
 			</li>
+			<li class="button is-fullwidth is-white is-loading"
+				v-if="state.isLoading">
+			</li>
 		</ul>
 	</template>
 <?php /* These templates positioned before footer. */ ?>

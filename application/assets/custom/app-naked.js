@@ -16,7 +16,7 @@ Vue.component('appnav', {
 });
 
 Vue.component('lecture-list', {
-	props: ['lectures'],
+	props: ['lectures', 'state'],
 	template: '#template-lecture-list'
 });
 
@@ -53,7 +53,10 @@ intime.run = function () {
 				depts: [],
 				others: [],
 				activeCode: null,
-				lectures: []
+				lectures: [],
+				state: {
+					isLoading: true
+				}
 			},
 			computed: {},
 			methods: {
@@ -64,11 +67,13 @@ intime.run = function () {
 					})
 					.then(function (response) {
 						intime.vm.lectures = response.data.lectures.slice();
+						intime.vm.state.isLoading = false;
 					});
 				}, 200)
 			},
 			watch: {
 				activeCode: function () {
+					this.state.isLoading = true;
 					this.getLectures();
 				}
 			},
@@ -93,7 +98,7 @@ intime.run = function () {
 						});
 					}
 				});
-			},
+			}
 		});
 	}
 };

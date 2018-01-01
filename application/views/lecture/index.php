@@ -2,7 +2,7 @@
 <?php /* Global header ends with 1 depth section. */ ?>
 		<main class="hero-body is-vertical-paddingless">
 			<div class="container">
-				<lecture-list :lectures="lectures"></lecture-list>
+				<lecture-list :lectures="lectures" :state="state"></lecture-list>
 			</div>
 		</main>
 		<nav class="navbar is-fixed-top box is-paddingless is-radiusless" role="navigation">
