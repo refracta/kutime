@@ -1,0 +1,19 @@
+{
+  "name": "intime",
+  "version": "1.0.0",
+  "description": "인하대 시간표 (web app)",
+  "main": "application/assets/custom/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ony3000/intime.git"
+  },
+  "author": "Hyeonjong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ony3000/intime/issues"
+  },
+  "homepage": "https://github.com/ony3000/intime#readme"
+}
