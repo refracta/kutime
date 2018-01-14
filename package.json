@@ -4,7 +4,9 @@
   "description": "인하대 시간표 (web app)",
   "main": "application/assets/custom/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress -p",
+    "watch": "webpack --progress --watch"
   },
   "repository": {
     "type": "git",
