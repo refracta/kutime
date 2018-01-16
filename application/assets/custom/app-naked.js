@@ -16,8 +16,35 @@ Vue.component('appnav', {
 });
 
 Vue.component('lecture-list', {
-	props: ['lectures', 'state'],
+	props: ['activated', 'lectures', 'state'],
 	template: '#template-lecture-list'
+});
+
+Vue.component('lecture-filter', {
+	props: ['depts', 'others', 'activated', 'state'],
+	template: '#template-lecture-filter',
+	data: function () {
+		return {
+			temporaryCode: this.activated
+		};
+	},
+	methods: {
+		chooseCategory: function (e) {
+			this.temporaryCode = e.target.value;
+		},
+		closeFilter: function (e) {
+			this.temporaryCode = intime.vm.activeCode;
+			document.querySelector('html').classList.remove('is-clipped');
+			intime.vm.state.isFiltering = false;
+		},
+		applyFilter: function (e) {
+			if (this.temporaryCode !== '') {
+				intime.vm.activeCode = this.temporaryCode;
+			}
+			document.querySelector('html').classList.remove('is-clipped');
+			intime.vm.state.isFiltering = false;
+		}
+	}
 });
 
 var intime = {
@@ -52,10 +79,12 @@ intime.run = function () {
 				anchors: intime.anchors,
 				depts: [],
 				others: [],
-				activeCode: null,
+				activeCode: '',
+				activeName: '',
 				lectures: [],
 				state: {
-					isLoading: true
+					isLoading: true,
+					isFiltering: false
 				}
 			},
 			computed: {},
@@ -67,13 +96,19 @@ intime.run = function () {
 					})
 					.then(function (response) {
 						intime.vm.lectures = response.data.lectures.slice();
+						intime.vm.activeName = response.data.name;
 						intime.vm.state.isLoading = false;
 					});
-				}, 200)
+				}, 200),
+				openFilter: function (e) {
+					document.querySelector('html').classList.add('is-clipped');
+					intime.vm.state.isFiltering = true;
+				}
 			},
 			watch: {
 				activeCode: function () {
 					this.state.isLoading = true;
+					this.lectures = [];
 					this.getLectures();
 				}
 			},
@@ -86,7 +121,6 @@ intime.run = function () {
 						})
 						.then(function (response) {
 							intime.vm.depts = response.data.slice();
-							intime.vm.activeCode = response.data[0].code;
 						});
 
 						axios({

@@ -60,9 +60,55 @@
 					</div>
 				</article>
 			</li>
-			<li class="button is-fullwidth is-white is-loading"
-				v-if="state.isLoading">
+			<li class="button is-fullwidth is-white is-static"
+				:class="[activated === '' ? '' : 'is-loading']"
+				v-if="activated === '' || state.isLoading">
+				<span class="icon is-medium"><i class="fa fa-filter fa-lg"></i></span><span>을 눌러서 범주를 선택하세요.</span>
 			</li>
 		</ul>
+	</template>
+	<template id="template-lecture-filter">
+		<div class="modal"
+			:class="[state.isFiltering ? 'is-active' : '']">
+			<div class="modal-background"></div>
+			<div class="modal-card">
+				<header class="modal-card-head">
+					<p class="modal-card-title">범주 선택</p>
+					<button class="delete" aria-label="close" @click="closeFilter"></button>
+				</header>
+				<section class="modal-card-body">
+					<div class="field">
+						<div class="control">
+							<div class="select is-fullwidth">
+								<select @input="chooseCategory">
+									<option value="">학부(과) / 전공</option>
+									<option v-for="(dept, index) in depts"
+										:value="dept.code"
+										:selected="dept.code === temporaryCode"
+										:key="index">{{ dept.name }}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="field">
+						<div class="control">
+							<div class="select is-fullwidth">
+								<select @input="chooseCategory">
+									<option value="">기타</option>
+									<option v-for="(other, index) in others"
+										:value="other.code"
+										:selected="other.code === temporaryCode"
+										:key="index">{{ other.name }}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer class="modal-card-foot">
+					<button class="button is-success" :disabled="temporaryCode === ''" @click="applyFilter">적용</button>
+					<button class="button" @click="closeFilter">닫기</button>
+				</footer>
+			</div>
+		</div>
 	</template>
 <?php /* These templates positioned before footer. */ ?>

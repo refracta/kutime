@@ -16,6 +16,33 @@ Vue.component('appnav', {
 });
 
 Vue.component('lecture-list', {
-	props: ['lectures', 'state'],
+	props: ['activated', 'lectures', 'state'],
 	template: '#template-lecture-list'
+});
+
+Vue.component('lecture-filter', {
+	props: ['depts', 'others', 'activated', 'state'],
+	template: '#template-lecture-filter',
+	data: function () {
+		return {
+			temporaryCode: this.activated
+		};
+	},
+	methods: {
+		chooseCategory: function (e) {
+			this.temporaryCode = e.target.value;
+		},
+		closeFilter: function (e) {
+			this.temporaryCode = intime.vm.activeCode;
+			document.querySelector('html').classList.remove('is-clipped');
+			intime.vm.state.isFiltering = false;
+		},
+		applyFilter: function (e) {
+			if (this.temporaryCode !== '') {
+				intime.vm.activeCode = this.temporaryCode;
+			}
+			document.querySelector('html').classList.remove('is-clipped');
+			intime.vm.state.isFiltering = false;
+		}
+	}
 });

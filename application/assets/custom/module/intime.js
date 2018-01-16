@@ -32,10 +32,12 @@ intime.run = function () {
 				anchors: intime.anchors,
 				depts: [],
 				others: [],
-				activeCode: null,
+				activeCode: '',
+				activeName: '',
 				lectures: [],
 				state: {
-					isLoading: true
+					isLoading: true,
+					isFiltering: false
 				}
 			},
 			computed: {},
@@ -47,13 +49,19 @@ intime.run = function () {
 					})
 					.then(function (response) {
 						intime.vm.lectures = response.data.lectures.slice();
+						intime.vm.activeName = response.data.name;
 						intime.vm.state.isLoading = false;
 					});
-				}, 200)
+				}, 200),
+				openFilter: function (e) {
+					document.querySelector('html').classList.add('is-clipped');
+					intime.vm.state.isFiltering = true;
+				}
 			},
 			watch: {
 				activeCode: function () {
 					this.state.isLoading = true;
+					this.lectures = [];
 					this.getLectures();
 				}
 			},
@@ -66,7 +74,6 @@ intime.run = function () {
 						})
 						.then(function (response) {
 							intime.vm.depts = response.data.slice();
-							intime.vm.activeCode = response.data[0].code;
 						});
 
 						axios({

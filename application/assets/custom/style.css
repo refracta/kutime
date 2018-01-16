@@ -45,3 +45,11 @@
 .box:not(:last-child) {
 	margin-bottom: 0.5rem;
 }
+
+.navbar.box {
+	margin: 0;
+}
+
+.modal {
+	z-index: 40;
+}
