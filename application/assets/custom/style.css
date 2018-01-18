@@ -53,3 +53,9 @@
 .modal {
 	z-index: 40;
 }
+
+.button.is-white.is-static.is-placeholder {
+	background-color: white;
+	border-color: transparent;
+	color: #0a0a0a;
+}

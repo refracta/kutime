@@ -60,7 +60,7 @@
 					</div>
 				</article>
 			</li>
-			<li class="button is-fullwidth is-white is-static"
+			<li class="button is-fullwidth is-white is-static is-placeholder"
 				:class="[activated === '' ? '' : 'is-loading']"
 				v-if="activated === '' || state.isLoading">
 				<span class="icon is-medium"><i class="fa fa-filter fa-lg"></i></span><span>을 눌러서 범주를 선택하세요.</span>
@@ -105,7 +105,7 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<button class="button is-success" :disabled="temporaryCode === ''" @click="applyFilter">적용</button>
+					<button class="button is-primary" :disabled="temporaryCode === ''" @click="applyFilter">적용</button>
 					<button class="button" @click="closeFilter">닫기</button>
 				</footer>
 			</div>
