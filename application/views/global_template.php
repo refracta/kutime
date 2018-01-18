@@ -74,7 +74,7 @@
 			<div class="modal-card">
 				<header class="modal-card-head">
 					<p class="modal-card-title">범주 선택</p>
-					<button class="delete" aria-label="close" @click="closeFilter"></button>
+					<button class="delete" aria-label="close" @click="revertCategory"></button>
 				</header>
 				<section class="modal-card-body">
 					<div class="field">
@@ -105,8 +105,8 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<button class="button is-primary" :disabled="temporaryCode === ''" @click="applyFilter">적용</button>
-					<button class="button" @click="closeFilter">닫기</button>
+					<button class="button is-primary" :disabled="temporaryCode === ''" @click="commitCategory">적용</button>
+					<button class="button" @click="revertCategory">닫기</button>
 				</footer>
 			</div>
 		</div>

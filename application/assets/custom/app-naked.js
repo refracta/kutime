@@ -32,17 +32,13 @@ Vue.component('lecture-filter', {
 		chooseCategory: function (e) {
 			this.temporaryCode = e.target.value;
 		},
-		closeFilter: function (e) {
-			this.temporaryCode = intime.vm.activeCode;
-			document.querySelector('html').classList.remove('is-clipped');
-			intime.vm.state.isFiltering = false;
+		revertCategory: function (e) {
+			this.temporaryCode = this.activated;
+			this.$emit('close');
 		},
-		applyFilter: function (e) {
-			if (this.temporaryCode !== '') {
-				intime.vm.activeCode = this.temporaryCode;
-			}
-			document.querySelector('html').classList.remove('is-clipped');
-			intime.vm.state.isFiltering = false;
+		commitCategory: function (e) {
+			this.$emit('apply', this.temporaryCode);
+			this.$emit('close');
 		}
 	}
 });
@@ -103,6 +99,15 @@ intime.run = function () {
 				openFilter: function (e) {
 					document.querySelector('html').classList.add('is-clipped');
 					intime.vm.state.isFiltering = true;
+				},
+				closeFilter: function (e) {
+					document.querySelector('html').classList.remove('is-clipped');
+					intime.vm.state.isFiltering = false;
+				},
+				applyFilter: function (code) {
+					if (code !== '') {
+						intime.vm.activeCode = code;
+					}
 				}
 			},
 			watch: {

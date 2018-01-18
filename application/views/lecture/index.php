@@ -26,6 +26,9 @@
 			</div>
 		</nav>
 		<appnav :anchors="anchors"></appnav>
-		<lecture-filter :depts="depts" :others="others" :activated="activeCode" :state="state"></lecture-filter>
+		<lecture-filter
+			:depts="depts" :others="others" :activated="activeCode" :state="state"
+			@apply="applyFilter" @close="closeFilter">
+		</lecture-filter>
 <?php /* Global footer starts with 1 depth section. */ ?>
 <?php require_once(VIEWPATH . 'global_footer.php'); ?>

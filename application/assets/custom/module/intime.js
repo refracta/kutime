@@ -56,6 +56,15 @@ intime.run = function () {
 				openFilter: function (e) {
 					document.querySelector('html').classList.add('is-clipped');
 					intime.vm.state.isFiltering = true;
+				},
+				closeFilter: function (e) {
+					document.querySelector('html').classList.remove('is-clipped');
+					intime.vm.state.isFiltering = false;
+				},
+				applyFilter: function (code) {
+					if (code !== '') {
+						intime.vm.activeCode = code;
+					}
 				}
 			},
 			watch: {
