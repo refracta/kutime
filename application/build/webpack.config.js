@@ -1,12 +1,13 @@
 var path = require('path')
 var webpack = require('webpack')
+var bundleFilename = (process.env.NODE_ENV === 'production' ? 'bundle.[hash].js' : 'dev-bundle.js')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './application/src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    path: path.resolve(__dirname, '../assets'),
+    publicPath: '/assets/',
+    filename: bundleFilename
   },
   module: {
     rules: [
