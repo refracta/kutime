@@ -17,11 +17,20 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /vendor/
 
 node_modules/*
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
 
 # IDE Files
 #-------------------------
 /nbproject/
 .idea/*
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
 ## Sublime Text cache files
 *.tmlanguage.cache
