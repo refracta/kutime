@@ -41,6 +41,7 @@
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
+    "unicode-escape": "^0.1.0",
     "url-loader": "^0.6.2",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
