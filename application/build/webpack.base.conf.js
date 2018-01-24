@@ -1,13 +1,18 @@
-var path = require('path')
-var webpack = require('webpack')
-var bundleFilename = (process.env.NODE_ENV === 'production' ? 'bundle.[hash].js' : 'dev-bundle.js')
+'use strict';
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-	entry: './application/src/main.js',
+	entry: {
+		intro: './application/src/intro.index.js',
+		lecture: './application/src/lecture.index.js',
+		calc: './application/src/calc.index.js'
+	},
 	output: {
 		path: path.resolve(__dirname, '../assets'),
 		publicPath: '/assets/',
-		filename: bundleFilename
+		filename: '[name].[chunkhash].js',
+		chunkFilename: '[id].[chunkhash].js'
 	},
 	module: {
 		rules: [
@@ -93,19 +98,14 @@ module.exports = {
 		},
 		extensions: ['*', '.js', '.vue', '.json']
 	},
-	devServer: {
-		historyApiFallback: true,
-		noInfo: true,
-		overlay: true
-	},
 	performance: {
 		hints: false
 	},
 	devtool: '#eval-source-map'
-}
+};
 
 if (process.env.NODE_ENV === 'production') {
-	module.exports.devtool = '#source-map'
+	module.exports.devtool = '#source-map';
 	// http://vue-loader.vuejs.org/en/workflow/production.html
 	module.exports.plugins = (module.exports.plugins || []).concat([
 		new webpack.DefinePlugin({
@@ -122,5 +122,5 @@ if (process.env.NODE_ENV === 'production') {
 		new webpack.LoaderOptionsPlugin({
 			minimize: true
 		})
-	])
+	]);
 }
