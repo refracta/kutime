@@ -16,6 +16,7 @@ user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
 /vendor/
 
+package-lock.json
 node_modules/*
 node_modules/
 dist/
