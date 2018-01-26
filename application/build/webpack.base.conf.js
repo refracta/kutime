@@ -1,6 +1,5 @@
 'use strict';
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
 	entry: {
@@ -10,9 +9,7 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, '../assets'),
-		publicPath: '/assets/',
-		filename: '[name].[chunkhash].js',
-		chunkFilename: '[id].[chunkhash].js'
+		publicPath: '/assets/'
 	},
 	module: {
 		rules: [
@@ -97,30 +94,5 @@ module.exports = {
 			'vue$': 'vue/dist/vue.esm.js'
 		},
 		extensions: ['*', '.js', '.vue', '.json']
-	},
-	performance: {
-		hints: false
-	},
-	devtool: '#eval-source-map'
+	}
 };
-
-if (process.env.NODE_ENV === 'production') {
-	module.exports.devtool = '#source-map';
-	// http://vue-loader.vuejs.org/en/workflow/production.html
-	module.exports.plugins = (module.exports.plugins || []).concat([
-		new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: '"production"'
-			}
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			sourceMap: true,
-			compress: {
-				warnings: false
-			}
-		}),
-		new webpack.LoaderOptionsPlugin({
-			minimize: true
-		})
-	]);
-}
