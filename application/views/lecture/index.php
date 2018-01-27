@@ -1,5 +1,5 @@
 <?php require_once(VIEWPATH . 'global_header.php'); ?>
-<?php /* Global header ends with 1 depth section. */ ?>
+	<section id="intime-app" class="hero is-fullheight">
 		<main class="hero-body is-vertical-paddingless">
 			<div class="container">
 				<lecture-list :activated="activeCode" :lectures="lectures" :state="state"></lecture-list>
@@ -30,5 +30,5 @@
 			:depts="depts" :others="others" :activated="activeCode" :state="state"
 			@apply="applyFilter" @close="closeFilter">
 		</lecture-filter>
-<?php /* Global footer starts with 1 depth section. */ ?>
+	</section>
 <?php require_once(VIEWPATH . 'global_footer.php'); ?>
