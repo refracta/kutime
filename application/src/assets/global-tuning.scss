@@ -1,3 +1,6 @@
+$emblem-top-color: #00b0ec;
+$emblem-bottom-color: #005bac;
+
 .is-vertical-paddingless {
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
@@ -6,19 +9,23 @@
 .navbar {
 	min-height: 0;
 	height: calc(2.75rem + 1px);
-}
 
-.navbar.is-fixed-top {
-	border-bottom: 1px solid #00b0ec;
-}
+	&.is-fixed-top {
+		border-bottom: 1px solid $emblem-top-color;
+	}
 
-.navbar.is-fixed-bottom {
-	border-top: 1px solid #005bac;
-}
+	&.is-fixed-bottom {
+		border-top: 1px solid $emblem-bottom-color;
+	}
 
-.navbar > .container {
-	min-height: 0;
-	height: 2.75rem;
+	&.box {
+		margin: 0;
+	}
+
+	& > .container {
+		min-height: 0;
+		height: 2.75rem;
+	}
 }
 
 .container > .level {
@@ -26,12 +33,14 @@
 	height: 100%;
 }
 
-.hero.is-fullheight {
-	min-height: 0;
-}
+.hero {
+	&.is-fullheight {
+		min-height: 0;
+	}
 
-.hero .navbar {
-	background-color: white;
+	& .navbar {
+		background-color: white;
+	}
 }
 
 .hero-body {
@@ -40,14 +49,10 @@
 
 .box {
 	padding: 0.75rem 1rem;
-}
 
-.box:not(:last-child) {
-	margin-bottom: 0.5rem;
-}
-
-.navbar.box {
-	margin: 0;
+	&:not(:last-child) {
+		margin-bottom: 0.5rem;
+	}
 }
 
 .modal {
