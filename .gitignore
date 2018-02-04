@@ -1,5 +1,6 @@
 .DS_Store
 
+application/dev-assets/*
 application/assets/*.map
 
 application/cache/*

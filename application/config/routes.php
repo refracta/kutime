@@ -53,3 +53,4 @@ $route['default_controller'] = 'intro';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['assets(/:any)+'] = 'assets/index';
+$route['dev-assets(/:any)+'] = 'dev_assets/index';
