@@ -3,7 +3,8 @@ const path = require('path');
 
 module.exports = {
 	entry: {
-		intro: './application/src/intro.index.js'
+		intro: './application/src/intro.index.js',
+		calc: './application/src/calc.index.js'
 	},
 	output: {
 		path: path.resolve(__dirname, '../assets'),
