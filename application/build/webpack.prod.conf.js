@@ -7,6 +7,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const webpackConfig = merge(baseWebpackConfig, {
 	output: {
+		path: path.resolve(__dirname, '../assets'),
+		publicPath: '/assets/',
 		filename: '[name].[chunkhash].js',
 		chunkFilename: '[id].[chunkhash].js'
 	},

@@ -7,6 +7,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const devWebpackConfig = merge(baseWebpackConfig, {
 	output: {
+		path: path.resolve(__dirname, '../dev-assets'),
+		publicPath: '/dev-assets/',
 		filename: '[name].bundle.js',
 		chunkFilename: '[id].[name].js'
 	},

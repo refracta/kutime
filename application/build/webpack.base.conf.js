@@ -7,10 +7,6 @@ module.exports = {
 		intro: './application/src/intro.index.js',
 		calc: './application/src/calc.index.js'
 	},
-	output: {
-		path: path.resolve(__dirname, '../assets'),
-		publicPath: '/assets/'
-	},
 	module: {
 		rules: [
 			{
