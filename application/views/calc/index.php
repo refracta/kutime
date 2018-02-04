@@ -1,23 +1,10 @@
 <?php require_once(VIEWPATH . 'global_header.php'); ?>
-	<section id="intime-app" class="hero is-fullheight">
-		<main class="hero-body is-vertical-paddingless">
-			<div class="container">
-				<span>경우의 수 계산 페이지</span>
-			</div>
-		</main>
-		<nav class="navbar is-fixed-top box is-paddingless is-radiusless" role="navigation">
-			<div class="container">
-				<div class="level is-mobile">
-					<div class="level-item is-marginless columns is-mobile is-gapless">
-						<div class="column">
-							<div class="box is-shadowless is-vertical-paddingless">
-								<small><?php echo $nav_title; ?></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</nav>
-		<appnav :anchors="anchors"></appnav>
-	</section>
+	<section id="intime-app"></section>
+<?php if (ENVIRONMENT === 'production'): ?>
+	<script src="/assets/vendor.c93e6221e63230f6739f.js"></script>
+	<script src="/assets/calc.c670ba323245ec46a6bb.js"></script>
+<?php else: ?>
+	<script src="/dev-assets/vendor.js"></script>
+	<script src="/dev-assets/calc.bundle.js"></script>
+<?php endif; ?>
 <?php require_once(VIEWPATH . 'global_footer.php'); ?>
