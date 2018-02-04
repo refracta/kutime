@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const webpackConfig = merge(baseWebpackConfig, {
 	output: {
@@ -24,6 +25,20 @@ const webpackConfig = merge(baseWebpackConfig, {
 			compress: {
 				warnings: false
 			}
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor',
+			minChunks: function (module) {
+				if (module.resource && /\.(css|scss|sass)$/.test(module.resource)) {
+					return false;
+				}
+
+				return module.context && module.context.includes('node_modules');
+			}
+		}),
+		new ExtractTextPlugin({
+			filename: 'global.[contenthash:20].css',
+			allChunks: true
 		}),
 		new webpack.LoaderOptionsPlugin({
 			minimize: true
