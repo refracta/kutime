@@ -10,10 +10,6 @@ class Lecture extends CI_Controller {
 
 	public function index()
 	{
-		$vars = array(
-			'nav_title' => '시간표 조회',
-		);
-
-		$this->load->view('lecture/index', $vars);
+		$this->load->view('lecture/index');
 	}
 }

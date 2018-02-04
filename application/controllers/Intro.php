@@ -10,10 +10,6 @@ class Intro extends CI_Controller {
 
 	public function index()
 	{
-		$vars = array(
-			'nav_title' => '인하대 시간표',
-		);
-
-		$this->load->view('intro/index', $vars);
+		$this->load->view('intro/index');
 	}
 }

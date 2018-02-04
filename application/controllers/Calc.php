@@ -10,10 +10,6 @@ class Calc extends CI_Controller {
 
 	public function index()
 	{
-		$vars = array(
-			'nav_title' => '경우의 수 계산',
-		);
-
-		$this->load->view('calc/index', $vars);
+		$this->load->view('calc/index');
 	}
 }

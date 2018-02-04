@@ -11,7 +11,7 @@
 					<div class="level-item is-marginless columns is-mobile is-gapless">
 						<div class="column">
 							<div class="box is-shadowless is-vertical-paddingless">
-								<small><?php echo $nav_title; ?></small>
+								<small>시간표 조회</small>
 							</div>
 						</div>
 						<div class="column is-one-quarter has-text-centered">
