@@ -1,34 +1,10 @@
 <?php require_once(VIEWPATH . 'global_header.php'); ?>
-	<section id="intime-app" class="hero is-fullheight">
-		<main class="hero-body is-vertical-paddingless">
-			<div class="container">
-				<lecture-list :activated="activeCode" :lectures="lectures" :state="state"></lecture-list>
-			</div>
-		</main>
-		<nav class="navbar is-fixed-top box is-paddingless is-radiusless" role="navigation">
-			<div class="container">
-				<div class="level is-mobile">
-					<div class="level-item is-marginless columns is-mobile is-gapless">
-						<div class="column">
-							<div class="box is-shadowless is-vertical-paddingless">
-								<small>시간표 조회</small>
-							</div>
-						</div>
-						<div class="column is-one-quarter has-text-centered">
-							<a class="button is-fullwidth is-white" @click="openFilter">
-								<span class="icon is-medium">
-									<i class="fa fa-filter fa-lg"></i>
-								</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</nav>
-		<appnav :anchors="anchors"></appnav>
-		<lecture-filter
-			:depts="depts" :others="others" :activated="activeCode" :state="state"
-			@apply="applyFilter" @close="closeFilter">
-		</lecture-filter>
-	</section>
+	<section id="intime-app"></section>
+<?php if (ENVIRONMENT === 'production'): ?>
+	<script src="/assets/vendor.281f6cff174eeaf6c726.js"></script>
+	<script src="/assets/lecture.60d8b9f6d0c66c15eec2.js"></script>
+<?php else: ?>
+	<script src="/dev-assets/vendor.js"></script>
+	<script src="/dev-assets/lecture.bundle.js"></script>
+<?php endif; ?>
 <?php require_once(VIEWPATH . 'global_footer.php'); ?>
