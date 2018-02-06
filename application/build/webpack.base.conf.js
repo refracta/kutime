@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
 	entry: {
 		intro: './application/src/intro.index.js',
+		lecture: './application/src/lecture.index.js',
 		calc: './application/src/calc.index.js'
 	},
 	module: {
