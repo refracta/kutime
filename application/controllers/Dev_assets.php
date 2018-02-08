@@ -21,7 +21,14 @@ class Dev_assets extends CI_Controller {
 			{
 				$file_name = basename($file_path);
 				$mime_type = get_mime_by_extension($file_name);
+				if ($mime_type === FALSE)
+				{
+					$mime_type = mime_content_type($file_path);
+				}
+				$hash = hash_file('sha1', $file_path);
 
+				$this->output->set_header('Cache-Control: no-cache, no-store, must-revalidate');
+				$this->output->set_header('ETag: "' . $hash . '"');
 				$this->output->set_content_type($mime_type, 'utf-8');
 				$this->output->set_output(file_get_contents($file_path));
 			}
