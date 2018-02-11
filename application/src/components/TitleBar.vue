@@ -17,7 +17,7 @@
 <script>
 export default {
 	name: 'titleBar',
-	data: () => {
+	data: function () {
 		var pathname = location.pathname;
 
 		if (pathname.endsWith('/')) {

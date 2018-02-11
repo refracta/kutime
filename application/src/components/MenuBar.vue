@@ -24,7 +24,7 @@
 <script>
 export default {
 	name: 'menuBar',
-	data: () => {
+	data: function () {
 		var pathname = location.pathname;
 
 		if (pathname.endsWith('/')) {
