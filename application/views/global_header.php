@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
 	<title>인하대 시간표</title>
 <?php if (ENVIRONMENT === 'production'): ?>
-	<link rel="stylesheet" href="/assets/global.b2476478ba2d5f4b81db.css">
+	<link rel="stylesheet" href="/assets/global.8eca55eb929ffae61de9.css">
 <?php else: ?>
 	<link rel="stylesheet" href="/dev-assets/global.css">
 <?php endif; ?>

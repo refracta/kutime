@@ -8,6 +8,16 @@
 							<small>{{ navTitle }}</small>
 						</div>
 					</div>
+					<div class="column is-one-quarter has-text-centered"
+						v-if="usesFilter">
+						<a class="button is-fullwidth is-white"
+							:class="[isReady ? '' : 'is-loading']"
+							@click="openFilter">
+							<span class="icon is-medium">
+								<i class="fa fa-filter fa-lg"></i>
+							</span>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -32,8 +42,22 @@ export default {
 		};
 
 		return {
+			url: pathname,
 			navTitle: titleList[pathname]
 		};
+	},
+	computed: {
+		usesFilter: function () {
+			return (this.url === '/lecture');
+		},
+		isReady: function () {
+			return this.$store.state.isReady;
+		}
+	},
+	methods: {
+		openFilter: function () {
+			this.$store.commit('openFilter');
+		}
 	}
 };
 </script>

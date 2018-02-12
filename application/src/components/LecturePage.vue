@@ -13,20 +13,35 @@
 		<TitleBar/>
 
 		<MenuBar/>
+
+		<LectureFilterModal/>
 	</section>
 </template>
 
 <script>
+import axios from 'axios';
 import TitleBar from './TitleBar.vue';
 import MenuBar from './MenuBar.vue';
+import LectureFilterModal from './LectureFilterModal.vue';
 
 export default {
 	name: 'lecturePage',
 	components: {
-		TitleBar, MenuBar
+		TitleBar, MenuBar, LectureFilterModal
 	},
 	data: function () {
 		return {};
+	},
+	mounted: function () {
+		this.$nextTick(function () {
+			axios({
+				url: '/api/categories',
+				method: 'get'
+			})
+			.then(response => {
+				this.$store.commit('readyForLecture', response.data);
+			});
+		});
 	}
 };
 </script>
