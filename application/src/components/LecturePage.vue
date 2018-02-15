@@ -26,15 +26,15 @@ export default {
 	components: {
 		TitleBar, MenuBar, LectureList, LectureFilterModal
 	},
-	data: function () {
+	data () {
 		return {};
 	},
 	computed: {
-		activeCode: function () {
+		activeCode () {
 			return this.$store.state.activeCode
 		}
 	},
-	mounted: function () {
+	mounted () {
 		this.$nextTick(function () {
 			axios({
 				url: '/api/categories',
@@ -46,7 +46,7 @@ export default {
 		});
 	},
 	methods: {
-		getLectures: function () {
+		getLectures () {
 			this.$store.commit('loadingLectures');
 
 			axios({
@@ -59,7 +59,7 @@ export default {
 		}
 	},
 	watch: {
-		activeCode: function () {
+		activeCode () {
 			this.getLectures();
 		}
 	}

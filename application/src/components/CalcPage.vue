@@ -21,7 +21,7 @@ export default {
 	components: {
 		TitleBar, MenuBar
 	},
-	data: function () {
+	data () {
 		return {};
 	}
 };

@@ -46,34 +46,34 @@
 <script>
 export default {
 	name: 'lectureFilterModal',
-	data: function () {
+	data () {
 		return {
 			temporaryCode: ''
 		};
 	},
 	computed: {
-		isActive: function () {
+		isActive () {
 			return this.$store.state.isFiltering;
 		},
-		activatedCode: function () {
+		activatedCode () {
 			return this.$store.state.activeCode;
 		},
-		deptList: function () {
+		deptList () {
 			return this.$store.state.departments;
 		},
-		otherList: function () {
+		otherList () {
 			return this.$store.state.others;
 		},
 	},
 	methods: {
-		chooseCategory: function (e) {
+		chooseCategory (e) {
 			this.temporaryCode = e.target.value;
 		},
-		revertCategory: function () {
+		revertCategory () {
 			this.temporaryCode = this.activatedCode;
 			this.$store.commit('closeFilter');
 		},
-		commitCategory: function () {
+		commitCategory () {
 			this.$store.commit('applyFilter', this.temporaryCode);
 			this.$store.commit('closeFilter');
 		}

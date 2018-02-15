@@ -26,8 +26,8 @@ import pathname from '../utils/pathname';
 
 export default {
 	name: 'menuBar',
-	data: function () {
-		var anchorList = [
+	data () {
+		let anchorList = [
 			{
 				href: '/intro',
 				icon: 'fa-home'
@@ -46,15 +46,15 @@ export default {
 			}
 		];
 
-		for (var idx = 0; idx < anchorList.length; idx += 1) {
-			var anchor = anchorList[idx];
+		for (let idx = 0; idx < anchorList.length; idx += 1) {
+			let anchor = anchorList[idx];
 
 			anchor.active = (anchor.href === pathname);
 			anchor.disable = (anchor.href === null);
 		}
 
 		return {
-			anchorList: anchorList
+			anchorList
 		};
 	}
 };

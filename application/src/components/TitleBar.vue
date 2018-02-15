@@ -29,8 +29,8 @@ import pathname from '../utils/pathname';
 
 export default {
 	name: 'titleBar',
-	data: function () {
-		var titleList = {
+	data () {
+		let titleList = {
 			'/intro': '',
 			'/lecture': '시간표 조회',
 			'/calc': '경우의 수 계산'
@@ -42,15 +42,15 @@ export default {
 		};
 	},
 	computed: {
-		usesFilter: function () {
+		usesFilter () {
 			return (this.url === '/lecture');
 		},
-		isReady: function () {
+		isReady () {
 			return this.$store.state.isReady;
 		}
 	},
 	methods: {
-		openFilter: function () {
+		openFilter () {
 			this.$store.commit('openFilter');
 		}
 	}

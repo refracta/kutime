@@ -19,29 +19,29 @@ const store = new Vuex.Store({
 		isReady: false
 	},
 	mutations: {
-		readyForLectures: (state, payload) => {
+		readyForLectures (state, payload) {
 			state.departments = payload.departments.slice();
 			state.others = payload.others.slice();
 			state.isReady = true;
 		},
-		loadingLectures: state => {
+		loadingLectures (state) {
 			state.lectures = [];
 			state.isLoading = true;
 		},
-		renderLectures: (state, payload) => {
+		renderLectures (state, payload) {
 			state.lectures = payload.lectures.slice();
 			state.activeName = payload.name;
 			state.isLoading = false;
 		},
-		openFilter: state => {
+		openFilter (state) {
 			document.querySelector('html').classList.add('is-clipped');
 			state.isFiltering = true;
 		},
-		closeFilter: state => {
+		closeFilter (state) {
 			document.querySelector('html').classList.remove('is-clipped');
 			state.isFiltering = false;
 		},
-		applyFilter: (state, payload) => {
+		applyFilter (state, payload) {
 			if (payload !== '') {
 				state.activeCode = payload;
 				state.activeName = '';

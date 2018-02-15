@@ -40,17 +40,17 @@
 <script>
 export default {
 	name: 'lectureList',
-	data: function () {
+	data () {
 		return {};
 	},
 	computed: {
-		lectureList: function () {
+		lectureList () {
 			return this.$store.state.lectures;
 		},
-		isLoading: function () {
+		isLoading () {
 			return this.$store.state.isLoading;
 		},
-		isGuiding: function () {
+		isGuiding () {
 			return (this.$store.state.activeCode === '' || this.isLoading);
 		}
 	}

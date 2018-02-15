@@ -1,4 +1,4 @@
-var pathname = location.pathname;
+let pathname = location.pathname;
 
 if (pathname.endsWith('/')) {
 	pathname = pathname.slice(0, -1);
