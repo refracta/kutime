@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
 	name: 'lectureFilterModal',
 	data () {
@@ -52,18 +54,12 @@ export default {
 		};
 	},
 	computed: {
-		isActive () {
-			return this.$store.state.isFiltering;
-		},
-		activatedCode () {
-			return this.$store.state.activeCode;
-		},
-		deptList () {
-			return this.$store.state.departments;
-		},
-		otherList () {
-			return this.$store.state.others;
-		},
+		...mapState({
+			deptList: state => state.departments,
+			otherList: state => state.others,
+			activatedCode: state => state.activeCode,
+			isActive: state => state.isFiltering,
+		})
 	},
 	methods: {
 		chooseCategory (e) {

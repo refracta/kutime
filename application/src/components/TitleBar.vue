@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import pathname from '../utils/pathname';
 
 export default {
@@ -45,9 +46,9 @@ export default {
 		usesFilter () {
 			return (this.url === '/lecture');
 		},
-		isReady () {
-			return this.$store.state.isReady;
-		}
+		...mapState({
+			isReady: state => state.isReady,
+		})
 	},
 	methods: {
 		openFilter () {

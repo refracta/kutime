@@ -16,6 +16,7 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from 'vuex';
 import TitleBar from './TitleBar.vue';
 import MenuBar from './MenuBar.vue';
 import LectureList from './LectureList.vue';
@@ -30,9 +31,9 @@ export default {
 		return {};
 	},
 	computed: {
-		activeCode () {
-			return this.$store.state.activeCode
-		}
+		...mapState({
+			activeCode: state => state.activeCode,
+		})
 	},
 	mounted () {
 		this.$nextTick(function () {

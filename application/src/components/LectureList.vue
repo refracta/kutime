@@ -38,21 +38,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
 	name: 'lectureList',
 	data () {
 		return {};
 	},
 	computed: {
-		lectureList () {
-			return this.$store.state.lectures;
-		},
-		isLoading () {
-			return this.$store.state.isLoading;
-		},
 		isGuiding () {
-			return (this.$store.state.activeCode === '' || this.isLoading);
-		}
+			return (this.activeCode === '' || this.isLoading);
+		},
+		...mapState({
+			lectureList: state => state.lectures,
+			activeCode: state => state.activeCode,
+			isLoading: state => state.isLoading,
+		})
 	}
 };
 </script>
