@@ -69,11 +69,11 @@ export default {
 		chooseCategory: function (e) {
 			this.temporaryCode = e.target.value;
 		},
-		revertCategory: function (e) {
+		revertCategory: function () {
 			this.temporaryCode = this.activatedCode;
 			this.$store.commit('closeFilter');
 		},
-		commitCategory: function (e) {
+		commitCategory: function () {
 			this.$store.commit('applyFilter', this.temporaryCode);
 			this.$store.commit('closeFilter');
 		}
