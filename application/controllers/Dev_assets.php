@@ -15,7 +15,7 @@ class Dev_assets extends CI_Controller {
 	{
 		$file_path = APPPATH . uri_string();
 
-		if (ENVIRONMENT !== 'production' && file_exists($file_path))
+		if (ENVIRONMENT === 'development' && file_exists($file_path))
 		{
 			if (is_file($file_path))
 			{
