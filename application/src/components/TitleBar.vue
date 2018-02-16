@@ -11,7 +11,7 @@
 					<div class="column is-one-quarter has-text-centered"
 						v-if="usesFilter">
 						<a class="button is-fullwidth is-white"
-							:class="[isReady ? '' : 'is-loading']"
+							:disabled="!isReady"
 							@click="openFilter">
 							<span class="icon is-medium">
 								<i class="fa fa-filter fa-lg"></i>

@@ -30,7 +30,7 @@
 			</article>
 		</li>
 		<li class="button is-fullwidth is-white is-static is-placeholder"
-			:class="[isLoading ? 'is-loading' : '']"
+			:class="[(isLoading || !isReady) ? 'is-loading' : '']"
 			v-if="isGuiding">
 			<span class="icon is-medium"><i class="fa fa-filter fa-lg"></i></span><span>을 눌러서 범주를 선택하세요.</span>
 		</li>
@@ -53,6 +53,7 @@ export default {
 			'lectureList',
 			'activatedCode',
 			'isLoading',
+			'isReady',
 		])
 	}
 };

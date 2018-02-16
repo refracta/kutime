@@ -36,8 +36,8 @@
 				</div>
 			</section>
 			<footer class="modal-card-foot">
-				<button class="button is-primary" :disabled="temporaryCode === ''" @click="commitCategory">적용</button>
 				<button class="button" @click="revertCategory">닫기</button>
+				<button class="button is-primary" :disabled="temporaryCode === ''" @click="commitCategory">적용</button>
 			</footer>
 		</div>
 	</div>

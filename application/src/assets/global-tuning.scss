@@ -59,6 +59,30 @@ $emblem-bottom-color: #005bac;
 	z-index: 40;
 }
 
+.modal-card-title {
+	font-size: 1.25rem;
+}
+
+.modal-card-head,
+.modal-card-body,
+.modal-card-foot {
+	padding: 1rem;
+}
+
+.modal-card-foot {
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+
+	.button {
+		min-width: 40%;
+
+		&:not(:last-child) {
+			margin-right: 1rem;
+		}
+	}
+}
+
 .button.is-white.is-static.is-placeholder {
 	background-color: white;
 	border-color: transparent;
