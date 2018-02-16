@@ -31,9 +31,9 @@ export default {
 		return {};
 	},
 	computed: {
-		...mapState({
-			activatedCode: state => state.activatedCode,
-		})
+		...mapState([
+			'activatedCode',
+		])
 	},
 	mounted () {
 		this.$nextTick(function () {

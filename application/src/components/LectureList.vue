@@ -49,11 +49,11 @@ export default {
 		isGuiding () {
 			return (this.activatedCode === '' || this.isLoading);
 		},
-		...mapState({
-			lectureList: state => state.lectureList,
-			activatedCode: state => state.activatedCode,
-			isLoading: state => state.isLoading,
-		})
+		...mapState([
+			'lectureList',
+			'activatedCode',
+			'isLoading',
+		])
 	}
 };
 </script>

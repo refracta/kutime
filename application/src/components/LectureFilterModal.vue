@@ -54,10 +54,12 @@ export default {
 		};
 	},
 	computed: {
+		...mapState([
+			'departmentList',
+			'otherList',
+			'activatedCode',
+		]),
 		...mapState({
-			departmentList: state => state.departmentList,
-			otherList: state => state.otherList,
-			activatedCode: state => state.activatedCode,
 			isActive: state => state.isFiltering,
 		})
 	},

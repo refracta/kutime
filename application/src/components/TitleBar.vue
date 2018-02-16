@@ -46,9 +46,9 @@ export default {
 		usesFilter () {
 			return (this.url === '/lecture');
 		},
-		...mapState({
-			isReady: state => state.isReady,
-		})
+		...mapState([
+			'isReady',
+		])
 	},
 	methods: {
 		openFilter () {
