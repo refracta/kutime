@@ -31,7 +31,7 @@ import pathname from '../utils/pathname';
 export default {
 	name: 'titleBar',
 	data () {
-		let titleList = {
+		let titleSet = {
 			'/intro': '',
 			'/lecture': '시간표 조회',
 			'/calc': '경우의 수 계산'
@@ -39,7 +39,7 @@ export default {
 
 		return {
 			url: pathname,
-			navTitle: titleList[pathname]
+			navTitle: titleSet[pathname]
 		};
 	},
 	computed: {

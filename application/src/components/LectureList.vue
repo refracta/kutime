@@ -47,11 +47,11 @@ export default {
 	},
 	computed: {
 		isGuiding () {
-			return (this.activeCode === '' || this.isLoading);
+			return (this.activatedCode === '' || this.isLoading);
 		},
 		...mapState({
-			lectureList: state => state.lectures,
-			activeCode: state => state.activeCode,
+			lectureList: state => state.lectureList,
+			activatedCode: state => state.activatedCode,
 			isLoading: state => state.isLoading,
 		})
 	}

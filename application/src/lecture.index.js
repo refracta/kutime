@@ -9,28 +9,28 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
-		departments: [],
-		others: [],
-		lectures: [],
-		activeCode: '',
-		activeName: '',
+		departmentList: [],
+		otherList: [],
+		lectureList: [],
+		activatedCode: '',
+		activatedName: '',
 		isFiltering: false,
 		isLoading: null,
 		isReady: false
 	},
 	mutations: {
 		readyForLectures (state, payload) {
-			state.departments = payload.departments.slice();
-			state.others = payload.others.slice();
+			state.departmentList = payload.departments.slice();
+			state.otherList = payload.others.slice();
 			state.isReady = true;
 		},
 		loadingLectures (state) {
-			state.lectures = [];
+			state.lectureList = [];
 			state.isLoading = true;
 		},
 		renderLectures (state, payload) {
-			state.lectures = payload.lectures.slice();
-			state.activeName = payload.name;
+			state.lectureList = payload.lectures.slice();
+			state.activatedName = payload.name;
 			state.isLoading = false;
 		},
 		openFilter (state) {
@@ -43,8 +43,8 @@ const store = new Vuex.Store({
 		},
 		applyFilter (state, payload) {
 			if (payload !== '') {
-				state.activeCode = payload;
-				state.activeName = '';
+				state.activatedCode = payload;
+				state.activatedName = '';
 			}
 		}
 	}

@@ -32,7 +32,7 @@ export default {
 	},
 	computed: {
 		...mapState({
-			activeCode: state => state.activeCode,
+			activatedCode: state => state.activatedCode,
 		})
 	},
 	mounted () {
@@ -51,7 +51,7 @@ export default {
 			this.$store.commit('loadingLectures');
 
 			axios({
-				url: ('/api/lectures/' + this.activeCode),
+				url: ('/api/lectures/' + this.activatedCode),
 				method: 'get'
 			})
 			.then(response => {
@@ -60,7 +60,7 @@ export default {
 		}
 	},
 	watch: {
-		activeCode () {
+		activatedCode () {
 			this.getLectures();
 		}
 	}

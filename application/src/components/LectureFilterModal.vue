@@ -13,7 +13,7 @@
 						<div class="select is-fullwidth">
 							<select @input="chooseCategory">
 								<option value="">학부(과) / 전공</option>
-								<option v-for="(dept, index) in deptList"
+								<option v-for="(dept, index) in departmentList"
 									:value="dept.code"
 									:selected="dept.code === temporaryCode"
 									:key="index">{{ dept.name }}</option>
@@ -55,9 +55,9 @@ export default {
 	},
 	computed: {
 		...mapState({
-			deptList: state => state.departments,
-			otherList: state => state.others,
-			activatedCode: state => state.activeCode,
+			departmentList: state => state.departmentList,
+			otherList: state => state.otherList,
+			activatedCode: state => state.activatedCode,
 			isActive: state => state.isFiltering,
 		})
 	},
