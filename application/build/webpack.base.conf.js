@@ -6,7 +6,8 @@ module.exports = {
 	entry: {
 		intro: './application/src/intro.index.js',
 		lecture: './application/src/lecture.index.js',
-		calc: './application/src/calc.index.js'
+		calc: './application/src/calc.index.js',
+		help: './application/src/help.index.js'
 	},
 	module: {
 		rules: [
