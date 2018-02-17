@@ -26,17 +26,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import pathName from '../utils/pre-defined';
+import { pathName, titleSet } from '../utils/pre-defined';
 
 export default {
 	name: 'titleBar',
 	data () {
-		let titleSet = {
-			'/intro': '',
-			'/lecture': '시간표 조회',
-			'/calc': '경우의 수 계산'
-		};
-
 		return {
 			url: pathName,
 			navTitle: titleSet[pathName]

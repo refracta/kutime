@@ -22,30 +22,11 @@
 </template>
 
 <script>
-import pathName from '../utils/pre-defined';
+import { pathName, anchorList } from '../utils/pre-defined';
 
 export default {
 	name: 'menuBar',
 	data () {
-		let anchorList = [
-			{
-				href: '/intro',
-				icon: 'fa-home'
-			},
-			{
-				href: '/lecture',
-				icon: 'fa-calendar'
-			},
-			{
-				href: '/calc',
-				icon: 'fa-calculator'
-			},
-			{
-				href: null,
-				icon: 'fa-user'
-			}
-		];
-
 		for (let idx = 0; idx < anchorList.length; idx += 1) {
 			let anchor = anchorList[idx];
 
