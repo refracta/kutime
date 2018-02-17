@@ -26,7 +26,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import pathname from '../utils/pathname';
+import pathName from '../utils/pre-defined';
 
 export default {
 	name: 'titleBar',
@@ -38,8 +38,8 @@ export default {
 		};
 
 		return {
-			url: pathname,
-			navTitle: titleSet[pathname]
+			url: pathName,
+			navTitle: titleSet[pathName]
 		};
 	},
 	computed: {

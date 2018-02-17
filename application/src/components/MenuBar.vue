@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import pathname from '../utils/pathname';
+import pathName from '../utils/pre-defined';
 
 export default {
 	name: 'menuBar',
@@ -49,7 +49,7 @@ export default {
 		for (let idx = 0; idx < anchorList.length; idx += 1) {
 			let anchor = anchorList[idx];
 
-			anchor.active = (anchor.href === pathname);
+			anchor.active = (anchor.href === pathName);
 			anchor.disable = (anchor.href === null);
 		}
 
