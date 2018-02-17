@@ -9,6 +9,7 @@ let titleSet = {
 	'/intro': '',
 	'/lecture': '시간표 조회',
 	'/calc': '경우의 수 계산',
+	'/help': '도움말',
 };
 
 let anchorList = [
@@ -25,8 +26,8 @@ let anchorList = [
 		icon: 'fa-calculator',
 	},
 	{
-		href: null,
-		icon: 'fa-user',
+		href: '/help',
+		icon: 'fa-question-circle-o',
 	},
 ];
 
