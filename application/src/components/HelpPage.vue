@@ -3,7 +3,7 @@
 		<main class="hero-body is-vertical-paddingless">
 			<div class="container">
 				<p class="box has-text-centered is-shadowless">
-					<span>인하대 시간표 버전 - 0.4.0</span>
+					<span>인하대 시간표 버전 - {{ projectVersion }}</span>
 				</p>
 
 				<p class="box has-text-centered">
@@ -13,7 +13,7 @@
 				</p>
 
 				<p class="level has-text-centered">
-					<a href="https://bulma.io" target="_blank">
+					<a class="level-item" href="https://bulma.io" target="_blank">
 						<img src="../assets/made-with-bulma.png" alt="Made with Bulma" width="256" height="48">
 					</a>
 				</p>
@@ -29,6 +29,7 @@
 <script>
 import TitleBar from './TitleBar.vue';
 import MenuBar from './MenuBar.vue';
+import { projectVersion } from '../utils/pre-defined';
 
 export default {
 	name: 'helpPage',
@@ -36,7 +37,9 @@ export default {
 		TitleBar, MenuBar
 	},
 	data () {
-		return {};
+		return {
+			projectVersion,
+		};
 	}
 };
 </script>

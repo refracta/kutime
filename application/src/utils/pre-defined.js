@@ -1,3 +1,7 @@
+let pkg = require('../../../package.json'); // `import ... from ...` syntax does not work.
+
+let projectVersion = pkg.version;
+
 let pathName = location.pathname;
 
 if (pathName.endsWith('/')) {
@@ -32,6 +36,7 @@ let anchorList = [
 ];
 
 module.exports = {
+	projectVersion,
 	pathName,
 	titleSet,
 	anchorList,
