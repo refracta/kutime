@@ -21,7 +21,7 @@
 							<i class="fa fa-star-o fa-lg"></i>
 						</span>
 					</a>
-					<a class="button is-white">
+					<a class="button is-white" @click="openDetail(index)">
 						<span class="icon is-medium">
 							<i class="fa fa-ellipsis-h fa-lg"></i>
 						</span>
@@ -55,6 +55,11 @@ export default {
 			'isLoading',
 			'isReady',
 		])
+	},
+	methods: {
+		openDetail (idx) {
+			this.$store.commit('openDetail', idx);
+		}
 	}
 };
 </script>

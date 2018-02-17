@@ -13,7 +13,9 @@ const store = new Vuex.Store({
 		otherList: [],
 		lectureList: [],
 		activatedCode: '',
+		activatedIndex: null,
 		activatedName: '',
+		isDetailing: false,
 		isFiltering: false,
 		isLoading: null,
 		isReady: false
@@ -32,6 +34,16 @@ const store = new Vuex.Store({
 			state.lectureList = payload.lectures.slice();
 			state.activatedName = payload.name;
 			state.isLoading = false;
+		},
+		openDetail (state, payload) {
+			state.activatedIndex = payload;
+			document.querySelector('html').classList.add('is-clipped');
+			state.isDetailing = true;
+		},
+		closeDetail (state) {
+			state.activatedIndex = null;
+			document.querySelector('html').classList.remove('is-clipped');
+			state.isDetailing = false;
 		},
 		openFilter (state) {
 			document.querySelector('html').classList.add('is-clipped');

@@ -10,6 +10,7 @@
 
 		<MenuBar/>
 
+		<LectureDetailModal/>
 		<LectureFilterModal/>
 	</section>
 </template>
@@ -20,12 +21,13 @@ import { mapState } from 'vuex';
 import TitleBar from './TitleBar.vue';
 import MenuBar from './MenuBar.vue';
 import LectureList from './LectureList.vue';
+import LectureDetailModal from './LectureDetailModal.vue';
 import LectureFilterModal from './LectureFilterModal.vue';
 
 export default {
 	name: 'lecturePage',
 	components: {
-		TitleBar, MenuBar, LectureList, LectureFilterModal
+		TitleBar, MenuBar, LectureList, LectureDetailModal, LectureFilterModal
 	},
 	data () {
 		return {};
