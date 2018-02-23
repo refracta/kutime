@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import LecturePage from './components/LecturePage.vue';
+import { storage } from './utils/web-storage';
 import 'bulma/css/bulma.css';
 import 'font-awesome/scss/font-awesome.scss';
 import './assets/global-tuning.scss';
@@ -15,10 +16,16 @@ const store = new Vuex.Store({
 		activatedCode: '',
 		activatedIndex: null,
 		activatedName: '',
+		starredCodes: storage.getItem('starredCodes'),
 		isDetailing: false,
 		isFiltering: false,
 		isLoading: null,
 		isReady: false
+	},
+	getters: {
+		starredList (state) {
+			return JSON.parse(state.starredCodes);
+		},
 	},
 	mutations: {
 		readyForLectures (state, payload) {
@@ -34,6 +41,26 @@ const store = new Vuex.Store({
 			state.lectureList = payload.lectures.slice();
 			state.activatedName = payload.name;
 			state.isLoading = false;
+		},
+		addLecture (state, payload) {
+			let lectureCode = state.lectureList[payload][0];
+			let starredList = JSON.parse(state.starredCodes);
+
+			if (starredList.indexOf(lectureCode) === -1) {
+				state.starredCodes = JSON.stringify([...starredList, lectureCode]);
+				storage.setItem('starredCodes', state.starredCodes);
+			}
+		},
+		removeLecture (state, payload) {
+			let lectureCode = state.lectureList[payload][0];
+			let starredList = JSON.parse(state.starredCodes);
+			let idx = starredList.indexOf(lectureCode);
+
+			if (idx !== -1) {
+				starredList.splice(idx, 1);
+				state.starredCodes = JSON.stringify(starredList);
+				storage.setItem('starredCodes', state.starredCodes);
+			}
 		},
 		openDetail (state, payload) {
 			state.activatedIndex = payload;

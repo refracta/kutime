@@ -89,6 +89,30 @@ $emblem-bottom-color: #005bac;
 	color: #0a0a0a;
 }
 
+.button.is-starred {
+	background-color: #fff;
+	border-color: transparent;
+	color: #ffdd57;
+
+	&:hover,
+	&.is-hovered {
+		background-color: #f9f9f9;
+	}
+
+	&:focus,
+	&.is-focused {
+		&:not(:active) {
+			-webkit-box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.25);
+			box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.25);
+		}
+	}
+
+	&:active,
+	&.is-active {
+		background-color: #f2f2f2;
+	}
+}
+
 .is-block .icon {
 	vertical-align: top;
 }

@@ -16,9 +16,12 @@
 					</div>
 				</div>
 				<div class="media-right">
-					<a class="button is-white">
+					<a class="button"
+						:class="[lecture[14].isStarred ? 'is-starred' : 'is-white']"
+						:disabled="!canUseStorage"
+						@click="[lecture[14].isStarred ? removeLecture(index) : addLecture(index)]">
 						<span class="icon is-medium">
-							<i class="fa fa-star-o fa-lg"></i>
+							<i class="fa fa-lg" :class="[lecture[14].isStarred ? 'fa-star' : 'fa-star-o']"></i>
 						</span>
 					</a>
 					<a class="button is-white" @click="openDetail(index)">
@@ -38,7 +41,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
+import { storage } from '../utils/web-storage';
 
 export default {
 	name: 'lectureList',
@@ -46,19 +50,51 @@ export default {
 		return {};
 	},
 	computed: {
+		canUseStorage () {
+			return (storage !== null);
+		},
 		isGuiding () {
 			return (this.activatedCode === '' || this.isLoading);
 		},
 		...mapState([
-			'lectureList',
 			'activatedCode',
 			'isLoading',
 			'isReady',
+		]),
+		...mapState({
+			lectureList (state) {
+				let originalList = state.lectureList;
+				let newList = [];
+
+				for (let idx = 0; idx < originalList.length; idx += 1) {
+					let lecture = originalList[idx].slice();
+
+					lecture.push({
+						isStarred: (this.starredList.indexOf(lecture[0]) !== -1),
+					});
+					newList.push(lecture);
+				}
+
+				return newList;
+			},
+		}),
+		...mapGetters([
+			'starredList',
 		])
 	},
 	methods: {
 		openDetail (idx) {
 			this.$store.commit('openDetail', idx);
+		},
+		addLecture (idx) {
+			if (this.canUseStorage) {
+				this.$store.commit('addLecture', idx);
+			}
+		},
+		removeLecture (idx) {
+			if (this.canUseStorage) {
+				this.$store.commit('removeLecture', idx);
+			}
 		}
 	}
 };
