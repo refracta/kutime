@@ -32,7 +32,7 @@ if (storage !== null) {
 	let starredCodes = storage.getItem('starredCodes');
 
 	if (starredCodes === null) {
-		storage.setItem('starredCodes', []); // Note: every data will convert to String.
+		storage.setItem('starredCodes', JSON.stringify([]));
 	}
 }
 
