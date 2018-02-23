@@ -8,7 +8,7 @@
 <?php if (ENVIRONMENT === 'development'): ?>
 	<link rel="stylesheet" href="/dev-assets/global.css">
 <?php else: ?>
-	<link rel="stylesheet" href="/assets/global.8eca55eb929ffae61de9.css">
+	<link rel="stylesheet" href="/assets/global.79074a1745fdedeaca8e.css">
 <?php endif; ?>
 </head>
 <body>
