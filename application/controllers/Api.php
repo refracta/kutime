@@ -93,4 +93,42 @@ class Api extends CI_Controller {
 
 		echo json_encode($response_data);
 	}
+
+	public function candidates()
+	{
+		$allowed_methods = array('GET');
+
+		header('Access-Control-Allow-Methods: ' . implode(', ', $allowed_methods));
+
+		if ( ! in_array($this->input->server('REQUEST_METHOD'), $allowed_methods))
+		{
+			show_error('Request method is not supported.', 405, '405 Method Not Allowed');
+		}
+
+		$starred_codes = $this->input->get('codes');
+		$starred_list = json_decode($starred_codes, TRUE);
+
+		if ($starred_list === NULL)
+		{
+			show_error('Server cannot or will not process the request.', 400, '400 Bad Request');
+		}
+
+		$response_data = array(
+			'code' => __FUNCTION__,
+			'name' => '수강 예정 리스트',
+			'lectures' => array(),
+		);
+
+		foreach ($starred_list as $lect_code)
+		{
+			if ( ! isset($this->intime_data['lecture']['list'][$lect_code]))
+			{
+				show_404();
+			}
+
+			$response_data['lectures'][] = $this->intime_data['lecture']['list'][$lect_code];
+		}
+
+		echo json_encode($response_data);
+	}
 }
