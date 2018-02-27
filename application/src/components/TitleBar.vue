@@ -8,9 +8,21 @@
 							<small>{{ navTitle }}</small>
 						</div>
 					</div>
-					<div class="column is-one-quarter has-text-centered"
-						v-if="usesFilter">
+					<div class="column is-one-fifth has-text-centered"
+						v-if="isLecturePage">
 						<a class="button is-fullwidth is-white"
+							:class="[usesCandidates ? 'is-primary is-inverted' : '']"
+							:disabled="!isReady || !hasCandidates"
+							@click="loadCandidates">
+							<span class="icon is-medium">
+								<i class="fa fa-star fa-lg"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column is-one-fifth has-text-centered"
+						v-if="isLecturePage">
+						<a class="button is-fullwidth is-white"
+							:class="[usesFilter ? 'is-primary is-inverted' : '']"
 							:disabled="!isReady"
 							@click="openFilter">
 							<span class="icon is-medium">
@@ -25,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { pathName, titleSet } from '../utils/pre-defined';
 
 export default {
@@ -37,14 +49,32 @@ export default {
 		};
 	},
 	computed: {
-		usesFilter () {
+		isLecturePage () {
 			return (this.url === '/lecture');
 		},
+		hasCandidates () {
+			return (this.starredList.length > 0);
+		},
+		usesCandidates () {
+			return (this.activatedCode !== '' && this.activatedCode === 'candidates');
+		},
+		usesFilter () {
+			return (this.activatedCode !== '' && ! isNaN(this.activatedCode));
+		},
 		...mapState([
+			'activatedCode',
 			'isReady',
+		]),
+		...mapGetters([
+			'starredList',
 		])
 	},
 	methods: {
+		loadCandidates () {
+			if (this.hasCandidates) {
+				this.$store.commit('loadCandidates');
+			}
+		},
 		openFilter () {
 			this.$store.commit('openFilter');
 		}

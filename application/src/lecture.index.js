@@ -85,6 +85,10 @@ const store = new Vuex.Store({
 				state.activatedCode = payload;
 				state.activatedName = '';
 			}
+		},
+		loadCandidates (state) {
+			state.activatedCode = 'candidates';
+			state.activatedName = '';
 		}
 	}
 });

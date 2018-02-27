@@ -35,6 +35,7 @@ export default {
 	computed: {
 		...mapState([
 			'activatedCode',
+			'starredCodes',
 		])
 	},
 	mounted () {
@@ -52,9 +53,21 @@ export default {
 		getLectures () {
 			this.$store.commit('loadingLectures');
 
+			let url;
+			let params = {};
+
+			if (this.activatedCode === 'candidates') {
+				url = ('/api/' + this.activatedCode);
+				params.codes = this.starredCodes;
+			}
+			else {
+				url = ('/api/lectures/' + this.activatedCode);
+			}
+
 			axios({
-				url: ('/api/lectures/' + this.activatedCode),
-				method: 'get'
+				url,
+				method: 'get',
+				params,
 			})
 			.then(response => {
 				this.$store.commit('renderLectures', response.data);
