@@ -26,7 +26,8 @@
 					<a class="button"
 						:class="[lecture[customIndex].isStarred ? 'is-starred' : 'is-white']"
 						:disabled="!canUseStorage"
-						@click="[lecture[customIndex].isStarred ? removeLecture(lecture[0]) : addLecture(lecture[0])]">
+						@click="[lecture[customIndex].isStarred ? removeLecture(lecture[0]) : addLecture(lecture[0])]"
+						v-if="usesFilter">
 						<span class="icon is-medium">
 							<i class="fa fa-lg" :class="[lecture[customIndex].isStarred ? 'fa-star' : 'fa-star-o']"></i>
 						</span>
@@ -36,6 +37,13 @@
 						v-if="lecture[customIndex].isExist">
 						<span class="icon is-medium">
 							<i class="fa fa-ellipsis-h fa-lg"></i>
+						</span>
+					</a>
+					<a class="button is-white"
+						@click="removeCandidate(lecture[0])"
+						v-if="usesCandidates">
+						<span class="icon is-medium">
+							<i class="fa fa-remove fa-lg"></i>
 						</span>
 					</a>
 				</div>
@@ -73,10 +81,16 @@ export default {
 			return (storage !== null);
 		},
 		isGuiding () {
-			return (this.activatedCode === '' || this.isLoading);
+			return (this.activatedCode === '' || this.isLoading || this.lectureList.length === 0);
 		},
 		hasCandidates () {
 			return (this.starredList.length > 0);
+		},
+		usesCandidates () {
+			return (this.activatedCode !== '' && this.activatedCode === 'candidates');
+		},
+		usesFilter () {
+			return (this.activatedCode !== '' && ! isNaN(this.activatedCode));
 		},
 		...mapState([
 			'activatedCode',
@@ -117,6 +131,12 @@ export default {
 		removeLecture (code) {
 			if (this.canUseStorage) {
 				this.$store.commit('removeLecture', code);
+			}
+		},
+		removeCandidate (code) {
+			if (this.canUseStorage) {
+				this.$store.commit('removeLecture', code);
+				this.$store.commit('removeCandidate', code);
 			}
 		}
 	}

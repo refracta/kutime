@@ -62,6 +62,12 @@ const store = new Vuex.Store({
 				storage.setItem('starredCodes', state.starredCodes);
 			}
 		},
+		removeCandidate (state, payload) {
+			let lectureCode = payload;
+			let remainList = state.lectureList.filter(value => (value[0] !== lectureCode));
+
+			state.lectureList = remainList;
+		},
 		openDetail (state, payload) {
 			state.activatedIndex = payload;
 			document.querySelector('html').classList.add('is-clipped');
