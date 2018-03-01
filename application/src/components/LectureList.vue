@@ -35,7 +35,14 @@
 		<li class="button is-fullwidth is-white is-static is-placeholder"
 			:class="[(isLoading || !isReady) ? 'is-loading' : '']"
 			v-if="isGuiding">
-			<span class="icon is-medium"><i class="fa fa-filter fa-lg"></i></span><span>을 눌러서 범주를 선택하세요.</span>
+			<span class="icon is-medium" v-if="hasCandidates">
+				<i class="fa fa-star fa-lg"></i>
+			</span>
+			<span v-if="hasCandidates">또는</span>
+			<span class="icon is-medium">
+				<i class="fa fa-filter fa-lg"></i>
+			</span>
+			<span>을 선택하세요.</span>
 		</li>
 	</ul>
 </template>
@@ -55,6 +62,9 @@ export default {
 		},
 		isGuiding () {
 			return (this.activatedCode === '' || this.isLoading);
+		},
+		hasCandidates () {
+			return (this.starredList.length > 0);
 		},
 		...mapState([
 			'activatedCode',
