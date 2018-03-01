@@ -35,9 +35,12 @@ let anchorList = [
 	},
 ];
 
+let CUSTOM_COLUMN_INDEX = 20;
+
 module.exports = {
 	projectVersion,
 	pathName,
 	titleSet,
 	anchorList,
+	CUSTOM_COLUMN_INDEX,
 };

@@ -8,7 +8,14 @@
 					<div class="media-content">
 						<div class="content is-size-7-mobile">
 							<p>
-								<strong>{{ lecture[2] }}</strong> <small>{{ lecture[0] }}</small>
+								<strong
+									:class="[lecture[customIndex].isExist ? '' : 'has-text-danger']">
+									{{ lecture[customIndex].isExist ? lecture[2] : '시간표 정보가 없습니다'}}
+								</strong>
+								<small
+									:class="[lecture[customIndex].isExist ? '' : 'has-text-danger']">
+									{{ lecture[0] }}
+								</small>
 								<br>
 								<small>{{ lecture[6] }}</small>
 							</p>
@@ -17,14 +24,16 @@
 				</div>
 				<div class="media-right">
 					<a class="button"
-						:class="[lecture[14].isStarred ? 'is-starred' : 'is-white']"
+						:class="[lecture[customIndex].isStarred ? 'is-starred' : 'is-white']"
 						:disabled="!canUseStorage"
-						@click="[lecture[14].isStarred ? removeLecture(index) : addLecture(index)]">
+						@click="[lecture[customIndex].isStarred ? removeLecture(index) : addLecture(index)]">
 						<span class="icon is-medium">
-							<i class="fa fa-lg" :class="[lecture[14].isStarred ? 'fa-star' : 'fa-star-o']"></i>
+							<i class="fa fa-lg" :class="[lecture[customIndex].isStarred ? 'fa-star' : 'fa-star-o']"></i>
 						</span>
 					</a>
-					<a class="button is-white" @click="openDetail(index)">
+					<a class="button is-white"
+						:disabled="!lecture[customIndex].isExist"
+						@click="openDetail(index, lecture[customIndex].isExist)">
 						<span class="icon is-medium">
 							<i class="fa fa-ellipsis-h fa-lg"></i>
 						</span>
@@ -49,12 +58,15 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import { CUSTOM_COLUMN_INDEX as customIndex } from '../utils/pre-defined';
 import { storage } from '../utils/web-storage';
 
 export default {
 	name: 'lectureList',
 	data () {
-		return {};
+		return {
+			customIndex,
+		};
 	},
 	computed: {
 		canUseStorage () {
@@ -79,9 +91,10 @@ export default {
 				for (let idx = 0; idx < originalList.length; idx += 1) {
 					let lecture = originalList[idx].slice();
 
-					lecture.push({
+					lecture[customIndex] = {
+						isExist: (lecture[2] !== null),
 						isStarred: (this.starredList.indexOf(lecture[0]) !== -1),
-					});
+					};
 					newList.push(lecture);
 				}
 
@@ -93,8 +106,10 @@ export default {
 		])
 	},
 	methods: {
-		openDetail (idx) {
-			this.$store.commit('openDetail', idx);
+		openDetail (idx, isExist) {
+			if (isExist) {
+				this.$store.commit('openDetail', idx);
+			}
 		},
 		addLecture (idx) {
 			if (this.canUseStorage) {
