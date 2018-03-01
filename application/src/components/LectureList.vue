@@ -26,7 +26,7 @@
 					<a class="button"
 						:class="[lecture[customIndex].isStarred ? 'is-starred' : 'is-white']"
 						:disabled="!canUseStorage"
-						@click="[lecture[customIndex].isStarred ? removeLecture(index) : addLecture(index)]">
+						@click="[lecture[customIndex].isStarred ? removeLecture(lecture[0]) : addLecture(lecture[0])]">
 						<span class="icon is-medium">
 							<i class="fa fa-lg" :class="[lecture[customIndex].isStarred ? 'fa-star' : 'fa-star-o']"></i>
 						</span>
@@ -109,14 +109,14 @@ export default {
 		openDetail (idx) {
 			this.$store.commit('openDetail', idx);
 		},
-		addLecture (idx) {
+		addLecture (code) {
 			if (this.canUseStorage) {
-				this.$store.commit('addLecture', idx);
+				this.$store.commit('addLecture', code);
 			}
 		},
-		removeLecture (idx) {
+		removeLecture (code) {
 			if (this.canUseStorage) {
-				this.$store.commit('removeLecture', idx);
+				this.$store.commit('removeLecture', code);
 			}
 		}
 	}

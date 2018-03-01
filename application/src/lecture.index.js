@@ -43,7 +43,7 @@ const store = new Vuex.Store({
 			state.isLoading = false;
 		},
 		addLecture (state, payload) {
-			let lectureCode = state.lectureList[payload][0];
+			let lectureCode = payload;
 			let starredList = JSON.parse(state.starredCodes);
 
 			if (starredList.indexOf(lectureCode) === -1) {
@@ -52,7 +52,7 @@ const store = new Vuex.Store({
 			}
 		},
 		removeLecture (state, payload) {
-			let lectureCode = state.lectureList[payload][0];
+			let lectureCode = payload;
 			let starredList = JSON.parse(state.starredCodes);
 			let idx = starredList.indexOf(lectureCode);
 
