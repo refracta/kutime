@@ -32,8 +32,8 @@
 						</span>
 					</a>
 					<a class="button is-white"
-						:disabled="!lecture[customIndex].isExist"
-						@click="openDetail(index, lecture[customIndex].isExist)">
+						@click="openDetail(index)"
+						v-if="lecture[customIndex].isExist">
 						<span class="icon is-medium">
 							<i class="fa fa-ellipsis-h fa-lg"></i>
 						</span>
@@ -106,10 +106,8 @@ export default {
 		])
 	},
 	methods: {
-		openDetail (idx, isExist) {
-			if (isExist) {
-				this.$store.commit('openDetail', idx);
-			}
+		openDetail (idx) {
+			this.$store.commit('openDetail', idx);
 		},
 		addLecture (idx) {
 			if (this.canUseStorage) {
