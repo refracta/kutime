@@ -119,14 +119,21 @@ class Api extends CI_Controller {
 			'lectures' => array(),
 		);
 
+		$header_count = count($this->intime_data['lecture']['header']);
+
 		foreach ($starred_list as $lect_code)
 		{
-			if ( ! isset($this->intime_data['lecture']['list'][$lect_code]))
+			if (isset($this->intime_data['lecture']['list'][$lect_code]))
 			{
-				show_404();
+				$response_data['lectures'][] = $this->intime_data['lecture']['list'][$lect_code];
 			}
+			else
+			{
+				$dummy_lecture = array_fill(0, $header_count, NULL);
+				$dummy_lecture[0] = $lect_code;
 
-			$response_data['lectures'][] = $this->intime_data['lecture']['list'][$lect_code];
+				$response_data['lectures'][] = $dummy_lecture;
+			}
 		}
 
 		echo json_encode($response_data);
