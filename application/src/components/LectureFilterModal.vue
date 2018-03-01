@@ -54,6 +54,9 @@ export default {
 		};
 	},
 	computed: {
+		usesCandidates () {
+			return (this.activatedCode !== '' && this.activatedCode === 'candidates');
+		},
 		...mapState([
 			'departmentList',
 			'otherList',
@@ -64,16 +67,26 @@ export default {
 		})
 	},
 	methods: {
+		resetCategory () {
+			this.temporaryCode = '';
+		},
 		chooseCategory (e) {
 			this.temporaryCode = e.target.value;
 		},
 		revertCategory () {
-			this.temporaryCode = this.activatedCode;
+			this.temporaryCode = (this.usesCandidates ? '' : this.activatedCode);
 			this.$store.commit('closeFilter');
 		},
 		commitCategory () {
 			this.$store.commit('applyFilter', this.temporaryCode);
 			this.$store.commit('closeFilter');
+		}
+	},
+	watch: {
+		activatedCode () {
+			if (this.usesCandidates) {
+				this.resetCategory();
+			}
 		}
 	}
 };
