@@ -36,6 +36,7 @@ let anchorList = [
 ];
 
 let CUSTOM_COLUMN_INDEX = 20;
+let MAX_CANDIDATES = 15;
 
 module.exports = {
 	projectVersion,
@@ -43,4 +44,5 @@ module.exports = {
 	titleSet,
 	anchorList,
 	CUSTOM_COLUMN_INDEX,
+	MAX_CANDIDATES,
 };

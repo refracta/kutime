@@ -116,3 +116,10 @@ $emblem-bottom-color: #005bac;
 .is-block .icon {
 	vertical-align: top;
 }
+
+#ez-toast {
+	top: auto;
+	bottom: 15%;
+	padding: 0.75rem 1.25rem;
+	color: rgba(0, 0, 0, 0.7);
+}

@@ -1,12 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Toast from 'vue-easy-toast';
 import LecturePage from './components/LecturePage.vue';
+import { MAX_CANDIDATES } from './utils/pre-defined';
 import { storage } from './utils/web-storage';
 import 'bulma/css/bulma.css';
 import 'font-awesome/scss/font-awesome.scss';
 import './assets/global-tuning.scss';
 
 Vue.use(Vuex);
+Vue.use(Toast);
 
 const store = new Vuex.Store({
 	state: {
@@ -47,8 +50,21 @@ const store = new Vuex.Store({
 			let starredList = JSON.parse(state.starredCodes);
 
 			if (starredList.indexOf(lectureCode) === -1) {
-				state.starredCodes = JSON.stringify([...starredList, lectureCode]);
-				storage.setItem('starredCodes', state.starredCodes);
+				if (starredList.length < MAX_CANDIDATES) {
+					state.starredCodes = JSON.stringify([...starredList, lectureCode]);
+					storage.setItem('starredCodes', state.starredCodes);
+				}
+				else {
+					let message = `최대 ${MAX_CANDIDATES}개의 강의를 추가할 수 있습니다.`;
+					let options = {
+						id: 'ez-toast',
+						className: 'et-warn',
+						horizontalPosition: 'center',
+						duration: 3000,
+					};
+
+					Vue.toast(message, options);
+				}
 			}
 		},
 		removeLecture (state, payload) {
