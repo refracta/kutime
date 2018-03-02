@@ -1,4 +1,4 @@
-let pkg = require('../../../package.json'); // `import ... from ...` syntax does not work.
+let pkg = require('../../../package.json'); // `import ...` syntax does not work.
 
 let projectVersion = pkg.version;
 

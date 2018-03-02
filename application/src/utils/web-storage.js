@@ -26,12 +26,25 @@ function getStorage(type) {
 	return (storageAvailable(type) ? window[type] : null);
 }
 
+let preDefined = require('./pre-defined.js'); // `import ...` syntax does not work.
+
+let MAX_CANDIDATES = preDefined.MAX_CANDIDATES;
+
 let storage = getStorage('localStorage');
 
 if (storage !== null) {
 	let starredCodes = storage.getItem('starredCodes');
+	let starredList;
 
 	if (starredCodes === null) {
+		storage.setItem('starredCodes', JSON.stringify([]));
+	}
+
+	try {
+		starredList = JSON.parse(starredCodes).slice(0, MAX_CANDIDATES);
+		storage.setItem('starredCodes', JSON.stringify(starredList));
+	}
+	catch (e) {
 		storage.setItem('starredCodes', JSON.stringify([]));
 	}
 }
