@@ -26,8 +26,17 @@ const store = new Vuex.Store({
 		isReady: false
 	},
 	getters: {
-		starredList (state) {
+		starredList (state, getters) {
 			return JSON.parse(state.starredCodes);
+		},
+		hasCandidates (state, getters) {
+			return (getters.starredList.length > 0);
+		},
+		usesCandidates (state, getters) {
+			return (state.activatedCode !== '' && state.activatedCode === 'candidates');
+		},
+		usesFilter (state, getters) {
+			return (state.activatedCode !== '' && ! isNaN(state.activatedCode));
 		},
 	},
 	mutations: {

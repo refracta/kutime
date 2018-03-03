@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
 	name: 'lectureFilterModal',
@@ -54,9 +54,6 @@ export default {
 		};
 	},
 	computed: {
-		usesCandidates () {
-			return (this.activatedCode !== '' && this.activatedCode === 'candidates');
-		},
 		...mapState([
 			'departmentList',
 			'otherList',
@@ -64,7 +61,10 @@ export default {
 		]),
 		...mapState({
 			isActive: state => state.isFiltering,
-		})
+		}),
+		...mapGetters([
+			'usesCandidates',
+		])
 	},
 	methods: {
 		resetCategory () {

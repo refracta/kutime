@@ -52,21 +52,15 @@ export default {
 		isLecturePage () {
 			return (this.url === '/lecture');
 		},
-		hasCandidates () {
-			return (this.starredList.length > 0);
-		},
-		usesCandidates () {
-			return (this.activatedCode !== '' && this.activatedCode === 'candidates');
-		},
-		usesFilter () {
-			return (this.activatedCode !== '' && ! isNaN(this.activatedCode));
-		},
 		...mapState([
 			'activatedCode',
 			'isReady',
 		]),
 		...mapGetters([
 			'starredList',
+			'hasCandidates',
+			'usesCandidates',
+			'usesFilter',
 		])
 	},
 	methods: {
