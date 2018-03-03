@@ -26,7 +26,7 @@
 					<a class="button"
 						:class="[lecture[customIndex].isStarred ? 'is-starred' : 'is-white']"
 						:disabled="!canUseStorage"
-						@click="[lecture[customIndex].isStarred ? removeLecture(lecture[0]) : addLecture(lecture[0])]"
+						@click="[lecture[customIndex].isStarred ? removeCandidate(lecture[0]) : addCandidate(lecture[0])]"
 						v-if="usesFilter">
 						<span class="icon is-medium">
 							<i class="fa fa-lg" :class="[lecture[customIndex].isStarred ? 'fa-star' : 'fa-star-o']"></i>
@@ -40,7 +40,7 @@
 						</span>
 					</a>
 					<a class="button is-white"
-						@click="removeCandidate(lecture[0])"
+						@click="removeWatching(lecture[0])"
 						v-if="usesCandidates">
 						<span class="icon is-medium">
 							<i class="fa fa-remove fa-lg"></i>
@@ -123,20 +123,20 @@ export default {
 		openDetail (idx) {
 			this.$store.commit('openDetail', idx);
 		},
-		addLecture (code) {
+		addCandidate (code) {
 			if (this.canUseStorage) {
-				this.$store.commit('addLecture', code);
-			}
-		},
-		removeLecture (code) {
-			if (this.canUseStorage) {
-				this.$store.commit('removeLecture', code);
+				this.$store.commit('addCandidate', code);
 			}
 		},
 		removeCandidate (code) {
 			if (this.canUseStorage) {
-				this.$store.commit('removeLecture', code);
 				this.$store.commit('removeCandidate', code);
+			}
+		},
+		removeWatching (code) {
+			if (this.canUseStorage) {
+				this.$store.commit('removeCandidate', code);
+				this.$store.commit('removeWatchingCandidate', code);
 			}
 		}
 	}

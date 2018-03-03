@@ -45,7 +45,7 @@ const store = new Vuex.Store({
 			state.activatedName = payload.name;
 			state.isLoading = false;
 		},
-		addLecture (state, payload) {
+		addCandidate (state, payload) {
 			let lectureCode = payload;
 			let starredList = JSON.parse(state.starredCodes);
 
@@ -67,7 +67,7 @@ const store = new Vuex.Store({
 				}
 			}
 		},
-		removeLecture (state, payload) {
+		removeCandidate (state, payload) {
 			let lectureCode = payload;
 			let starredList = JSON.parse(state.starredCodes);
 			let idx = starredList.indexOf(lectureCode);
@@ -78,7 +78,7 @@ const store = new Vuex.Store({
 				storage.setItem('starredCodes', state.starredCodes);
 			}
 		},
-		removeCandidate (state, payload) {
+		removeWatchingCandidate (state, payload) {
 			let lectureCode = payload;
 			let remainList = state.lectureList.filter(value => (value[0] !== lectureCode));
 
