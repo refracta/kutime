@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import TitleBar from './TitleBar.vue';
-import MenuBar from './MenuBar.vue';
+import TitleBar from './TitleBar';
+import MenuBar from './MenuBar';
 
 export default {
 	name: 'introPage',

@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import HelpPage from './components/HelpPage.vue';
 import 'bulma/css/bulma.css';
 import 'font-awesome/scss/font-awesome.scss';
+import HelpPage from './components/HelpPage';
 import './assets/global-tuning.scss';
 
 new Vue({

@@ -18,11 +18,11 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import TitleBar from './TitleBar.vue';
-import MenuBar from './MenuBar.vue';
-import LectureList from './LectureList.vue';
-import LectureDetailModal from './LectureDetailModal.vue';
-import LectureFilterModal from './LectureFilterModal.vue';
+import TitleBar from './TitleBar';
+import MenuBar from './MenuBar';
+import LectureList from './LectureList';
+import LectureDetailModal from './LectureDetailModal';
+import LectureFilterModal from './LectureFilterModal';
 
 export default {
 	name: 'lecturePage',

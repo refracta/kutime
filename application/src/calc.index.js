@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import CalcPage from './components/CalcPage.vue';
 import 'bulma/css/bulma.css';
 import 'font-awesome/scss/font-awesome.scss';
+import CalcPage from './components/CalcPage';
 import './assets/global-tuning.scss';
 
 new Vue({
