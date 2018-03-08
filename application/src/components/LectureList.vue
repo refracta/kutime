@@ -111,7 +111,7 @@ export default {
 			'hasCandidates',
 			'usesCandidates',
 			'usesFilter',
-		])
+		]),
 	},
 	methods: {
 		openDetail (idx) {
@@ -132,7 +132,7 @@ export default {
 				this.$store.commit('removeCandidate', code);
 				this.$store.commit('removeWatchingCandidate', code);
 			}
-		}
-	}
+		},
+	},
 };
 </script>

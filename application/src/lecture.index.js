@@ -23,7 +23,7 @@ const store = new Vuex.Store({
 		isDetailing: false,
 		isFiltering: false,
 		isLoading: null,
-		isReady: false
+		isReady: false,
 	},
 	getters: {
 		starredList (state, getters) {
@@ -120,13 +120,13 @@ const store = new Vuex.Store({
 		loadCandidates (state) {
 			state.activatedCode = 'candidates';
 			state.activatedName = '';
-		}
-	}
+		},
+	},
 });
 
 new Vue({
 	el: '#intime-app',
 	store,
 	components: { LecturePage },
-	template: '<LecturePage/>'
+	template: '<LecturePage/>',
 });

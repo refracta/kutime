@@ -34,12 +34,12 @@ import { projectVersion } from '../utils/pre-defined';
 export default {
 	name: 'helpPage',
 	components: {
-		TitleBar, MenuBar
+		TitleBar, MenuBar,
 	},
 	data () {
 		return {
 			projectVersion,
 		};
-	}
+	},
 };
 </script>

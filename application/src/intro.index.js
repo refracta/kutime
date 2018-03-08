@@ -7,5 +7,5 @@ import './assets/global-tuning.scss';
 new Vue({
 	el: '#intime-app',
 	components: { IntroPage },
-	template: '<IntroPage/>'
+	template: '<IntroPage/>',
 });

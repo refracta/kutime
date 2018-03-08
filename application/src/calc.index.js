@@ -7,5 +7,5 @@ import './assets/global-tuning.scss';
 new Vue({
 	el: '#intime-app',
 	components: { CalcPage },
-	template: '<CalcPage/>'
+	template: '<CalcPage/>',
 });

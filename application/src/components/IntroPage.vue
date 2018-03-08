@@ -23,10 +23,10 @@ import MenuBar from './MenuBar.vue';
 export default {
 	name: 'introPage',
 	components: {
-		TitleBar, MenuBar
+		TitleBar, MenuBar,
 	},
 	data () {
 		return {};
-	}
+	},
 };
 </script>

@@ -50,7 +50,7 @@ export default {
 	name: 'lectureFilterModal',
 	data () {
 		return {
-			temporaryCode: ''
+			temporaryCode: '',
 		};
 	},
 	computed: {
@@ -64,7 +64,7 @@ export default {
 		}),
 		...mapGetters([
 			'usesCandidates',
-		])
+		]),
 	},
 	methods: {
 		resetCategory () {
@@ -80,14 +80,14 @@ export default {
 		commitCategory () {
 			this.$store.commit('applyFilter', this.temporaryCode);
 			this.$store.commit('closeFilter');
-		}
+		},
 	},
 	watch: {
 		activatedCode () {
 			if (this.usesCandidates) {
 				this.resetCategory();
 			}
-		}
-	}
+		},
+	},
 };
 </script>

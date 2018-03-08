@@ -7,5 +7,5 @@ import './assets/global-tuning.scss';
 new Vue({
 	el: '#intime-app',
 	components: { HelpPage },
-	template: '<HelpPage/>'
+	template: '<HelpPage/>',
 });

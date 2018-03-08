@@ -45,7 +45,7 @@ export default {
 	data () {
 		return {
 			url: pathName,
-			navTitle: titleSet[pathName]
+			navTitle: titleSet[pathName],
 		};
 	},
 	computed: {
@@ -61,7 +61,7 @@ export default {
 			'hasCandidates',
 			'usesCandidates',
 			'usesFilter',
-		])
+		]),
 	},
 	methods: {
 		loadCandidates () {
@@ -71,7 +71,7 @@ export default {
 		},
 		openFilter () {
 			this.$store.commit('openFilter');
-		}
-	}
+		},
+	},
 };
 </script>

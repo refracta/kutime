@@ -19,10 +19,10 @@ import MenuBar from './MenuBar.vue';
 export default {
 	name: 'calcPage',
 	components: {
-		TitleBar, MenuBar
+		TitleBar, MenuBar,
 	},
 	data () {
 		return {};
-	}
+	},
 };
 </script>

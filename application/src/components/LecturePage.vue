@@ -27,7 +27,7 @@ import LectureFilterModal from './LectureFilterModal.vue';
 export default {
 	name: 'lecturePage',
 	components: {
-		TitleBar, MenuBar, LectureList, LectureDetailModal, LectureFilterModal
+		TitleBar, MenuBar, LectureList, LectureDetailModal, LectureFilterModal,
 	},
 	data () {
 		return {};
@@ -36,13 +36,13 @@ export default {
 		...mapState([
 			'activatedCode',
 			'starredCodes',
-		])
+		]),
 	},
 	mounted () {
 		this.$nextTick(function () {
 			axios({
 				url: '/api/categories',
-				method: 'get'
+				method: 'get',
 			})
 			.then(response => {
 				this.$store.commit('readyForLectures', response.data);
@@ -72,12 +72,12 @@ export default {
 			.then(response => {
 				this.$store.commit('renderLectures', response.data);
 			});
-		}
+		},
 	},
 	watch: {
 		activatedCode () {
 			this.getLectures();
-		}
-	}
+		},
+	},
 };
 </script>
