@@ -90,11 +90,11 @@ export default {
 		]),
 		...mapState({
 			lectureList(state) {
-				let originalList = state.lectureList;
-				let newList = [];
+				const originalList = state.lectureList;
+				const newList = [];
 
 				for (let idx = 0; idx < originalList.length; idx += 1) {
-					let lecture = originalList[idx].slice();
+					const lecture = originalList[idx].slice();
 
 					lecture[customIndex] = {
 						isExist: (lecture[2] !== null),

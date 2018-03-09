@@ -26,16 +26,16 @@ const store = new Vuex.Store({
 		isReady: false,
 	},
 	getters: {
-		starredList(state, getters) {
+		starredList(state) {
 			return JSON.parse(state.starredCodes);
 		},
 		hasCandidates(state, getters) {
 			return (getters.starredList.length > 0);
 		},
-		usesCandidates(state, getters) {
+		usesCandidates(state) {
 			return (state.activatedCode !== '' && state.activatedCode === 'candidates');
 		},
-		usesFilter(state, getters) {
+		usesFilter(state) {
 			return (state.activatedCode !== '' && ! isNaN(state.activatedCode));
 		},
 	},
@@ -55,8 +55,8 @@ const store = new Vuex.Store({
 			state.isLoading = false;
 		},
 		addCandidate(state, payload) {
-			let lectureCode = payload;
-			let starredList = JSON.parse(state.starredCodes);
+			const lectureCode = payload;
+			const starredList = JSON.parse(state.starredCodes);
 
 			if (starredList.indexOf(lectureCode) === -1) {
 				if (starredList.length < MAX_CANDIDATES) {
@@ -64,8 +64,8 @@ const store = new Vuex.Store({
 					storage.setItem('starredCodes', state.starredCodes);
 				}
 				else {
-					let message = `최대 ${MAX_CANDIDATES}개의 강의를 추가할 수 있습니다.`;
-					let options = {
+					const message = `최대 ${MAX_CANDIDATES}개의 강의를 추가할 수 있습니다.`;
+					const options = {
 						id: 'ez-toast',
 						className: 'et-warn',
 						horizontalPosition: 'center',
@@ -77,9 +77,9 @@ const store = new Vuex.Store({
 			}
 		},
 		removeCandidate(state, payload) {
-			let lectureCode = payload;
-			let starredList = JSON.parse(state.starredCodes);
-			let idx = starredList.indexOf(lectureCode);
+			const lectureCode = payload;
+			const starredList = JSON.parse(state.starredCodes);
+			const idx = starredList.indexOf(lectureCode);
 
 			if (idx !== -1) {
 				starredList.splice(idx, 1);
@@ -88,8 +88,8 @@ const store = new Vuex.Store({
 			}
 		},
 		removeWatchingCandidate(state, payload) {
-			let lectureCode = payload;
-			let remainList = state.lectureList.filter(value => (value[0] !== lectureCode));
+			const lectureCode = payload;
+			const remainList = state.lectureList.filter(value => (value[0] !== lectureCode));
 
 			state.lectureList = remainList;
 		},

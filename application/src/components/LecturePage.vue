@@ -54,7 +54,7 @@ export default {
 			this.$store.commit('loadingLectures');
 
 			let url;
-			let params = {};
+			const params = {};
 
 			if (this.activatedCode === 'candidates') {
 				url = ('/api/' + this.activatedCode);

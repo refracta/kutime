@@ -28,7 +28,7 @@ export default {
 	name: 'menuBar',
 	data() {
 		for (let idx = 0; idx < anchorList.length; idx += 1) {
-			let anchor = anchorList[idx];
+			const anchor = anchorList[idx];
 
 			anchor.active = (anchor.href === pathName);
 			anchor.disable = (anchor.href === null);

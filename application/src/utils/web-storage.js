@@ -1,8 +1,9 @@
 // reference - https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
 function storageAvailable(type) {
+	const storage = window[type];
+	const x = '__storage_test__';
+
 	try {
-		var storage = window[type];
-		var x = '__storage_test__';
 		storage.setItem(x, x);
 		storage.removeItem(x);
 		return true;
@@ -26,14 +27,14 @@ function getStorage(type) {
 	return (storageAvailable(type) ? window[type] : null);
 }
 
-let preDefined = require('./pre-defined.js'); // `import ...` syntax does not work.
+const preDefined = require('./pre-defined.js'); // `import ...` syntax does not work.
 
-let MAX_CANDIDATES = preDefined.MAX_CANDIDATES;
+const MAX_CANDIDATES = preDefined.MAX_CANDIDATES;
 
-let storage = getStorage('localStorage');
+const storage = getStorage('localStorage');
 
 if (storage !== null) {
-	let starredCodes = storage.getItem('starredCodes');
+	const starredCodes = storage.getItem('starredCodes');
 	let starredList;
 
 	if (starredCodes === null) {

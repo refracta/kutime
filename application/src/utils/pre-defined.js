@@ -1,6 +1,6 @@
-let pkg = require('../../../package.json'); // `import ...` syntax does not work.
+const pkg = require('../../../package.json'); // `import ...` syntax does not work.
 
-let projectVersion = pkg.version;
+const projectVersion = pkg.version;
 
 let pathName = location.pathname;
 
@@ -9,14 +9,14 @@ if (pathName.endsWith('/')) {
 }
 pathName = pathName || '/intro';
 
-let titleSet = {
+const titleSet = {
 	'/intro': '',
 	'/lecture': '시간표 조회',
 	'/calc': '경우의 수 계산',
 	'/help': '도움말',
 };
 
-let anchorList = [
+const anchorList = [
 	{
 		href: '/intro',
 		icon: 'fa-home',
@@ -35,8 +35,8 @@ let anchorList = [
 	},
 ];
 
-let CUSTOM_COLUMN_INDEX = 20;
-let MAX_CANDIDATES = 15;
+const CUSTOM_COLUMN_INDEX = 20;
+const MAX_CANDIDATES = 15;
 
 module.exports = {
 	projectVersion,
