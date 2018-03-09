@@ -48,7 +48,7 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
 	name: 'lectureFilterModal',
-	data () {
+	data() {
 		return {
 			temporaryCode: '',
 		};
@@ -67,23 +67,23 @@ export default {
 		]),
 	},
 	methods: {
-		resetCategory () {
+		resetCategory() {
 			this.temporaryCode = '';
 		},
-		chooseCategory (e) {
+		chooseCategory(e) {
 			this.temporaryCode = e.target.value;
 		},
-		revertCategory () {
+		revertCategory() {
 			this.temporaryCode = (this.usesCandidates ? '' : this.activatedCode);
 			this.$store.commit('closeFilter');
 		},
-		commitCategory () {
+		commitCategory() {
 			this.$store.commit('applyFilter', this.temporaryCode);
 			this.$store.commit('closeFilter');
 		},
 	},
 	watch: {
-		activatedCode () {
+		activatedCode() {
 			if (this.usesCandidates) {
 				this.resetCategory();
 			}

@@ -26,7 +26,7 @@ import { pathName, anchorList } from '../utils/pre-defined';
 
 export default {
 	name: 'menuBar',
-	data () {
+	data() {
 		for (let idx = 0; idx < anchorList.length; idx += 1) {
 			let anchor = anchorList[idx];
 

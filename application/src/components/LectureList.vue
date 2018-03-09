@@ -71,16 +71,16 @@ import { storage } from '../utils/web-storage';
 
 export default {
 	name: 'lectureList',
-	data () {
+	data() {
 		return {
 			customIndex,
 		};
 	},
 	computed: {
-		canUseStorage () {
+		canUseStorage() {
 			return (storage !== null);
 		},
-		isGuiding () {
+		isGuiding() {
 			return (this.activatedCode === '' || this.isLoading || this.lectureList.length === 0);
 		},
 		...mapState([
@@ -89,7 +89,7 @@ export default {
 			'isReady',
 		]),
 		...mapState({
-			lectureList (state) {
+			lectureList(state) {
 				let originalList = state.lectureList;
 				let newList = [];
 
@@ -114,20 +114,20 @@ export default {
 		]),
 	},
 	methods: {
-		openDetail (idx) {
+		openDetail(idx) {
 			this.$store.commit('openDetail', idx);
 		},
-		addCandidate (code) {
+		addCandidate(code) {
 			if (this.canUseStorage) {
 				this.$store.commit('addCandidate', code);
 			}
 		},
-		removeCandidate (code) {
+		removeCandidate(code) {
 			if (this.canUseStorage) {
 				this.$store.commit('removeCandidate', code);
 			}
 		},
-		removeWatching (code) {
+		removeWatching(code) {
 			if (this.canUseStorage) {
 				this.$store.commit('removeCandidate', code);
 				this.$store.commit('removeWatchingCandidate', code);

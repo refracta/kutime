@@ -28,13 +28,13 @@ import { mapState } from 'vuex';
 
 export default {
 	name: 'lectureDetailModal',
-	data () {
+	data() {
 		return {
 			columnList: ['학수번호', '분반그룹', '과목명', '학년', '학점', '과목구분', '시간 및 강의실', '담당교수', '평가방식', '비고'],
 		};
 	},
 	computed: {
-		lecture () {
+		lecture() {
 			return (this.lectureList[this.activatedIndex] || []);
 		},
 		...mapState([
@@ -46,7 +46,7 @@ export default {
 		}),
 	},
 	methods: {
-		closeDetail () {
+		closeDetail() {
 			this.$store.commit('closeDetail');
 		},
 	},

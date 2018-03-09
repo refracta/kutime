@@ -29,7 +29,7 @@ export default {
 	components: {
 		TitleBar, MenuBar, LectureList, LectureDetailModal, LectureFilterModal,
 	},
-	data () {
+	data() {
 		return {};
 	},
 	computed: {
@@ -38,7 +38,7 @@ export default {
 			'starredCodes',
 		]),
 	},
-	mounted () {
+	mounted() {
 		this.$nextTick(function () {
 			axios({
 				url: '/api/categories',
@@ -50,7 +50,7 @@ export default {
 		});
 	},
 	methods: {
-		getLectures () {
+		getLectures() {
 			this.$store.commit('loadingLectures');
 
 			let url;
@@ -75,7 +75,7 @@ export default {
 		},
 	},
 	watch: {
-		activatedCode () {
+		activatedCode() {
 			this.getLectures();
 		},
 	},

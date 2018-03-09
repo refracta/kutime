@@ -42,14 +42,14 @@ import { pathName, titleSet } from '../utils/pre-defined';
 
 export default {
 	name: 'titleBar',
-	data () {
+	data() {
 		return {
 			url: pathName,
 			navTitle: titleSet[pathName],
 		};
 	},
 	computed: {
-		isLecturePage () {
+		isLecturePage() {
 			return (this.url === '/lecture');
 		},
 		...mapState([
@@ -64,12 +64,12 @@ export default {
 		]),
 	},
 	methods: {
-		loadCandidates () {
+		loadCandidates() {
 			if (this.hasCandidates) {
 				this.$store.commit('loadCandidates');
 			}
 		},
-		openFilter () {
+		openFilter() {
 			this.$store.commit('openFilter');
 		},
 	},

@@ -26,35 +26,35 @@ const store = new Vuex.Store({
 		isReady: false,
 	},
 	getters: {
-		starredList (state, getters) {
+		starredList(state, getters) {
 			return JSON.parse(state.starredCodes);
 		},
-		hasCandidates (state, getters) {
+		hasCandidates(state, getters) {
 			return (getters.starredList.length > 0);
 		},
-		usesCandidates (state, getters) {
+		usesCandidates(state, getters) {
 			return (state.activatedCode !== '' && state.activatedCode === 'candidates');
 		},
-		usesFilter (state, getters) {
+		usesFilter(state, getters) {
 			return (state.activatedCode !== '' && ! isNaN(state.activatedCode));
 		},
 	},
 	mutations: {
-		readyForLectures (state, payload) {
+		readyForLectures(state, payload) {
 			state.departmentList = payload.departments.slice();
 			state.otherList = payload.others.slice();
 			state.isReady = true;
 		},
-		loadingLectures (state) {
+		loadingLectures(state) {
 			state.lectureList = [];
 			state.isLoading = true;
 		},
-		renderLectures (state, payload) {
+		renderLectures(state, payload) {
 			state.lectureList = payload.lectures.slice();
 			state.activatedName = payload.name;
 			state.isLoading = false;
 		},
-		addCandidate (state, payload) {
+		addCandidate(state, payload) {
 			let lectureCode = payload;
 			let starredList = JSON.parse(state.starredCodes);
 
@@ -76,7 +76,7 @@ const store = new Vuex.Store({
 				}
 			}
 		},
-		removeCandidate (state, payload) {
+		removeCandidate(state, payload) {
 			let lectureCode = payload;
 			let starredList = JSON.parse(state.starredCodes);
 			let idx = starredList.indexOf(lectureCode);
@@ -87,37 +87,37 @@ const store = new Vuex.Store({
 				storage.setItem('starredCodes', state.starredCodes);
 			}
 		},
-		removeWatchingCandidate (state, payload) {
+		removeWatchingCandidate(state, payload) {
 			let lectureCode = payload;
 			let remainList = state.lectureList.filter(value => (value[0] !== lectureCode));
 
 			state.lectureList = remainList;
 		},
-		openDetail (state, payload) {
+		openDetail(state, payload) {
 			state.activatedIndex = payload;
 			document.querySelector('html').classList.add('is-clipped');
 			state.isDetailing = true;
 		},
-		closeDetail (state) {
+		closeDetail(state) {
 			state.activatedIndex = null;
 			document.querySelector('html').classList.remove('is-clipped');
 			state.isDetailing = false;
 		},
-		openFilter (state) {
+		openFilter(state) {
 			document.querySelector('html').classList.add('is-clipped');
 			state.isFiltering = true;
 		},
-		closeFilter (state) {
+		closeFilter(state) {
 			document.querySelector('html').classList.remove('is-clipped');
 			state.isFiltering = false;
 		},
-		applyFilter (state, payload) {
+		applyFilter(state, payload) {
 			if (payload !== '') {
 				state.activatedCode = payload;
 				state.activatedName = '';
 			}
 		},
-		loadCandidates (state) {
+		loadCandidates(state) {
 			state.activatedCode = 'candidates';
 			state.activatedName = '';
 		},
