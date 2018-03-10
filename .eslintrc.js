@@ -27,6 +27,7 @@ module.exports = {
   rules: {
     indent: ['error', 'tab'],
     'no-tabs': 'off',
+    'brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       js: 'never',
