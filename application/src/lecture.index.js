@@ -36,7 +36,7 @@ const store = new Vuex.Store({
 			return (state.activatedCode !== '' && state.activatedCode === 'candidates');
 		},
 		usesFilter(state) {
-			return (state.activatedCode !== '' && ! isNaN(state.activatedCode));
+			return (state.activatedCode !== '' && !Number.isNaN(Number(state.activatedCode)));
 		},
 	},
 	mutations: {

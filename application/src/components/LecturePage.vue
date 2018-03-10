@@ -44,7 +44,7 @@ export default {
 				url: '/api/categories',
 				method: 'get',
 			})
-			.then(response => {
+			.then((response) => {
 				this.$store.commit('readyForLectures', response.data);
 			});
 		});
@@ -55,13 +55,14 @@ export default {
 
 			let url;
 			const params = {};
+			const category = this.activatedCode;
 
-			if (this.activatedCode === 'candidates') {
-				url = ('/api/' + this.activatedCode);
+			if (category === 'candidates') {
+				url = `/api/${category}`;
 				params.codes = this.starredCodes;
 			}
 			else {
-				url = ('/api/lectures/' + this.activatedCode);
+				url = `/api/lectures/${category}`;
 			}
 
 			axios({
@@ -69,7 +70,7 @@ export default {
 				method: 'get',
 				params,
 			})
-			.then(response => {
+			.then((response) => {
 				this.$store.commit('renderLectures', response.data);
 			});
 		},

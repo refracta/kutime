@@ -2,7 +2,7 @@ const pkg = require('../../../package.json'); // `import ...` syntax does not wo
 
 const projectVersion = pkg.version;
 
-let pathName = location.pathname;
+let pathName = window.location.pathname;
 
 if (pathName.endsWith('/')) {
 	pathName = pathName.slice(0, -1);

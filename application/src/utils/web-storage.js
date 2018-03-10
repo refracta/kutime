@@ -29,7 +29,7 @@ function getStorage(type) {
 
 const preDefined = require('./pre-defined.js'); // `import ...` syntax does not work.
 
-const MAX_CANDIDATES = preDefined.MAX_CANDIDATES;
+const { MAX_CANDIDATES } = preDefined;
 
 const storage = getStorage('localStorage');
 
