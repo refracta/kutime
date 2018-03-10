@@ -4,7 +4,7 @@ import 'font-awesome/scss/font-awesome.scss';
 import CalcPage from './components/CalcPage';
 import './assets/global-tuning.scss';
 
-new Vue({
+const viewModel = new Vue({
 	el: '#intime-app',
 	components: { CalcPage },
 	template: '<CalcPage/>',

@@ -124,7 +124,7 @@ const store = new Vuex.Store({
 	},
 });
 
-new Vue({
+const viewModel = new Vue({
 	el: '#intime-app',
 	store,
 	components: { LecturePage },
