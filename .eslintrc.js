@@ -28,6 +28,7 @@ module.exports = {
     indent: ['error', 'tab'],
     'no-tabs': 'off',
     'brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
+    'no-unused-vars': ['error', { vars: 'all', varsIgnorePattern: '^viewModel$', args: 'after-used', ignoreRestSiblings: true }],
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       js: 'never',
