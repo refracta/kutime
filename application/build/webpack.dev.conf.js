@@ -25,7 +25,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
 			filename: '[name].js',
-			minChunks: 2
+			minChunks: 3
 		}),
 		new ExtractTextPlugin({
 			filename: 'global.css',

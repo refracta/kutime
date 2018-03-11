@@ -30,7 +30,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
-			minChunks: 2
+			minChunks: 3
 		}),
 		new ExtractTextPlugin({
 			filename: 'global.[contenthash:20].css',
