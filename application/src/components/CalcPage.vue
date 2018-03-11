@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { mapState } from 'vuex';
 import TitleBar from './TitleBar';
 import MenuBar from './MenuBar';
 
@@ -23,6 +25,28 @@ export default {
 	},
 	data() {
 		return {};
+	},
+	computed: {
+		...mapState([
+			'starredCodes',
+		]),
+	},
+	mounted() {
+		this.$nextTick(function () {
+			const url = '/api/candidates';
+			const params = {
+				codes: this.starredCodes,
+			};
+
+			axios({
+				url,
+				method: 'get',
+				params,
+			})
+			.then((response) => {
+				this.$store.commit('readyForCalculation', response.data);
+			});
+		});
 	},
 };
 </script>
