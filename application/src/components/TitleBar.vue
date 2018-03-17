@@ -30,6 +30,15 @@
 							</span>
 						</a>
 					</div>
+					<div class="column is-one-fifth has-text-centered"
+						v-if="isCalcPage">
+						<a class="button is-fullwidth is-white"
+							@click="openSlider">
+							<span class="icon is-medium">
+								<i class="fa fa-sliders fa-lg"></i>
+							</span>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -52,6 +61,9 @@ export default {
 		isLecturePage() {
 			return (this.url === '/lecture');
 		},
+		isCalcPage() {
+			return (this.url === '/calc');
+		},
 		...mapState([
 			'activatedCode',
 			'isReady',
@@ -71,6 +83,9 @@ export default {
 		},
 		openFilter() {
 			this.$store.commit('openFilter');
+		},
+		openSlider() {
+			console.log('open lecture slider');
 		},
 	},
 };

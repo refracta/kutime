@@ -2,7 +2,7 @@
 	<section class="hero is-fullheight">
 		<main class="hero-body is-vertical-paddingless">
 			<div class="container">
-				<span>경우의 수 계산 페이지</span>
+				<CalcList/>
 			</div>
 		</main>
 
@@ -17,11 +17,12 @@ import axios from 'axios';
 import { mapState } from 'vuex';
 import TitleBar from './TitleBar';
 import MenuBar from './MenuBar';
+import CalcList from './CalcList';
 
 export default {
 	name: 'calcPage',
 	components: {
-		TitleBar, MenuBar,
+		TitleBar, MenuBar, CalcList,
 	},
 	data() {
 		return {};
