@@ -33,6 +33,7 @@
 					<div class="column is-one-fifth has-text-centered"
 						v-if="isCalcPage">
 						<a class="button is-fullwidth is-white"
+							:disabled="!isReady || !hasCandidates"
 							@click="openSlider">
 							<span class="icon is-medium">
 								<i class="fa fa-sliders fa-lg"></i>
@@ -85,7 +86,9 @@ export default {
 			this.$store.commit('openFilter');
 		},
 		openSlider() {
-			console.log('open lecture slider');
+			if (this.hasCandidates) {
+				this.$store.commit('openSlider');
+			}
 		},
 	},
 };

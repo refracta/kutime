@@ -12,17 +12,32 @@ const store = new Vuex.Store({
 	state: {
 		lectureList: [],
 		starredCodes: storage.getItem('starredCodes'),
+		isSlidering: false,
 		isReady: false,
 	},
 	getters: {
 		starredList(state) {
 			return JSON.parse(state.starredCodes);
 		},
+		hasCandidates(state, getters) {
+			return (getters.starredList.length > 0);
+		},
 	},
 	mutations: {
 		readyForCalculation(state, payload) {
 			state.lectureList = payload.lectures.slice();
 			state.isReady = true;
+		},
+		openSlider(state) {
+			document.querySelector('html').classList.add('is-clipped');
+			state.isSlidering = true;
+		},
+		closeSlider(state) {
+			document.querySelector('html').classList.remove('is-clipped');
+			state.isSlidering = false;
+		},
+		applySlider(state) {
+			console.log('apply slider');
 		},
 	},
 });

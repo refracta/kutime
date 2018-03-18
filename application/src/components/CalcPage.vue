@@ -9,6 +9,8 @@
 		<TitleBar/>
 
 		<MenuBar/>
+
+		<LectureSliderModal/>
 	</section>
 </template>
 
@@ -18,11 +20,12 @@ import { mapState } from 'vuex';
 import TitleBar from './TitleBar';
 import MenuBar from './MenuBar';
 import CalcList from './CalcList';
+import LectureSliderModal from './LectureSliderModal';
 
 export default {
 	name: 'calcPage',
 	components: {
-		TitleBar, MenuBar, CalcList,
+		TitleBar, MenuBar, CalcList, LectureSliderModal,
 	},
 	data() {
 		return {};
