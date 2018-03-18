@@ -4,15 +4,15 @@
 		<div class="modal-background"></div>
 		<div class="modal-card">
 			<header class="modal-card-head">
-				<p class="modal-card-title">Modal title</p>
+				<p class="modal-card-title">포함-배제 선택</p>
 				<button class="delete" aria-label="close" @click="close"></button>
 			</header>
 			<section class="modal-card-body">
 				<div>Lecture list will display here</div>
 			</section>
 			<footer class="modal-card-foot">
-				<button class="button" @click="close">close</button>
-				<button class="button is-primary" @click="apply">apply</button>
+				<button class="button" @click="close">닫기</button>
+				<button class="button is-primary" @click="apply">적용</button>
 			</footer>
 		</div>
 	</div>
