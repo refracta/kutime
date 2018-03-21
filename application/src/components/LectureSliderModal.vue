@@ -30,6 +30,29 @@ export default {
 	computed: {
 		...mapState({
 			isActive: state => state.isSlidering,
+			groupedList(state) {
+				const originalList = state.lectureList;
+				const newList = [];
+				const uniqueCodes = {};
+
+				for (let idx = 0; idx < originalList.length; idx += 1) {
+					const lecture = originalList[idx].slice();
+					const matched = lecture[0].match(/^([a-z0-9]+)-[0-9]+$/i);
+					const prefix = matched[1];
+
+					if (uniqueCodes[prefix] === undefined) {
+						const lectureGroup = {
+							groupCode: prefix,
+							groupName: lecture[2],
+						};
+
+						uniqueCodes[prefix] = newList.length;
+						newList.push(lectureGroup);
+					}
+				}
+
+				return newList;
+			},
 		}),
 	},
 	methods: {
