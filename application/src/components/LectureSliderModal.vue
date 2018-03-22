@@ -8,7 +8,18 @@
 				<button class="delete" aria-label="close" @click="close"></button>
 			</header>
 			<section class="modal-card-body">
-				<div>Lecture list will display here</div>
+				<ul>
+					<li class="columns is-mobile is-gapless"
+						v-for="(group, index) in groupedList"
+						:key="index">
+						<div class="column">
+							<span>{{ group.groupName }}</span>
+						</div>
+						<div class="column is-one-third">
+							<vue-slider v-bind="sliderOptions" :show="isActive"></vue-slider>
+						</div>
+					</li>
+				</ul>
 			</section>
 			<footer class="modal-card-foot">
 				<button class="button" @click="close">닫기</button>
@@ -20,11 +31,29 @@
 
 <script>
 import { mapState } from 'vuex';
+import vueSlider from 'vue-slider-component';
 
 export default {
 	name: 'lectureSliderModal',
+	components: {
+		vueSlider,
+	},
 	data() {
 		return {
+			sliderOptions: {
+				width: '100%',
+				min: -1,
+				max: 1,
+				speed: 0,
+				tooltip: false,
+				value: 0,
+				bgStyle: {
+					backgroundImage: '-webkit-linear-gradient(left, #ff3860, #00d1b2)',
+				},
+				processStyle: {
+					backgroundColor: 'transparent',
+				},
+			},
 		};
 	},
 	computed: {
