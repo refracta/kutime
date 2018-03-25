@@ -5,7 +5,7 @@
 		<div class="modal-card">
 			<header class="modal-card-head">
 				<p class="modal-card-title">포함-배제 선택</p>
-				<button class="delete" aria-label="close" @click="close"></button>
+				<button class="delete" aria-label="close" @click="closeSlider"></button>
 			</header>
 			<section class="modal-card-body">
 				<ul>
@@ -22,8 +22,8 @@
 				</ul>
 			</section>
 			<footer class="modal-card-foot">
-				<button class="button" @click="close">닫기</button>
-				<button class="button is-primary" @click="apply">적용</button>
+				<button class="button" @click="closeSlider">닫기</button>
+				<button class="button is-primary" @click="calculate">적용</button>
 			</footer>
 		</div>
 	</div>
@@ -108,10 +108,10 @@ export default {
 		}),
 	},
 	methods: {
-		close() {
+		closeSlider() {
 			this.$store.commit('closeSlider');
 		},
-		apply() {
+		calculate() {
 			this.$store.commit('applySlider');
 			this.$store.commit('closeSlider');
 		},
