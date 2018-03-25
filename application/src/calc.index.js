@@ -22,6 +22,12 @@ const store = new Vuex.Store({
 		hasCandidates(state, getters) {
 			return (getters.starredList.length > 0);
 		},
+		usesCandidates() {
+			return false;
+		},
+		usesFilter() {
+			return false;
+		},
 	},
 	mutations: {
 		readyForCalculation(state, payload) {
