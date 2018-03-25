@@ -68,15 +68,38 @@ export default {
 					const lecture = originalList[idx].slice();
 					const matched = lecture[0].match(/^([a-z0-9]+)-[0-9]+$/i);
 					const prefix = matched[1];
+					const lessonList = lecture[12].match(/(D[T0-9]+)/g);
+					const timeList = [];
+
+					for (let dayIdx = 0; dayIdx < lessonList.length; dayIdx += 1) {
+						const dailyLesson = lessonList[dayIdx].match(/[DT]([0-9]+)/g);
+						const lessonDay = Number(dailyLesson[0].slice(1));
+
+						for (let timeIdx = 1; timeIdx < dailyLesson.length; timeIdx += 1) {
+							const lessonTime = Number(dailyLesson[timeIdx].slice(1));
+							const formattedTime = lessonDay * 100 + lessonTime;
+
+							timeList.push(formattedTime);
+						}
+					}
 
 					if (uniqueCodes[prefix] === undefined) {
 						const lectureGroup = {
 							groupCode: prefix,
 							groupName: lecture[2],
+							credit: Number(lecture[4]),
+							lectureCodeList: [lecture[0]],
+							lectureTimeList: [timeList],
 						};
 
 						uniqueCodes[prefix] = newList.length;
 						newList.push(lectureGroup);
+					}
+					else {
+						const groupIndex = uniqueCodes[prefix];
+
+						newList[groupIndex].lectureCodeList.push(lecture[0]);
+						newList[groupIndex].lectureTimeList.push(timeList);
 					}
 				}
 
