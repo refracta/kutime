@@ -25,7 +25,6 @@ export default {
 			return true;
 		},
 		...mapState([
-			'lectureList',
 			'isReady',
 		]),
 		...mapGetters([
