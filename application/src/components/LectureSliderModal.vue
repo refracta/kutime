@@ -16,7 +16,7 @@
 							<span>{{ group.groupName }}</span>
 						</div>
 						<div class="column is-one-third">
-							<vue-slider v-bind="sliderOptions" :show="isActive"></vue-slider>
+							<vue-slider ref="sliders" v-bind="sliderOptions" :show="isActive"></vue-slider>
 						</div>
 					</li>
 				</ul>
@@ -112,7 +112,16 @@ export default {
 			this.$store.commit('closeSlider');
 		},
 		calculate() {
-			this.$store.commit('applySlider');
+			const sliderValues = [];
+
+			this.$refs.sliders.forEach((slider, idx) => {
+				sliderValues.push(slider.getValue());
+			});
+
+			this.$store.commit('applySlider', {
+				lectureGroups: this.groupedList,
+				sliderValues,
+			});
 			this.$store.commit('closeSlider');
 		},
 	},

@@ -11,6 +11,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
 	state: {
 		lectureList: [],
+		calculatedList: [],
 		starredCodes: storage.getItem('starredCodes'),
 		isSlidering: false,
 		isReady: false,
@@ -42,8 +43,63 @@ const store = new Vuex.Store({
 			document.querySelector('html').classList.remove('is-clipped');
 			state.isSlidering = false;
 		},
-		applySlider(state) {
-			console.log('apply slider');
+		applySlider(state, payload) {
+			const { lectureGroups } = payload;
+			const { sliderValues } = payload;
+			let totalCases = 1;
+			let result = [];
+
+			for (let groupIdx = 0; groupIdx < lectureGroups.length; groupIdx += 1) {
+				if (sliderValues[groupIdx] !== -1) {
+					totalCases *= (1 + lectureGroups[groupIdx].lectureCodeList.length);
+				}
+			}
+
+			// when caseIdx === 0, there is no lecture will choose, so just skipped
+			for (let caseIdx = 1; caseIdx < totalCases; caseIdx += 1) {
+				let caseNum = caseIdx;
+				let isOverlapped = false;
+				let caseCodeList = [];
+				let uniqueTimeList = [];
+
+				for (let groupIdx = 0; groupIdx < lectureGroups.length; groupIdx += 1) {
+					let codeIdx = caseNum % (1 + lectureGroups[groupIdx].lectureCodeList.length);
+
+					if (sliderValues[groupIdx] === -1) {
+						continue;
+					}
+
+					if (codeIdx === 0) {
+						if (sliderValues[groupIdx] === 1) {
+							isOverlapped = true;
+						}
+					}
+					else {
+						caseCodeList.push(lectureGroups[groupIdx].lectureCodeList[codeIdx - 1]);
+						lectureGroups[groupIdx].lectureTimeList[codeIdx - 1].forEach((formattedTime) => {
+							if (uniqueTimeList.indexOf(formattedTime) === -1) {
+								uniqueTimeList.push(formattedTime);
+							}
+							else {
+								isOverlapped = true;
+							}
+						});
+					}
+
+					if (isOverlapped) {
+						break;
+					}
+
+					caseNum /= (1 + lectureGroups[groupIdx].lectureCodeList.length);
+					caseNum = Math.floor(caseNum); // just get quotient
+				}
+
+				if (!isOverlapped) {
+					result.push(caseCodeList);
+				}
+			}
+
+			state.calculatedList = result.slice();
 		},
 	},
 });
