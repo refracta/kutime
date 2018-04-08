@@ -14,6 +14,7 @@ const store = new Vuex.Store({
 		calculatedList: [],
 		starredCodes: storage.getItem('starredCodes'),
 		isSlidering: false,
+		isLoading: null,
 		isReady: false,
 	},
 	getters: {
@@ -48,6 +49,9 @@ const store = new Vuex.Store({
 			const { sliderValues } = payload;
 			let totalCases = 1;
 			let result = [];
+
+			state.calculatedList = [];
+			state.isLoading = true;
 
 			for (let groupIdx = 0; groupIdx < lectureGroups.length; groupIdx += 1) {
 				if (sliderValues[groupIdx] !== -1) {
@@ -100,6 +104,7 @@ const store = new Vuex.Store({
 			}
 
 			state.calculatedList = result.slice();
+			state.isLoading = false;
 		},
 	},
 });
