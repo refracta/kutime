@@ -11,6 +11,7 @@
 		<MenuBar/>
 
 		<LectureSliderModal/>
+		<LectureScheduleModal/>
 	</section>
 </template>
 
@@ -21,11 +22,12 @@ import TitleBar from './TitleBar';
 import MenuBar from './MenuBar';
 import CalcList from './CalcList';
 import LectureSliderModal from './LectureSliderModal';
+import LectureScheduleModal from './LectureScheduleModal';
 
 export default {
 	name: 'calcPage',
 	components: {
-		TitleBar, MenuBar, CalcList, LectureSliderModal,
+		TitleBar, MenuBar, CalcList, LectureSliderModal, LectureScheduleModal,
 	},
 	data() {
 		return {};
