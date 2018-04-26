@@ -19,6 +19,17 @@ const store = new Vuex.Store({
 		isReady: false,
 	},
 	getters: {
+		lectureDetails(state) {
+			const detailSet = {};
+
+			for (let idx = 0; idx < state.lectureList.length; idx += 1) {
+				const lecture = state.lectureList[idx].slice();
+
+				detailSet[lecture[0]] = lecture;
+			}
+
+			return detailSet;
+		},
 		starredList(state) {
 			return JSON.parse(state.starredCodes);
 		},

@@ -55,18 +55,6 @@ export default {
 			'isReady',
 		]),
 		...mapState({
-			lectureDetails(state) {
-				const originalList = state.lectureList;
-				const detailSet = {};
-
-				for (let idx = 0; idx < originalList.length; idx += 1) {
-					const lecture = originalList[idx].slice();
-
-					detailSet[lecture[0]] = lecture;
-				}
-
-				return detailSet;
-			},
 			calculatedList(state) {
 				const originalList = state.calculatedList;
 				const newList = [];
@@ -93,6 +81,7 @@ export default {
 			},
 		}),
 		...mapGetters([
+			'lectureDetails',
 			'hasCandidates',
 		]),
 	},
