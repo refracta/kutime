@@ -12,6 +12,7 @@ const store = new Vuex.Store({
 	state: {
 		lectureList: [],
 		calculatedList: [],
+		activatedIndex: null,
 		starredCodes: storage.getItem('starredCodes'),
 		isSlidering: false,
 		isScheduling: false,
@@ -118,11 +119,13 @@ const store = new Vuex.Store({
 			state.calculatedList = result.slice();
 			state.isLoading = false;
 		},
-		openSchedule(state) {
+		openSchedule(state, payload) {
+			state.activatedIndex = payload;
 			document.querySelector('html').classList.add('is-clipped');
 			state.isScheduling = true;
 		},
 		closeSchedule(state) {
+			state.activatedIndex = null;
 			document.querySelector('html').classList.remove('is-clipped');
 			state.isScheduling = false;
 		},

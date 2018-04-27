@@ -18,7 +18,7 @@
 				</div>
 				<div class="media-right">
 					<a class="button is-white"
-						@click="openSchedule">
+						@click="openSchedule(index)">
 						<span class="icon is-medium">
 							<i class="fa fa-ellipsis-h fa-lg"></i>
 						</span>
@@ -86,8 +86,8 @@ export default {
 		]),
 	},
 	methods: {
-		openSchedule() {
-			this.$store.commit('openSchedule');
+		openSchedule(idx) {
+			this.$store.commit('openSchedule', idx);
 		},
 	},
 };
