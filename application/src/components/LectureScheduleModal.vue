@@ -24,7 +24,7 @@
 					</tfoot>
 					<tbody>
 						<tr v-for="(rowItem, rowIndex) in 18">
-							<th rowspan="2" v-if="rowIndex % 2 === 0"></th>
+							<th rowspan="2" v-if="rowIndex % 2 === 0">{{ (rowIndex / 2 + 9) | convertHourNaively }} ~ {{ (rowIndex / 2 + 10) | convertHourNaively }}</th>
 							<td v-for="colItem in 5"
 								:style="(timeSlots[colItem * 100 + rowItem] ? `border-color: ${timeSlots[colItem * 100 + rowItem].color}; background-color: ${timeSlots[colItem * 100 + rowItem].color};` : '')">
 							</td>
@@ -46,6 +46,11 @@ export default {
 	},
 	data() {
 		return {};
+	},
+	filters: {
+		convertHourNaively(num) {
+			return `${num > 12 ? num % 12 : num} ${num >= 12 ? 'pm' : 'am'}`;
+		},
 	},
 	computed: {
 		timeSlots() {
