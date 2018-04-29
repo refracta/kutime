@@ -84,32 +84,32 @@ const store = new Vuex.Store({
 					const codeIdx = caseNum % (1 + lectureGroups[groupIdx].lectureCodeList.length);
 
 					if (sliderValues[groupIdx] !== -1) {
-					if (codeIdx === 0) {
-						if (sliderValues[groupIdx] === 1) {
-							isOverlapped = true;
-						}
-					}
-					else {
-						caseCodeList.push(lectureGroups[groupIdx].lectureCodeList[codeIdx - 1]);
-
-						for (let timeIdx = 0; timeIdx < lectureGroups[groupIdx].lectureTimeList[codeIdx - 1].length; timeIdx += 1) {
-							const formattedTime = lectureGroups[groupIdx].lectureTimeList[codeIdx - 1][timeIdx];
-
-							if (uniqueTimeList.indexOf(formattedTime) === -1) {
-								uniqueTimeList.push(formattedTime);
-							}
-							else {
+						if (codeIdx === 0) {
+							if (sliderValues[groupIdx] === 1) {
 								isOverlapped = true;
 							}
 						}
-					}
+						else {
+							caseCodeList.push(lectureGroups[groupIdx].lectureCodeList[codeIdx - 1]);
 
-					if (isOverlapped) {
-						break;
-					}
+							for (let timeIdx = 0; timeIdx < lectureGroups[groupIdx].lectureTimeList[codeIdx - 1].length; timeIdx += 1) {
+								const formattedTime = lectureGroups[groupIdx].lectureTimeList[codeIdx - 1][timeIdx];
 
-					caseNum /= (1 + lectureGroups[groupIdx].lectureCodeList.length);
-					caseNum = Math.floor(caseNum); // just get quotient
+								if (uniqueTimeList.indexOf(formattedTime) === -1) {
+									uniqueTimeList.push(formattedTime);
+								}
+								else {
+									isOverlapped = true;
+								}
+							}
+						}
+
+						if (isOverlapped) {
+							break;
+						}
+
+						caseNum /= (1 + lectureGroups[groupIdx].lectureCodeList.length);
+						caseNum = Math.floor(caseNum); // just get quotient
 					}
 				}
 
