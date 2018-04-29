@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import 'bulma/css/bulma.css';
+import 'bulma-extensions/bulma-tooltip/dist/bulma-tooltip.min.css';
 import 'font-awesome/scss/font-awesome.scss';
 import CalcPage from './components/CalcPage';
 import { storage } from './utils/web-storage';

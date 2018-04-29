@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Toast from 'vue-easy-toast';
 import 'bulma/css/bulma.css';
+import 'bulma-extensions/bulma-tooltip/dist/bulma-tooltip.min.css';
 import 'font-awesome/scss/font-awesome.scss';
 import LecturePage from './components/LecturePage';
 import { MAX_CANDIDATES } from './utils/pre-defined';

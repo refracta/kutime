@@ -34,6 +34,8 @@
 						<tr v-for="(rowItem, rowIndex) in 18">
 							<th rowspan="2" v-if="rowIndex % 2 === 0">{{ (rowIndex / 2 + 9) | convertHourNaively }} ~ {{ (rowIndex / 2 + 10) | convertHourNaively }}</th>
 							<td v-for="colItem in 5"
+								:class="[timeSlots[colItem * 100 + rowItem] ? 'tooltip' : '']"
+								:data-tooltip="[timeSlots[colItem * 100 + rowItem] ? timeSlots[colItem * 100 + rowItem].name : '']"
 								:style="(timeSlots[colItem * 100 + rowItem] ? `border-color: ${timeSlots[colItem * 100 + rowItem].color}; background-color: ${timeSlots[colItem * 100 + rowItem].color};` : '')">
 							</td>
 						</tr>
