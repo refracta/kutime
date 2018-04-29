@@ -4,7 +4,8 @@
 		<div class="modal-background"></div>
 		<div class="modal-content">
 			<div class="box">
-				<table class="table is-fullwidth is-size-7-mobile">
+				<table class="table is-fullwidth is-size-7-mobile"
+					:class="[hasELearning ? 'is-marginless' : '']">
 					<thead>
 						<tr>
 							<th>시간</th>
@@ -19,6 +20,13 @@
 						<tr>
 							<th colspan="6">
 								<div>이러닝 목록</div>
+
+								<div class="tags" v-show="hasELearning">
+									<span v-for="(item, index) in 18" v-if="timeSlots[index]" class="tag"
+										:style="`background-color: ${timeSlots[index].color}; color: ${timeSlots[index].invertedColor};`">
+										{{ timeSlots[index].name }}
+									</span>
+								</div>
 							</th>
 						</tr>
 					</tfoot>
@@ -65,6 +73,7 @@ export default {
 					const y = Number(matched[2].replace('-', ''));
 					const z = x * y;
 					const lectureColor = `#${z.toString(16).slice(-6)}`;
+					const lectureColorInvert = this.getInvertColor(z.toString(16).slice(-6));
 
 					const lessonList = lecture[12].match(/(D[T0-9]+)/g);
 
@@ -76,13 +85,26 @@ export default {
 							const lessonTime = Number(dailyLesson[timeIdx].slice(1));
 							const formattedTime = lessonDay * 100 + lessonTime;
 
-							slotSet[formattedTime] = { color: lectureColor };
+							slotSet[formattedTime] = {
+								color: lectureColor,
+								invertedColor: lectureColorInvert,
+								name: lecture[2],
+							};
 						}
 					}
 				});
 			}
 
 			return slotSet;
+		},
+		hasELearning() {
+			for (let index = 0; index < 18; index += 1) {
+				if (this.timeSlots[index] !== undefined) {
+					return true;
+				}
+			}
+
+			return false;
 		},
 		...mapState([
 			'calculatedList',
@@ -98,6 +120,33 @@ export default {
 	methods: {
 		closeSchedule() {
 			this.$store.commit('closeSchedule');
+		},
+		getInvertColor(hex) {
+			// reference - bulma/sass/utilities/functions.sass
+
+			const rgbSet = {
+				red: parseInt(hex.substring(0, 2), 16),
+				green: parseInt(hex.substring(2, 4), 16),
+				blue: parseInt(hex.substring(4, 6), 16),
+			};
+
+			for (let color in rgbSet) {
+				let value = rgbSet[color] / 255;
+
+				if (value < 0.03928) {
+					value /= 12.92;
+				}
+				else {
+					value = (value + 0.055) / 1.055;
+					value *= value;
+				}
+
+				rgbSet[color] = value;
+			}
+
+			const luminance = rgbSet.red * 0.2126 + rgbSet.green * 0.7152 + rgbSet.blue * 0.0722;
+
+			return (luminance > 0.55 ? 'rgba(0, 0, 0, 0.7)' : '#fff');
 		},
 	},
 };
