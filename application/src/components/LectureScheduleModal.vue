@@ -135,7 +135,7 @@ export default {
 				blue: parseInt(hex.substring(4, 6), 16),
 			};
 
-			for (let color in rgbSet) {
+			for (const color in rgbSet) {
 				let value = rgbSet[color] / 255;
 
 				if (value < 0.03928) {

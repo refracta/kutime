@@ -114,7 +114,7 @@ export default {
 		calculate() {
 			const sliderValues = [];
 
-			this.$refs.sliders.forEach((slider, idx) => {
+			this.$refs.sliders.forEach((slider) => {
 				sliderValues.push(slider.getValue());
 			});
 

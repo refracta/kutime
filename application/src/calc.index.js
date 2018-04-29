@@ -62,7 +62,7 @@ const store = new Vuex.Store({
 			const { lectureGroups } = payload;
 			const { sliderValues } = payload;
 			let totalCases = 1;
-			let result = [];
+			const result = [];
 
 			state.calculatedList = [];
 			state.isLoading = true;
@@ -77,11 +77,11 @@ const store = new Vuex.Store({
 			for (let caseIdx = 1; caseIdx < totalCases; caseIdx += 1) {
 				let caseNum = caseIdx;
 				let isOverlapped = false;
-				let caseCodeList = [];
-				let uniqueTimeList = [];
+				const caseCodeList = [];
+				const uniqueTimeList = [];
 
 				for (let groupIdx = 0; groupIdx < lectureGroups.length; groupIdx += 1) {
-					let codeIdx = caseNum % (1 + lectureGroups[groupIdx].lectureCodeList.length);
+					const codeIdx = caseNum % (1 + lectureGroups[groupIdx].lectureCodeList.length);
 
 					if (sliderValues[groupIdx] === -1) {
 						continue;
