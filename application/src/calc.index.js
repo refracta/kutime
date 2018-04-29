@@ -83,10 +83,7 @@ const store = new Vuex.Store({
 				for (let groupIdx = 0; groupIdx < lectureGroups.length; groupIdx += 1) {
 					const codeIdx = caseNum % (1 + lectureGroups[groupIdx].lectureCodeList.length);
 
-					if (sliderValues[groupIdx] === -1) {
-						continue;
-					}
-
+					if (sliderValues[groupIdx] !== -1) {
 					if (codeIdx === 0) {
 						if (sliderValues[groupIdx] === 1) {
 							isOverlapped = true;
@@ -94,14 +91,17 @@ const store = new Vuex.Store({
 					}
 					else {
 						caseCodeList.push(lectureGroups[groupIdx].lectureCodeList[codeIdx - 1]);
-						lectureGroups[groupIdx].lectureTimeList[codeIdx - 1].forEach((formattedTime) => {
+
+						for (let timeIdx = 0; timeIdx < lectureGroups[groupIdx].lectureTimeList[codeIdx - 1].length; timeIdx += 1) {
+							const formattedTime = lectureGroups[groupIdx].lectureTimeList[codeIdx - 1][timeIdx];
+
 							if (uniqueTimeList.indexOf(formattedTime) === -1) {
 								uniqueTimeList.push(formattedTime);
 							}
 							else {
 								isOverlapped = true;
 							}
-						});
+						}
 					}
 
 					if (isOverlapped) {
@@ -110,6 +110,7 @@ const store = new Vuex.Store({
 
 					caseNum /= (1 + lectureGroups[groupIdx].lectureCodeList.length);
 					caseNum = Math.floor(caseNum); // just get quotient
+					}
 				}
 
 				if (!isOverlapped) {

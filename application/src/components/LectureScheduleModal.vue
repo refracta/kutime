@@ -25,7 +25,7 @@
 								<div>이러닝 목록</div>
 
 								<div class="tags" v-show="hasELearning">
-									<span v-for="(item, index) in 18" v-if="timeSlots[index]" class="tag"
+									<span v-for="(item, index) in 18" :key="index" v-if="timeSlots[index]" class="tag"
 										:style="`background-color: ${timeSlots[index].color}; color: ${timeSlots[index].invertedColor};`">
 										{{ timeSlots[index].name }}
 									</span>
@@ -34,9 +34,9 @@
 						</tr>
 					</tfoot>
 					<tbody>
-						<tr v-for="(rowItem, rowIndex) in 18">
+						<tr v-for="(rowItem, rowIndex) in 18" :key="rowIndex">
 							<th rowspan="2" v-if="rowIndex % 2 === 0">{{ (rowIndex / 2 + 9) | convertHourNaively }} ~ {{ (rowIndex / 2 + 10) | convertHourNaively }}</th>
-							<td v-for="colItem in 5"
+							<td v-for="(colItem, colIndex) in 5" :key="colIndex"
 								:class="[timeSlots[colItem * 100 + rowItem] ? 'tooltip' : '']"
 								:data-tooltip="[timeSlots[colItem * 100 + rowItem] ? timeSlots[colItem * 100 + rowItem].name : '']"
 								:style="(timeSlots[colItem * 100 + rowItem] ? `border-color: ${timeSlots[colItem * 100 + rowItem].color}; background-color: ${timeSlots[colItem * 100 + rowItem].color};` : '')">
@@ -134,9 +134,11 @@ export default {
 				green: parseInt(hex.substring(2, 4), 16),
 				blue: parseInt(hex.substring(4, 6), 16),
 			};
+			const rgbKey = Object.keys(rgbSet);
+			const rgbValue = Object.values(rgbSet);
 
-			for (const color in rgbSet) {
-				let value = rgbSet[color] / 255;
+			rgbKey.forEach((color, index) => {
+				let value = rgbValue[index];
 
 				if (value < 0.03928) {
 					value /= 12.92;
@@ -147,7 +149,7 @@ export default {
 				}
 
 				rgbSet[color] = value;
-			}
+			});
 
 			const luminance = (rgbSet.red * 0.2126) + (rgbSet.green * 0.7152) + (rgbSet.blue * 0.0722);
 
