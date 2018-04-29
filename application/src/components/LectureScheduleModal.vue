@@ -138,7 +138,7 @@ export default {
 			const rgbValue = Object.values(rgbSet);
 
 			rgbKey.forEach((color, index) => {
-				let value = rgbValue[index];
+				let value = rgbValue[index] / 255;
 
 				if (value < 0.03928) {
 					value /= 12.92;
