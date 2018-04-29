@@ -88,7 +88,7 @@ export default {
 
 						for (let timeIdx = 1; timeIdx < dailyLesson.length; timeIdx += 1) {
 							const lessonTime = Number(dailyLesson[timeIdx].slice(1));
-							const formattedTime = lessonDay * 100 + lessonTime;
+							const formattedTime = (lessonDay * 100) + lessonTime;
 
 							slotSet[formattedTime] = {
 								color: lectureColor,
@@ -149,7 +149,7 @@ export default {
 				rgbSet[color] = value;
 			}
 
-			const luminance = rgbSet.red * 0.2126 + rgbSet.green * 0.7152 + rgbSet.blue * 0.0722;
+			const luminance = (rgbSet.red * 0.2126) + (rgbSet.green * 0.7152) + (rgbSet.blue * 0.0722);
 
 			return (luminance > 0.55 ? 'rgba(0, 0, 0, 0.7)' : '#fff');
 		},

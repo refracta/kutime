@@ -77,7 +77,7 @@ export default {
 
 						for (let timeIdx = 1; timeIdx < dailyLesson.length; timeIdx += 1) {
 							const lessonTime = Number(dailyLesson[timeIdx].slice(1));
-							const formattedTime = lessonDay * 100 + lessonTime;
+							const formattedTime = (lessonDay * 100) + lessonTime;
 
 							timeList.push(formattedTime);
 						}
