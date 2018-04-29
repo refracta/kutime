@@ -4,6 +4,9 @@
 		<div class="modal-background"></div>
 		<div class="modal-content">
 			<div class="box">
+				<label class="label">
+					#{{ activatedIndex === null ? 0 : 1 + activatedIndex }}/{{ calculatedList.length }}
+				</label>
 				<table class="table is-fullwidth is-size-7-mobile"
 					:class="[hasELearning ? 'is-marginless' : '']">
 					<thead>
