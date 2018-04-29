@@ -30,10 +30,11 @@
 			:class="[(isLoading || !isReady) ? 'is-loading' : '']"
 			v-if="isGuiding">
 			<span v-if="!hasCandidates">추가된 강의가 없습니다.</span>
-			<span class="icon is-medium" v-if="hasCandidates">
+			<span class="icon is-medium" v-if="hasCandidates && isLoading === null">
 				<i class="fa fa-sliders fa-lg"></i>
 			</span>
-			<span v-if="hasCandidates">을 선택하세요.</span>
+			<span v-if="hasCandidates && isLoading === null">을 선택하세요.</span>
+			<span v-if="hasCandidates && isLoading !== null">경우의 수가 없습니다.</span>
 		</li>
 	</ul>
 </template>
