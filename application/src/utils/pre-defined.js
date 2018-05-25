@@ -4,7 +4,7 @@ const projectVersion = pkg.version;
 
 let pathName = window.location.pathname;
 
-if (pathName.endsWith('/')) {
+if (pathName.indexOf('/') === pathName.length - 1) {
 	pathName = pathName.slice(0, -1);
 }
 pathName = pathName || '/intro';
