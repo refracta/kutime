@@ -1,3 +1,5 @@
+require('es6-promise').polyfill();
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import 'font-awesome/scss/font-awesome.scss';
