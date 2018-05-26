@@ -11,7 +11,7 @@
 				<div class="field">
 					<div class="control">
 						<div class="select is-fullwidth">
-							<select @input="chooseCategory">
+							<select @change="chooseCategory">
 								<option value="">학부(과) / 전공</option>
 								<option v-for="(dept, index) in departmentList"
 									:value="dept.code"
@@ -24,7 +24,7 @@
 				<div class="field">
 					<div class="control">
 						<div class="select is-fullwidth">
-							<select @input="chooseCategory">
+							<select @change="chooseCategory">
 								<option value="">기타</option>
 								<option v-for="(other, index) in otherList"
 									:value="other.code"
