@@ -48,7 +48,7 @@ export default {
 				tooltip: false,
 				value: 0,
 				bgStyle: {
-					backgroundImage: '-webkit-linear-gradient(left, #ff3860, #00d1b2)',
+					backgroundImage: '-webkit-linear-gradient(left, #ff3860, #209cee)',
 				},
 				processStyle: {
 					backgroundColor: 'transparent',
