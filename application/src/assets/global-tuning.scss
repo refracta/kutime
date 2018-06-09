@@ -129,10 +129,12 @@ $emblem-bottom-color: #005bac;
 
 .imitate-thead {
 	border-bottom: 1px solid #dbdbdb;
+	order: -1;
 }
 
 .imitate-tfoot {
 	border-top: 1px solid #dbdbdb;
+	order: 1;
 }
 
 .imitate-td,

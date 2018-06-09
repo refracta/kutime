@@ -7,7 +7,7 @@
 				<label class="label">
 					#{{ activatedIndex === null ? 0 : 1 + activatedIndex }}/{{ calculatedList.length }}
 				</label>
-				<div class="table is-fullwidth is-size-7-mobile"
+				<div class="table is-fullwidth tile is-flex is-vertical is-size-7-mobile"
 					:class="[hasELearning ? 'is-marginless' : '']">
 					<div class="imitate-thead columns is-mobile is-gapless is-marginless">
 						<div class="imitate-th lesson-hour">시간</div>
