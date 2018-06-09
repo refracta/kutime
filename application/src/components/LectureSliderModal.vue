@@ -7,7 +7,7 @@
 				<p class="modal-card-title">포함-배제 선택</p>
 				<button class="delete" aria-label="close" @click="closeSlider"></button>
 			</header>
-			<section class="modal-card-body">
+			<section class="modal-card-body is-clipped">
 				<ul>
 					<li class="columns is-mobile is-gapless"
 						v-for="(group, index) in groupedList"
