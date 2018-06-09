@@ -7,21 +7,29 @@
 				<label class="label">
 					#{{ activatedIndex === null ? 0 : 1 + activatedIndex }}/{{ calculatedList.length }}
 				</label>
-				<table class="table is-fullwidth is-size-7-mobile"
+				<div class="table is-fullwidth is-size-7-mobile"
 					:class="[hasELearning ? 'is-marginless' : '']">
-					<thead>
-						<tr>
-							<th>시간</th>
-							<th>월</th>
-							<th>화</th>
-							<th>수</th>
-							<th>목</th>
-							<th>금</th>
-						</tr>
-					</thead>
-					<tfoot>
-						<tr>
-							<th colspan="6">
+					<div class="imitate-thead columns is-mobile is-gapless is-marginless">
+						<div class="imitate-th lesson-hour">시간</div>
+						<div class="column">
+							<div class="imitate-th">월</div>
+						</div>
+						<div class="column">
+							<div class="imitate-th">화</div>
+						</div>
+						<div class="column">
+							<div class="imitate-th">수</div>
+						</div>
+						<div class="column">
+							<div class="imitate-th">목</div>
+						</div>
+						<div class="column">
+							<div class="imitate-th">금</div>
+						</div>
+					</div>
+					<div class="imitate-tfoot columns is-mobile is-gapless is-marginless">
+						<div class="column">
+							<div class="imitate-th">
 								<div>이러닝 목록</div>
 
 								<div class="tags" v-show="hasELearning">
@@ -30,20 +38,22 @@
 										{{ timeSlots[index].name }}
 									</span>
 								</div>
-							</th>
-						</tr>
-					</tfoot>
-					<tbody>
-						<tr v-for="(rowItem, rowIndex) in 18" :key="rowIndex">
-							<th rowspan="2" v-if="rowIndex % 2 === 0">{{ (rowIndex / 2 + 9) | convertHourNaively }} ~ {{ (rowIndex / 2 + 10) | convertHourNaively }}</th>
-							<td v-for="(colItem, colIndex) in 5" :key="colIndex"
-								:class="[timeSlots[colItem * 100 + rowItem] ? 'tooltip' : '']"
-								:data-tooltip="[timeSlots[colItem * 100 + rowItem] ? timeSlots[colItem * 100 + rowItem].name : '']"
-								:style="(timeSlots[colItem * 100 + rowItem] ? `border-color: ${timeSlots[colItem * 100 + rowItem].color}; background-color: ${timeSlots[colItem * 100 + rowItem].color};` : '')">
-							</td>
-						</tr>
-					</tbody>
-				</table>
+							</div>
+						</div>
+					</div>
+					<div class="columns is-mobile is-gapless is-marginless" v-for="(rowItem, rowIndex) in (18 / 2)" :key="rowIndex">
+						<div class="imitate-th lesson-hour level is-mobile is-marginless">
+							<div>{{ (rowIndex + 9) | convertHourNaively }} ~ {{ (rowIndex + 10) | convertHourNaively }}</div>
+						</div>
+						<div class="column" v-for="(colItem, colIndex) in 5" :key="colIndex">
+							<div class="lesson-time" v-for="nthHalf in 2"
+								:class="[timeSlots[colItem * 100 + rowIndex * 2 + nthHalf] ? 'tooltip' : '']"
+								:data-tooltip="[timeSlots[colItem * 100 + rowIndex * 2 + nthHalf] ? timeSlots[colItem * 100 + rowIndex * 2 + nthHalf].name : '']"
+								:style="(timeSlots[colItem * 100 + rowIndex * 2 + nthHalf] ? `border-color: ${timeSlots[colItem * 100 + rowIndex * 2 + nthHalf].color}; background-color: ${timeSlots[colItem * 100 + rowIndex * 2 + nthHalf].color};` : '')">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<button class="modal-close is-large" aria-label="close" @click="closeSchedule"></button>
@@ -158,21 +168,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss" scoped>
-.table {
-	td {
-		padding-top: 0.75em;
-		padding-bottom: 0.75em;
-	}
-
-	th {
-		padding: 0 0.5em;
-		vertical-align: middle;
-	}
-
-	tbody th {
-		width: calc(60px + 12vw);
-	}
-}
-</style>

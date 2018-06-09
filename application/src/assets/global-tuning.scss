@@ -126,3 +126,40 @@ $emblem-bottom-color: #005bac;
 	padding: 0.75rem 1.25rem;
 	color: rgba(0, 0, 0, 0.7);
 }
+
+.imitate-thead {
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.imitate-tfoot {
+	border-top: 1px solid #dbdbdb;
+}
+
+.imitate-td,
+.imitate-th {
+	border: 1px solid #dbdbdb;
+	border-width: 0 0 1px;
+	padding: 0.5em 0.75em;
+	vertical-align: top;
+}
+
+.imitate-th {
+	color: #363636;
+	text-align: left;
+	font-weight: bold;
+	padding: 0 0.5em;
+
+	.imitate-tfoot & {
+		border: none;
+	}
+}
+
+.lesson-hour {
+	width: calc(80px + 6vw);
+}
+
+.lesson-time {
+	padding-top: 0.75em;
+	padding-bottom: 0.75em;
+	border-bottom: 1px solid #dbdbdb;
+}
