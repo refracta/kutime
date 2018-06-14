@@ -8,7 +8,7 @@
 					<div class="media-content">
 						<div class="content is-size-7-mobile">
 							<p>
-								<strong>#{{ 1 + index }}/{{ calculatedList.length }}</strong>
+								<strong>#{{ 1 + index }}/{{ paginator.count() }}</strong>
 								<small>{{ calculated.lectureCodeList.length }}과목 {{ calculated.credit }}학점</small>
 								<br>
 								<small>{{ calculated.lectureNameList.join(', ') }}</small>
@@ -25,6 +25,9 @@
 					</a>
 				</div>
 			</article>
+		</li>
+		<li class="button is-fullwidth" @click="renderNext" v-if="paginator.hasNext">
+			<span>더보기</span>
 		</li>
 		<li class="button is-fullwidth is-white is-static is-placeholder"
 			:class="[(isLoading || !isReady) ? 'is-loading' : '']"
@@ -52,6 +55,7 @@ export default {
 			return (this.isLoading || this.calculatedList.length === 0);
 		},
 		...mapState([
+			'paginator',
 			'isLoading',
 			'isReady',
 		]),
@@ -89,6 +93,9 @@ export default {
 	methods: {
 		openSchedule(idx) {
 			this.$store.commit('openSchedule', idx);
+		},
+		renderNext() {
+			this.$store.commit('renderNext');
 		},
 	},
 };

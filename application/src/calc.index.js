@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 import 'font-awesome/scss/font-awesome.scss';
 import CalcPage from './components/CalcPage';
 import { storage } from './utils/web-storage';
+import { Paginator } from './utils/prototype-class';
 import './assets/global-tuning.scss';
 
 Vue.use(Vuex);
@@ -15,6 +16,7 @@ const store = new Vuex.Store({
 		calculatedList: [],
 		activatedIndex: null,
 		starredCodes: storage.getItem('starredCodes'),
+		paginator: new Paginator(),
 		isSlidering: false,
 		isScheduling: false,
 		isLoading: null,
@@ -118,8 +120,16 @@ const store = new Vuex.Store({
 				}
 			}
 
-			state.calculatedList = result.slice();
+			state.paginator.assign(result.slice());
+			state.calculatedList = state.paginator.getNext();
 			state.isLoading = false;
+		},
+		renderNext(state) {
+			const nextPart = state.paginator.getNext();
+
+			if (nextPart !== null) {
+				state.calculatedList = state.calculatedList.concat(nextPart);
+			}
 		},
 		openSchedule(state, payload) {
 			state.activatedIndex = payload;

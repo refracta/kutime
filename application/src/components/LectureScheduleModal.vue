@@ -5,7 +5,7 @@
 		<div class="modal-content is-clipped">
 			<div class="box">
 				<label class="label">
-					#{{ activatedIndex === null ? 0 : 1 + activatedIndex }}/{{ calculatedList.length }}
+					#{{ activatedIndex === null ? 0 : 1 + activatedIndex }}/{{ paginator.count() }}
 				</label>
 				<div class="table is-fullwidth tile is-flex is-vertical is-size-7-mobile"
 					:class="[hasELearning ? 'is-marginless' : '']">
@@ -124,6 +124,7 @@ export default {
 		...mapState([
 			'calculatedList',
 			'activatedIndex',
+			'paginator',
 		]),
 		...mapState({
 			isActive: state => state.isScheduling,
