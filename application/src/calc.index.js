@@ -79,6 +79,7 @@ const store = new Vuex.Store({
 			for (let caseIdx = 1; caseIdx < totalCases; caseIdx += 1) {
 				let caseNum = caseIdx;
 				let isOverlapped = false;
+				let totalCredits = 0;
 				const caseCodeList = [];
 				const uniqueTimeList = [];
 
@@ -92,6 +93,7 @@ const store = new Vuex.Store({
 							}
 						}
 						else {
+							totalCredits += lectureGroups[groupIdx].credit;
 							caseCodeList.push(lectureGroups[groupIdx].lectureCodeList[codeIdx - 1]);
 
 							for (let timeIdx = 0; timeIdx < lectureGroups[groupIdx].lectureTimeList[codeIdx - 1].length; timeIdx += 1) {
@@ -115,7 +117,7 @@ const store = new Vuex.Store({
 					}
 				}
 
-				if (!isOverlapped) {
+				if (!isOverlapped && totalCredits >= 12 && totalCredits <= 20) {
 					result.push(caseCodeList);
 				}
 			}
