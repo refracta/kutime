@@ -26,9 +26,6 @@
 				</div>
 			</article>
 		</li>
-		<li class="button is-fullwidth" @click="renderNext" v-if="paginator.hasNext">
-			<span>더보기</span>
-		</li>
 		<li class="button is-fullwidth is-white is-static is-placeholder"
 			:class="[(isLoading || !isReady) ? 'is-loading' : '']"
 			v-if="isGuiding">
@@ -38,6 +35,10 @@
 			</span>
 			<span v-if="hasCandidates && isLoading === null">을 선택하세요.</span>
 			<span v-if="hasCandidates && isLoading !== null">경우의 수가 없습니다.</span>
+		</li>
+		<li class="button is-fullwidth is-info is-outlined" @click="renderNext"
+			v-else-if="paginator.hasNext">
+			<span>더 보기</span>
 		</li>
 	</ul>
 </template>
@@ -95,7 +96,7 @@ export default {
 			this.$store.commit('openSchedule', idx);
 		},
 		renderNext() {
-			this.$store.commit('renderNext');
+			this.$store.dispatch('renderNext');
 		},
 	},
 };

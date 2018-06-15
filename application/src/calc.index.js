@@ -126,13 +126,6 @@ const store = new Vuex.Store({
 			state.calculatedList = state.paginator.getNext();
 			state.isLoading = false;
 		},
-		renderNext(state) {
-			const nextPart = state.paginator.getNext();
-
-			if (nextPart !== null) {
-				state.calculatedList = state.calculatedList.concat(nextPart);
-			}
-		},
 		openSchedule(state, payload) {
 			state.activatedIndex = payload;
 			document.querySelector('html').classList.add('is-clipped');
@@ -142,6 +135,20 @@ const store = new Vuex.Store({
 			state.activatedIndex = null;
 			document.querySelector('html').classList.remove('is-clipped');
 			state.isScheduling = false;
+		},
+	},
+	actions: {
+		renderNext({ state }) {
+			const nextPart = state.paginator.getNext();
+
+			if (nextPart !== null) {
+				state.isLoading = true;
+
+				setTimeout(() => {
+					state.calculatedList = state.calculatedList.concat(nextPart);
+					state.isLoading = false;
+				}, 200);
+			}
 		},
 	},
 });
