@@ -14,6 +14,8 @@ const store = new Vuex.Store({
 	state: {
 		lectureList: [],
 		calculatedList: [],
+		lectureGroups: [],
+		sliderValues: JSON.stringify([]),
 		activatedIndex: null,
 		starredCodes: storage.getItem('starredCodes'),
 		paginator: new Paginator(),
@@ -52,6 +54,10 @@ const store = new Vuex.Store({
 			state.lectureList = payload.lectures.slice();
 			state.isReady = true;
 		},
+		loadingCases(state) {
+			state.calculatedList = [];
+			state.isLoading = true;
+		},
 		openSlider(state) {
 			document.querySelector('html').classList.add('is-clipped');
 			state.isSlidering = true;
@@ -63,11 +69,28 @@ const store = new Vuex.Store({
 		applySlider(state, payload) {
 			const { lectureGroups } = payload;
 			const { sliderValues } = payload;
+
+			state.lectureGroups = lectureGroups;
+			state.sliderValues = JSON.stringify(sliderValues);
+		},
+		openSchedule(state, payload) {
+			state.activatedIndex = payload;
+			document.querySelector('html').classList.add('is-clipped');
+			state.isScheduling = true;
+		},
+		closeSchedule(state) {
+			state.activatedIndex = null;
+			document.querySelector('html').classList.remove('is-clipped');
+			state.isScheduling = false;
+		},
+	},
+	actions: {
+		calculateCases({ state }) {
+			setTimeout(() => {
+			const lectureGroups = state.lectureGroups;
+			const sliderValues = JSON.parse(state.sliderValues);
 			let totalCases = 1;
 			const result = [];
-
-			state.calculatedList = [];
-			state.isLoading = true;
 
 			for (let groupIdx = 0; groupIdx < lectureGroups.length; groupIdx += 1) {
 				if (sliderValues[groupIdx] !== -1) {
@@ -125,19 +148,8 @@ const store = new Vuex.Store({
 			state.paginator.assign(result.slice());
 			state.calculatedList = state.paginator.getNext();
 			state.isLoading = false;
+			}, 50);
 		},
-		openSchedule(state, payload) {
-			state.activatedIndex = payload;
-			document.querySelector('html').classList.add('is-clipped');
-			state.isScheduling = true;
-		},
-		closeSchedule(state) {
-			state.activatedIndex = null;
-			document.querySelector('html').classList.remove('is-clipped');
-			state.isScheduling = false;
-		},
-	},
-	actions: {
 		renderNext({ state }) {
 			const nextPart = state.paginator.getNext();
 

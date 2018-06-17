@@ -34,6 +34,7 @@ export default {
 	},
 	computed: {
 		...mapState([
+			'sliderValues',
 			'starredCodes',
 		]),
 	},
@@ -53,6 +54,17 @@ export default {
 				this.$store.commit('readyForCalculation', response.data);
 			});
 		});
+	},
+	methods: {
+		getCases() {
+			this.$store.commit('loadingCases');
+			this.$store.dispatch('calculateCases');
+		},
+	},
+	watch: {
+		sliderValues() {
+			this.getCases();
+		},
 	},
 };
 </script>
