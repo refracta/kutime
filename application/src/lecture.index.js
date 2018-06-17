@@ -1,5 +1,3 @@
-require('es6-promise').polyfill();
-
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Toast from 'vue-easy-toast';
@@ -9,6 +7,8 @@ import { MAX_CANDIDATES } from './utils/pre-defined';
 import { storage } from './utils/web-storage';
 import { Paginator } from './utils/prototype-class';
 import './assets/global-tuning.scss';
+
+require('es6-promise').polyfill();
 
 Vue.use(Vuex);
 Vue.use(Toast);
