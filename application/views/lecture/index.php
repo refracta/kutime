@@ -4,7 +4,7 @@
 	<script src="/dev-assets/vendor.js"></script>
 	<script src="/dev-assets/lecture.bundle.js"></script>
 <?php else: ?>
-	<script src="/assets/vendor.d09f9c0337d245a1a74f.js"></script>
-	<script src="/assets/lecture.4626dc2d6589e4790db8.js"></script>
+	<script src="/assets/vendor.cad401dd1b3c2e534eed.js"></script>
+	<script src="/assets/lecture.472d76dee78cb32a1f9f.js"></script>
 <?php endif; ?>
 <?php require_once(VIEWPATH . 'global_footer.php'); ?>
