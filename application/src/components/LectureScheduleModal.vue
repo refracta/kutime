@@ -46,7 +46,7 @@
 							<div>{{ (rowIndex + 9) | convertHourNaively }} ~ {{ (rowIndex + 10) | convertHourNaively }}</div>
 						</div>
 						<div class="column" v-for="(colItem, colIndex) in 5" :key="colIndex">
-							<div class="lesson-time" v-for="nthHalf in 2"
+							<div class="lesson-time" v-for="(nthHalf, halfIndex) in 2" :key="halfIndex"
 								:class="[timeSlots[colItem * 100 + rowIndex * 2 + nthHalf] ? 'tooltip' : '']"
 								:data-tooltip="[timeSlots[colItem * 100 + rowIndex * 2 + nthHalf] ? timeSlots[colItem * 100 + rowIndex * 2 + nthHalf].name : '']"
 								:style="(timeSlots[colItem * 100 + rowIndex * 2 + nthHalf] ? `border-color: ${timeSlots[colItem * 100 + rowIndex * 2 + nthHalf].color}; background-color: ${timeSlots[colItem * 100 + rowIndex * 2 + nthHalf].color};` : '')">

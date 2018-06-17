@@ -87,7 +87,7 @@ const store = new Vuex.Store({
 	actions: {
 		calculateCases({ state }) {
 			setTimeout(() => {
-				const lectureGroups = state.lectureGroups;
+				const { lectureGroups } = state.lectureGroups;
 				const sliderValues = JSON.parse(state.sliderValues);
 				let totalCases = 1;
 				const result = [];

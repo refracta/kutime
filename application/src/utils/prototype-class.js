@@ -9,12 +9,12 @@ function Paginator() {
 Paginator.prototype.assign = function (newList) {
 	this.dataList = newList || [];
 	this.currentPage = 0;
-	this.hasNext = (this.dataList.length > 0 ? true : false);
-}
+	this.hasNext = (this.dataList.length > 0);
+};
 
 Paginator.prototype.count = function () {
 	return this.dataList.length;
-}
+};
 
 Paginator.prototype.getNext = function () {
 	if (!this.hasNext) {
@@ -32,7 +32,7 @@ Paginator.prototype.getNext = function () {
 	}
 
 	return slice;
-}
+};
 
 module.exports = {
 	Paginator,
