@@ -7,6 +7,7 @@ import 'font-awesome/scss/font-awesome.scss';
 import LecturePage from './components/LecturePage';
 import { MAX_CANDIDATES } from './utils/pre-defined';
 import { storage } from './utils/web-storage';
+import { Paginator } from './utils/prototype-class';
 import './assets/global-tuning.scss';
 
 Vue.use(Vuex);
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
 		activatedIndex: null,
 		activatedName: '',
 		starredCodes: storage.getItem('starredCodes'),
+		paginator: new Paginator(),
 		isDetailing: false,
 		isFiltering: false,
 		isLoading: null,
@@ -51,7 +53,8 @@ const store = new Vuex.Store({
 			state.isLoading = true;
 		},
 		renderLectures(state, payload) {
-			state.lectureList = payload.lectures.slice();
+			state.paginator.assign(payload.lectures.slice());
+			state.lectureList = state.paginator.getNext();
 			state.activatedName = payload.name;
 			state.isLoading = false;
 		},
@@ -121,6 +124,20 @@ const store = new Vuex.Store({
 		loadCandidates(state) {
 			state.activatedCode = 'candidates';
 			state.activatedName = '';
+		},
+	},
+	actions: {
+		renderNext({ state }) {
+			const nextPart = state.paginator.getNext();
+
+			if (nextPart !== null) {
+				state.isLoading = true;
+
+				setTimeout(() => {
+					state.lectureList = state.lectureList.concat(nextPart);
+					state.isLoading = false;
+				}, 200);
+			}
 		},
 	},
 });

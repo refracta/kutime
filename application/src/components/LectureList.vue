@@ -61,6 +61,10 @@
 			</span>
 			<span>을 선택하세요.</span>
 		</li>
+		<li class="button is-fullwidth is-info is-outlined" @click="renderNext"
+			v-else-if="paginator.hasNext">
+			<span>더 보기</span>
+		</li>
 	</ul>
 </template>
 
@@ -85,6 +89,7 @@ export default {
 		},
 		...mapState([
 			'activatedCode',
+			'paginator',
 			'isLoading',
 			'isReady',
 		]),
@@ -132,6 +137,9 @@ export default {
 				this.$store.commit('removeCandidate', code);
 				this.$store.commit('removeWatchingCandidate', code);
 			}
+		},
+		renderNext() {
+			this.$store.dispatch('renderNext');
 		},
 	},
 };
