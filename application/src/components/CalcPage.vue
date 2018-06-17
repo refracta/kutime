@@ -45,14 +45,10 @@ export default {
 				codes: this.starredCodes,
 			};
 
-			axios({
-				url,
-				method: 'get',
-				params,
-			})
-			.then((response) => {
-				this.$store.commit('readyForCalculation', response.data);
-			});
+			axios({ url, method: 'get', params })
+				.then((response) => {
+					this.$store.commit('readyForCalculation', response.data);
+				});
 		});
 	},
 	methods: {

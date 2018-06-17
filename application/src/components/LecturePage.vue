@@ -40,13 +40,10 @@ export default {
 	},
 	mounted() {
 		this.$nextTick(function () {
-			axios({
-				url: '/api/categories',
-				method: 'get',
-			})
-			.then((response) => {
-				this.$store.commit('readyForLectures', response.data);
-			});
+			axios({ url: '/api/categories', method: 'get' })
+				.then((response) => {
+					this.$store.commit('readyForLectures', response.data);
+				});
 		});
 	},
 	methods: {
@@ -65,14 +62,10 @@ export default {
 				url = `/api/lectures/${category}`;
 			}
 
-			axios({
-				url,
-				method: 'get',
-				params,
-			})
-			.then((response) => {
-				this.$store.commit('renderLectures', response.data);
-			});
+			axios({ url, method: 'get', params })
+				.then((response) => {
+					this.$store.commit('renderLectures', response.data);
+				});
 		},
 	},
 	watch: {
