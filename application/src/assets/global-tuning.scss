@@ -4,6 +4,10 @@
 $emblem-top-color: #00b0ec;
 $emblem-bottom-color: #005bac;
 
+.is-horizontal-clipped {
+	overflow-x: hidden !important;
+}
+
 .is-vertical-paddingless {
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;

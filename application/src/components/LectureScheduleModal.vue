@@ -2,7 +2,7 @@
 	<div class="modal"
 		:class="[isActive ? 'is-active' : '']">
 		<div class="modal-background"></div>
-		<div class="modal-content is-clipped">
+		<div class="modal-content is-horizontal-clipped">
 			<div class="box">
 				<label class="label">
 					#{{ activatedIndex === null ? 0 : 1 + activatedIndex }}/{{ paginator.count() }}
