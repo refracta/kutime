@@ -87,67 +87,67 @@ const store = new Vuex.Store({
 	actions: {
 		calculateCases({ state }) {
 			setTimeout(() => {
-			const lectureGroups = state.lectureGroups;
-			const sliderValues = JSON.parse(state.sliderValues);
-			let totalCases = 1;
-			const result = [];
-
-			for (let groupIdx = 0; groupIdx < lectureGroups.length; groupIdx += 1) {
-				if (sliderValues[groupIdx] !== -1) {
-					totalCases *= (1 + lectureGroups[groupIdx].lectureCodeList.length);
-				}
-			}
-
-			// when caseIdx === 0, there is no lecture will choose, so just skipped
-			for (let caseIdx = 1; caseIdx < totalCases; caseIdx += 1) {
-				let caseNum = caseIdx;
-				let isOverlapped = false;
-				let totalCredits = 0;
-				const caseCodeList = [];
-				const uniqueTimeList = [];
+				const lectureGroups = state.lectureGroups;
+				const sliderValues = JSON.parse(state.sliderValues);
+				let totalCases = 1;
+				const result = [];
 
 				for (let groupIdx = 0; groupIdx < lectureGroups.length; groupIdx += 1) {
-					const codeIdx = caseNum % (1 + lectureGroups[groupIdx].lectureCodeList.length);
-
 					if (sliderValues[groupIdx] !== -1) {
-						if (codeIdx === 0) {
-							if (sliderValues[groupIdx] === 1) {
-								isOverlapped = true;
-							}
-						}
-						else {
-							totalCredits += lectureGroups[groupIdx].credit;
-							caseCodeList.push(lectureGroups[groupIdx].lectureCodeList[codeIdx - 1]);
-
-							for (let timeIdx = 0; timeIdx < lectureGroups[groupIdx].lectureTimeList[codeIdx - 1].length; timeIdx += 1) {
-								const formattedTime = lectureGroups[groupIdx].lectureTimeList[codeIdx - 1][timeIdx];
-
-								if (uniqueTimeList.indexOf(formattedTime) === -1) {
-									uniqueTimeList.push(formattedTime);
-								}
-								else {
-									isOverlapped = true;
-								}
-							}
-						}
-
-						if (isOverlapped) {
-							break;
-						}
-
-						caseNum /= (1 + lectureGroups[groupIdx].lectureCodeList.length);
-						caseNum = Math.floor(caseNum); // just get quotient
+						totalCases *= (1 + lectureGroups[groupIdx].lectureCodeList.length);
 					}
 				}
 
-				if (!isOverlapped && totalCredits >= 12 && totalCredits <= 20) {
-					result.push(caseCodeList);
-				}
-			}
+				// when caseIdx === 0, there is no lecture will choose, so just skipped
+				for (let caseIdx = 1; caseIdx < totalCases; caseIdx += 1) {
+					let caseNum = caseIdx;
+					let isOverlapped = false;
+					let totalCredits = 0;
+					const caseCodeList = [];
+					const uniqueTimeList = [];
 
-			state.paginator.assign(result.slice());
-			state.calculatedList = state.paginator.getNext();
-			state.isLoading = false;
+					for (let groupIdx = 0; groupIdx < lectureGroups.length; groupIdx += 1) {
+						const codeIdx = caseNum % (1 + lectureGroups[groupIdx].lectureCodeList.length);
+
+						if (sliderValues[groupIdx] !== -1) {
+							if (codeIdx === 0) {
+								if (sliderValues[groupIdx] === 1) {
+									isOverlapped = true;
+								}
+							}
+							else {
+								totalCredits += lectureGroups[groupIdx].credit;
+								caseCodeList.push(lectureGroups[groupIdx].lectureCodeList[codeIdx - 1]);
+
+								for (let timeIdx = 0; timeIdx < lectureGroups[groupIdx].lectureTimeList[codeIdx - 1].length; timeIdx += 1) {
+									const formattedTime = lectureGroups[groupIdx].lectureTimeList[codeIdx - 1][timeIdx];
+
+									if (uniqueTimeList.indexOf(formattedTime) === -1) {
+										uniqueTimeList.push(formattedTime);
+									}
+									else {
+										isOverlapped = true;
+									}
+								}
+							}
+
+							if (isOverlapped) {
+								break;
+							}
+
+							caseNum /= (1 + lectureGroups[groupIdx].lectureCodeList.length);
+							caseNum = Math.floor(caseNum); // just get quotient
+						}
+					}
+
+					if (!isOverlapped && totalCredits >= 12 && totalCredits <= 20) {
+						result.push(caseCodeList);
+					}
+				}
+
+				state.paginator.assign(result.slice());
+				state.calculatedList = state.paginator.getNext();
+				state.isLoading = false;
 			}, 50);
 		},
 		renderNext({ state }) {
