@@ -6,7 +6,7 @@
 - Apache
 - PHP 7.0
 - CodeIgniter 3.1.7
-	- 다른 프레임워크로 대체할 예정
+  - 다른 프레임워크로 대체할 예정
 - Node.js 8.x
 
 ## 개발 환경 (Front-end)
