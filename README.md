@@ -19,4 +19,5 @@
 - ES2015 (ES6)
 - ESLint
 - Sass
+- Web Storage API (localStorage)
 - 기타 패키지는 package.json을 참고
