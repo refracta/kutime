@@ -23,7 +23,7 @@
 			</section>
 			<footer class="modal-card-foot">
 				<button class="button" @click="closeSlider">닫기</button>
-				<button class="button is-primary" @click="calculate">적용</button>
+				<button class="button is-primary" :disabled="!hasGroups" @click="calculate">적용</button>
 			</footer>
 		</div>
 	</div>
@@ -57,6 +57,9 @@ export default {
 		};
 	},
 	computed: {
+		hasGroups() {
+			return (this.groupedList.length > 0);
+		},
 		...mapState({
 			isActive: state => state.isSlidering,
 			groupedList(state) {
@@ -114,9 +117,11 @@ export default {
 		calculate() {
 			const sliderValues = [];
 
-			this.$refs.sliders.forEach((slider) => {
-				sliderValues.push(slider.getValue());
-			});
+			if (this.hasGroups) {
+				this.$refs.sliders.forEach((slider) => {
+					sliderValues.push(slider.getValue());
+				});
+			}
 
 			this.$store.commit('applySlider', {
 				lectureGroups: this.groupedList,
