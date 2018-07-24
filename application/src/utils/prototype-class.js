@@ -18,7 +18,7 @@ Paginator.prototype.count = function () {
 
 Paginator.prototype.getNext = function () {
 	if (!this.hasNext) {
-		return null;
+		return (this.currentPage > 0 ? null : []);
 	}
 
 	const startIndex = pageUnit * this.currentPage;
