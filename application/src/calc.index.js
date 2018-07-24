@@ -51,7 +51,17 @@ const store = new Vuex.Store({
 	},
 	mutations: {
 		readyForCalculation(state, payload) {
-			state.lectureList = payload.lectures.slice();
+			const newList = [];
+
+			for (let idx = 0; idx < payload.lectures.length; idx += 1) {
+				const lecture = payload.lectures[idx].slice();
+
+				if (lecture[1] !== null) {
+					newList.push(lecture);
+				}
+			}
+
+			state.lectureList = newList;
 			state.isReady = true;
 		},
 		loadingCases(state) {
