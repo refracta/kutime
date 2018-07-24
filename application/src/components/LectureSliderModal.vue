@@ -66,6 +66,11 @@ export default {
 
 				for (let idx = 0; idx < originalList.length; idx += 1) {
 					const lecture = originalList[idx].slice();
+
+					if (lecture[12] === null) {
+						continue;
+					}
+
 					const matched = lecture[0].match(/^([a-z0-9]+)-[0-9]+$/i);
 					const prefix = matched[1];
 					const lessonList = lecture[12].match(/(D[T0-9]+)/g);
