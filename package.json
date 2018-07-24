@@ -1,6 +1,6 @@
 {
   "name": "intime",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "인하대 시간표 (web app)",
   "private": true,
   "scripts": {
