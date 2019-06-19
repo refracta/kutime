@@ -1,0 +1,10 @@
+{
+  "name": "intime",
+  "version": "1.0.0-alpha.0",
+  "description": "인하대 시간표 (web app)",
+  "main": "index.js",
+  "repository": "https://github.com/ony3000/intime.git",
+  "author": "Hyeonjong <nianelo4@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
