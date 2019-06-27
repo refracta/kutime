@@ -16,12 +16,15 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~/assets/css/main.css'],
-  /*
-  ** Add axios globally
-  */
+  css: [
+    'vuetify/dist/vuetify.min.css',
+    '~/assets/css/main.css'
+  ],
   build: {
-    vendor: ['axios'],
+    vendor: [
+      'axios',
+      'vuetify'
+    ],
     /*
     ** Run ESLINT on save
     */
@@ -36,6 +39,9 @@ module.exports = {
       }
     }
   },
+  plugins: [
+    '~/plugins/vuetify'
+  ],
   serverMiddleware: [
     // API middleware
     '~/api/index.js'

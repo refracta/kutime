@@ -1,13 +1,13 @@
 <template>
-  <section class="container">
-    <img src="~assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
+  <section class="my-container">
+    <img src="~assets/img/logo.png" alt="Nuxt.js Logo" class="my-logo" />
+    <h1 class="my-title">
       User
     </h1>
-    <h2 class="info">
+    <h2 class="my-info">
       {{ user.name }}
     </h2>
-    <nuxt-link class="button" to="/">
+    <nuxt-link class="my-button" to="/">
       Users
     </nuxt-link>
   </section>
@@ -36,18 +36,18 @@ export default {
 </script>
 
 <style scoped>
-.title
+.my-title
 {
   margin-top: 30px;
 }
-.info
+.my-info
 {
   font-weight: 300;
   color: #9aabb1;
   margin: 0;
   margin-top: 10px;
 }
-.button
+.my-button
 {
   margin-top: 30px;
 }

@@ -1,8 +1,14 @@
 <template>
-  <div>
-    <nuxt/>
+  <v-app>
+    <v-navigation-drawer app></v-navigation-drawer>
+    <v-toolbar app></v-toolbar>
+    <v-content>
+      <v-container fluid>
+        <nuxt/>
+      </v-container>
+    </v-content>
     <my-footer/>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -16,7 +22,7 @@ export default {
 </script>
 
 <style>
-.container
+.my-container
 {
   margin: 0;
   width: 100%;
@@ -24,7 +30,7 @@ export default {
   text-align: center;
 }
 
-.button, .button:visited
+.my-button, .my-button:visited
 {
   display: inline-block;
   color: black;
@@ -36,13 +42,13 @@ export default {
   padding: 15px 45px;
 }
 
-.button:hover, .button:focus
+.my-button:hover, .my-button:focus
 {
   color: #fff;
   background-color: #000;
 }
 
-.title
+.my-title
 {
   color: #000;
   font-weight: 300;
