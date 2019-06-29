@@ -35,20 +35,19 @@ export default {
 }
 </script>
 
-<style scoped>
-.my-title
-{
+<style lang="scss" scoped>
+.my-title {
   margin-top: 30px;
 }
-.my-info
-{
+
+.my-info {
   font-weight: 300;
   color: #9aabb1;
   margin: 0;
   margin-top: 10px;
 }
-.my-button
-{
+
+.my-button {
   margin-top: 30px;
 }
 </style>

@@ -30,19 +30,18 @@ export default {
 }
 </script>
 
-<style scoped>
-.my-title
-{
+<style lang="scss" scoped>
+.my-title {
   margin: 30px 0;
 }
-.my-users
-{
+
+.my-users {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.my-user
-{
+
+.my-user {
   margin: 10px 0;
 }
 </style>
