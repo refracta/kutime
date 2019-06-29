@@ -17,12 +17,14 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '@fortawesome/fontawesome-free/css/all.css',
     'vuetify/dist/vuetify.min.css',
     '~/assets/style/main.scss',
     '~/assets/css/main.css'
   ],
   build: {
     vendor: [
+      '@fortawesome/fontawesome-free',
       'axios',
       'vuetify'
     ],
