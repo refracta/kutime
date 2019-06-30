@@ -1,82 +1,93 @@
 <template>
   <v-layout
-    column
     justify-center
     align-center
   >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+    <v-flex>
+      <v-sheet>
+        <v-calendar
+          type="week"
+          :first-interval="17"
+          :interval-count="26"
+          :interval-minutes="30"
+        >
+          <template v-slot:dayBody="{ weekday, timeToY, minutesToPixels }">
+            <template v-for="(event, index) in eventsMap[weekday]">
+              <div
+                v-if="event.time"
+                :key="index"
+                :style="{ top: timeToY(event.time) + 'px', height: minutesToPixels(event.duration) + 'px' }"
+                class="my-event with-time"
+                @click="open(event)"
+                v-html="event.title"
+              ></div>
+            </template>
+          </template>
+        </v-calendar>
+      </v-sheet>
     </v-flex>
   </v-layout>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      events: [
+        {
+          weekday: 1,
+          title: '복소해석학',
+          time: '12:00',
+          duration: 90
+        },
+        {
+          weekday: 3,
+          title: '복소해석학',
+          time: '13:30',
+          duration: 90
+        }
+      ]
+    }
+  },
+  computed: {
+    eventsMap () {
+      const map = {}
+      this.events.forEach((e) => {
+        map[e.weekday] = map[e.weekday] || []
+        map[e.weekday].push(e)
+      })
+      return map
+    }
+  },
+  methods: {
+    open (event) {
+      alert(event.title)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.my-event {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 2px;
+  background-color: #1867c0;
+  color: #ffffff;
+  border: 1px solid #1867c0;
+  font-size: 12px;
+  padding: 3px;
+  cursor: pointer;
+  margin-bottom: 1px;
+  left: 4px;
+  margin-right: 8px;
+  position: relative;
+
+  &.with-time {
+    position: absolute;
+    right: 4px;
+    margin-right: 0px;
+  }
+}
+</style>
