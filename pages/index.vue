@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: 'my-timetable',
+  name: 'index-page',
   head () {
     return {
       title: '내 시간표'

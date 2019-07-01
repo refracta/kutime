@@ -26,6 +26,7 @@
 
 <script>
 export default {
+  name: 'error-page',
   props: ['error'],
   head () {
     const title = (this.error.statusCode === 404 ? this.pageNotFound : this.otherError)

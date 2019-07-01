@@ -27,6 +27,7 @@
 import GlobalNavigation from '~/components/GlobalNavigation.vue'
 
 export default {
+  name: 'default-layout',
   components: {
     GlobalNavigation
   },
