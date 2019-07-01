@@ -31,6 +31,12 @@
 
 <script>
 export default {
+  name: 'my-timetable',
+  head () {
+    return {
+      title: '내 시간표'
+    }
+  },
   data () {
     return {
       events: [
