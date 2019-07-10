@@ -3,6 +3,7 @@ const { buildSchema } = require('graphql')
 const schema = buildSchema(`
   type Query {
     categories: [Category]
+    courses(categoryId: String!): [Course]
   }
   type Category {
     id: ID!

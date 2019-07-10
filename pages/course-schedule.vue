@@ -2,15 +2,15 @@
   <v-layout wrap>
     <v-flex xs12 sm7 md6>
       <v-select
-        v-model="selectedId"
-        :items="majors"
+        v-model="selectedCategoryId"
+        :items="majorCategories"
         label="학부(과)/전공"
       ></v-select>
     </v-flex>
     <v-flex xs12 sm4 md3 offset-sm1>
       <v-select
-        v-model="selectedId"
-        :items="others"
+        v-model="selectedCategoryId"
+        :items="otherCategories"
         label="기타"
       ></v-select>
     </v-flex>
@@ -18,7 +18,7 @@
       <v-btn
         block
         color="info"
-        :disabled="!selectedId || isLoadingCourses"
+        :disabled="!selectedCategoryId || isLoadingCourses"
         :loading="isLoadingCourses"
         @click="getCourses"
       >조회</v-btn>
@@ -32,27 +32,44 @@ import axios from '~/plugins/axios'
 export default {
   name: 'course-schedule-page',
   asyncData ({ params, error }) {
-    return axios.get('/api/categories')
+    const query = `{
+      categories {
+        id
+        name
+        isCollege
+      }
+    }`
+    return axios.post('/graphql', { query })
       .then((res) => {
-        return {
-          majors: res.data.departments.map((category) => {
+        const { categories } = res.data.data
+        const majorCategories = categories
+          .filter((category) => {
+            return category.isCollege
+          })
+          .map((category) => {
             return {
               text: category.name,
-              value: category.code
-            }
-          }),
-          others: res.data.others.map((category) => {
-            return {
-              text: category.name,
-              value: category.code
+              value: category.id
             }
           })
+        const otherCategories = categories
+          .filter((category) => {
+            return !category.isCollege
+          })
+          .map((category) => {
+            return {
+              text: category.name,
+              value: category.id
+            }
+          })
+        return {
+          majorCategories,
+          otherCategories
         }
       })
       .catch((e) => {
         error({
-          statusCode: 404,
-          message: 'Category not found'
+          statusCode: 404
         })
       })
   },
@@ -63,16 +80,30 @@ export default {
   },
   data () {
     return {
-      selectedId: '',
-      majors: [],
-      others: [],
+      selectedCategoryId: '',
+      majorCategories: [],
+      otherCategories: [],
       isLoadingCourses: false
     }
   },
   methods: {
     getCourses () {
       this.isLoadingCourses = true
-      return axios.get(`/api/lectures/${this.selectedId}`)
+      const query = `{
+        courses(categoryId: "${this.selectedCategoryId}") {
+          id
+          classGroup
+          name
+          grade
+          credit
+          type
+          timePlace
+          professor
+          evaluation
+          note
+        }
+      }`
+      return axios.post('/graphql', { query })
         .then((res) => {
           console.log(res.data)
         })
