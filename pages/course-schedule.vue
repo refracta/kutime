@@ -136,6 +136,17 @@ export default {
       isLoadingCourses: false
     }
   },
+  mounted () {
+    this.$nextTick(() => {
+      this.$store.dispatch('checkStorage')
+        .then(() => {
+          return this.$store.dispatch('setupData')
+        })
+        .catch((e) => {
+          console.warn(e)
+        })
+    })
+  },
   methods: {
     getCourses () {
       this.isLoadingCourses = true
