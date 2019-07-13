@@ -66,6 +66,7 @@ import axios from '~/plugins/axios'
 
 export default {
   name: 'course-schedule-page',
+  layout: 'course-schedule',
   asyncData ({ params, error }) {
     const query = `{
       categories {
