@@ -22,12 +22,23 @@ const rootValue = {
   categories: () => {
     return mergedCategories
   },
-  courses: ({ categoryId }) => {
+  courses: ({ categoryId, courseIds = [] }) => {
     const category = mergedCategories.find((category) => {
       return (categoryId === category.id)
     })
+    let unrefinedCourseIds
     if (category) {
-      const uniqueCourseIds = [...(new Set(category.courses))]
+      unrefinedCourseIds = category.courses
+      if (courseIds.length > 0) {
+        unrefinedCourseIds = unrefinedCourseIds.filter((courseId) => {
+          return courseIds.includes(courseId)
+        })
+      }
+    } else {
+      unrefinedCourseIds = courseIds
+    }
+    if (unrefinedCourseIds.length > 0) {
+      const uniqueCourseIds = [...(new Set(unrefinedCourseIds))]
       return uniqueCourseIds.map((courseId) => {
         const course = intimeData.lecture.list[courseId]
         return {
