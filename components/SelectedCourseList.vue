@@ -1,7 +1,7 @@
 <template>
   <v-list two-line subheader>
     <v-subheader>내가 추가한 강의</v-subheader>
-    <template v-for="(course, index) in sampleCourses">
+    <template v-for="(course, index) in selectedCourses">
       <v-divider
         v-if="index > 0"
         :key="index"
@@ -28,25 +28,9 @@
 <script>
 export default {
   name: 'selected-course-list',
-  data () {
-    return {
-      sampleCourses: [
-        {
-          id: 'MTH3103-001',
-          name: '복소해석학 1',
-          professor: '정해원'
-        },
-        {
-          id: 'MTH3221-001',
-          name: '대수학 1',
-          professor: '이익권'
-        },
-        {
-          id: 'MTH3301-001',
-          name: '위상수학 1',
-          professor: '송용진'
-        }
-      ]
+  computed: {
+    selectedCourses () {
+      return this.$store.state.selectedCourses
     }
   }
 }

@@ -1,3 +1,5 @@
+import axios from '~/plugins/axios'
+
 // reference - https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
 function storageAvailable (type) {
   var storage
@@ -24,7 +26,7 @@ function storageAvailable (type) {
 }
 
 export const state = () => ({
-  selectedCourseIds: [],
+  selectedCourses: [],
   isActiveLeftDrawer: false,
   isStorageAvailable: null
 })
@@ -39,8 +41,8 @@ export const mutations = {
   setStorageAvailability (state, value) {
     state.isStorageAvailable = value
   },
-  setSelectedCourseIds (state, value) {
-    state.selectedCourseIds = value
+  setSelectedCourses (state, value) {
+    state.selectedCourses = value
   }
 }
 
@@ -70,11 +72,25 @@ export const actions = {
           }
         }
         storage.setItem('starredCodes', JSON.stringify(courseIds))
-        commit('setSelectedCourseIds', courseIds)
-        resolve()
+        resolve(courseIds)
       } else {
         reject(new Error('Local storage is not available.'))
       }
     })
+      .then((selectedCourseIds) => {
+        const param = JSON.stringify(selectedCourseIds)
+        const query = `{
+          courses(courseIds: ${param}) {
+            id
+            name
+            professor
+          }
+        }`
+        return axios.post('/graphql', { query })
+      })
+      .then((res) => {
+        const { courses } = res.data.data
+        commit('setSelectedCourses', courses)
+      })
   }
 }
