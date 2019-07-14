@@ -52,22 +52,19 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-footer
-      fixed
-      app
-    >
-      <span>&copy; 2017-2019</span>
-    </v-footer>
+    <GlobalFooter />
   </v-app>
 </template>
 
 <script>
 import GlobalNavigation from '~/components/GlobalNavigation.vue'
+import GlobalFooter from '~/components/GlobalFooter.vue'
 
 export default {
   name: 'course-schedule-layout',
   components: {
-    GlobalNavigation
+    GlobalNavigation,
+    GlobalFooter
   },
   data () {
     return {
