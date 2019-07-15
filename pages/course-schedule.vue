@@ -28,6 +28,7 @@
         <v-card-title>
           <v-spacer></v-spacer>
           <v-text-field
+            ref="searchField"
             v-model="keyword"
             append-icon="fas fa-search"
             label="결과 내 검색"
@@ -196,7 +197,7 @@ export default {
           console.error(e)
         })
         .finally(() => {
-          this.keyword = ''
+          this.$refs.searchField.$emit('input')
           this.isLoadingCourses = false
         })
     },
