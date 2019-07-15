@@ -54,6 +54,20 @@
             <td>{{ props.item.professor }}</td>
             <td>{{ props.item.evaluation }}</td>
             <td>{{ props.item.note }}</td>
+            <td class="px-1">
+              <v-btn
+                v-if="selectedCourseIds.includes(props.item.id)"
+                small
+                color="error"
+                @click="removeSelectedCourse(props.item.id)"
+              >삭제</v-btn>
+              <v-btn
+                v-else
+                small
+                color="info"
+                @click="selectCourse(props.item)"
+              >추가</v-btn>
+            </td>
           </template>
         </v-data-table>
       </v-card>
@@ -120,16 +134,17 @@ export default {
       majorCategories: [],
       otherCategories: [],
       headers: [
-        { text: '학수번호', value: 'id', width: '140' },
-        { text: '분반그룹', value: 'classGroup', width: '140' },
-        { text: '과목명', value: 'name', width: '290' },
+        { text: '학수번호', value: 'id', width: '130' },
+        { text: '분반그룹', value: 'classGroup', width: '130' },
+        { text: '과목명', value: 'name', width: '240' },
         { text: '학년', value: 'grade', width: '90' },
         { text: '학점', value: 'credit', width: '90' },
-        { text: '과목구분', value: 'type', width: '115' },
-        { text: '시간 및 강의실', value: 'timePlace', width: '290' },
-        { text: '담당교수', value: 'professor', width: '140' },
-        { text: '평가방식', value: 'evaluation', width: '115' },
-        { text: '비고', value: 'note', width: '190' }
+        { text: '과목구분', value: 'type', width: '110' },
+        { text: '시간 및 강의실', value: 'timePlace', width: '240' },
+        { text: '담당교수', value: 'professor', width: '130' },
+        { text: '평가방식', value: 'evaluation', width: '110' },
+        { text: '비고', value: 'note', width: '170' },
+        { sortable: false, width: '110' }
       ],
       courses: [],
       keyword: '',
@@ -147,6 +162,13 @@ export default {
           console.warn(e)
         })
     })
+  },
+  computed: {
+    selectedCourseIds () {
+      return this.$store.state.selectedCourses.map((course) => {
+        return course.id
+      })
+    }
   },
   methods: {
     getCourses () {
@@ -177,6 +199,12 @@ export default {
           this.keyword = ''
           this.isLoadingCourses = false
         })
+    },
+    selectCourse (course) {
+      this.$store.commit('selectCourse', course)
+    },
+    removeSelectedCourse (courseId) {
+      this.$store.commit('removeSelectedCourse', courseId)
     }
   }
 }

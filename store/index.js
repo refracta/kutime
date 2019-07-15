@@ -43,6 +43,40 @@ export const mutations = {
   },
   setSelectedCourses (state, value) {
     state.selectedCourses = value
+  },
+  selectCourse (state, value) {
+    const { id, name, professor } = value
+    state.selectedCourses.push({
+      id,
+      name,
+      professor
+    })
+    if (state.isStorageAvailable) {
+      const storage = window.localStorage
+      const courseIds = state.selectedCourses.map((course) => {
+        return course.id
+      })
+      storage.setItem('starredCodes', JSON.stringify(courseIds))
+    } else {
+      console.warn('Local storage is not available.')
+    }
+  },
+  removeSelectedCourse (state, value) {
+    const index = state.selectedCourses.findIndex((course) => {
+      return course.id === value
+    })
+    if (index !== -1) {
+      state.selectedCourses.splice(index, 1)
+      if (state.isStorageAvailable) {
+        const storage = window.localStorage
+        const courseIds = state.selectedCourses.map((course) => {
+          return course.id
+        })
+        storage.setItem('starredCodes', JSON.stringify(courseIds))
+      } else {
+        console.warn('Local storage is not available.')
+      }
+    }
   }
 }
 

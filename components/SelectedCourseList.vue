@@ -16,7 +16,10 @@
           </v-list-tile-sub-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-btn icon>
+          <v-btn
+            icon
+            @click="removeSelectedCourse(course.id)"
+          >
             <v-icon>fas fa-trash-alt</v-icon>
           </v-btn>
         </v-list-tile-action>
@@ -31,6 +34,11 @@ export default {
   computed: {
     selectedCourses () {
       return this.$store.state.selectedCourses
+    }
+  },
+  methods: {
+    removeSelectedCourse (courseId) {
+      this.$store.commit('removeSelectedCourse', courseId)
     }
   }
 }
