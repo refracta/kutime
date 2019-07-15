@@ -124,7 +124,9 @@ export const actions = {
       })
       .then((res) => {
         const { courses } = res.data.data
-        commit('setSelectedCourses', courses)
+        if (courses) {
+          commit('setSelectedCourses', courses)
+        }
       })
   }
 }
