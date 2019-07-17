@@ -7,12 +7,19 @@
         class="pa-0"
       >
         <v-layout wrap>
-          <v-flex xs12 sm6 lg4 xl3>
+          <v-flex
+            v-for="group in courseGroups"
+            :key="group.idPrefix"
+            xs12
+            sm6
+            md4
+            lg3
+          >
             <v-card>
               <v-card-actions>
                 <v-layout wrap>
-                  <v-flex xs9 lg12>
-                    <div class="subheading text-truncate">(과목명)</div>
+                  <v-flex xs9 md12>
+                    <div class="subheading text-truncate">{{ group.name }}</div>
                   </v-flex>
                   <v-flex>
                     <v-layout>
@@ -48,6 +55,37 @@ export default {
   head () {
     return {
       title: '경우의 수 계산'
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.$store.dispatch('checkStorage')
+        .then(() => {
+          return this.$store.dispatch('setupData')
+        })
+        .catch((e) => {
+          console.warn(e)
+        })
+    })
+  },
+  computed: {
+    selectedCourses () {
+      return this.$store.state.selectedCourses
+    },
+    courseGroups () {
+      const courseIdPrefixes = this.selectedCourses.map((course) => {
+        return course.id.match(/^([a-z0-9]+)-[0-9]+$/i)[1]
+      })
+      const uniqueCourseIdPrefixes = [...(new Set(courseIdPrefixes))]
+      return uniqueCourseIdPrefixes.map((prefix) => {
+        const course = this.selectedCourses.find((course) => {
+          return course.id.startsWith(prefix)
+        })
+        return {
+          idPrefix: prefix,
+          name: course.name
+        }
+      })
     }
   }
 }
