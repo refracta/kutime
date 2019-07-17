@@ -45,11 +45,13 @@ export const mutations = {
     state.selectedCourses = value
   },
   selectCourse (state, value) {
-    const { id, name, professor } = value
+    const { id, name, credit, professor, timeData } = value
     state.selectedCourses.push({
       id,
       name,
-      professor
+      credit,
+      professor,
+      timeData
     })
     if (state.isStorageAvailable) {
       const storage = window.localStorage
@@ -117,7 +119,9 @@ export const actions = {
           courses(courseIds: ${param}) {
             id
             name
+            credit
             professor
+            timeData
           }
         }`
         return axios.post('/graphql', { query })

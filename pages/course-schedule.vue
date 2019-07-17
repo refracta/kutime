@@ -186,6 +186,7 @@ export default {
           professor
           evaluation
           note
+          timeData
         }
       }`
       return axios.post('/graphql', { query })
