@@ -15,7 +15,13 @@
             md4
             lg3
           >
-            <v-card>
+            <v-card
+              :flat="group.isExcluded"
+              :class="{
+                'accent white--text': group.isLocked,
+                'grey lighten-2 grey--text text--lighten-1': group.isExcluded
+              }"
+            >
               <v-card-actions>
                 <v-layout wrap>
                   <v-flex xs9 md12>
@@ -24,10 +30,38 @@
                   <v-flex>
                     <v-layout>
                       <v-spacer></v-spacer>
-                      <v-btn icon small>
+                      <v-btn
+                        v-if="group.isLocked"
+                        icon
+                        small
+                        @click="unlockCourseGroup(group.idPrefix)"
+                      >
+                        <v-icon small>fas fa-unlock</v-icon>
+                      </v-btn>
+                      <v-btn
+                        v-else
+                        icon
+                        small
+                        :disabled="group.isExcluded"
+                        @click="lockCourseGroup(group)"
+                      >
                         <v-icon small>fas fa-lock</v-icon>
                       </v-btn>
-                      <v-btn icon small>
+                      <v-btn
+                        v-if="group.isExcluded"
+                        icon
+                        small
+                        @click="unexcludeCourseGroup(group.idPrefix)"
+                      >
+                        <v-icon small>fas fa-eye</v-icon>
+                      </v-btn>
+                      <v-btn
+                        v-else
+                        icon
+                        small
+                        :disabled="group.isLocked"
+                        @click="excludeCourseGroup(group)"
+                      >
                         <v-icon small>fas fa-eye-slash</v-icon>
                       </v-btn>
                     </v-layout>
@@ -57,6 +91,12 @@ export default {
       title: '경우의 수 계산'
     }
   },
+  data () {
+    return {
+      lockedCourseGroups: [],
+      excludedCourseGroups: []
+    }
+  },
   mounted () {
     this.$nextTick(() => {
       this.$store.dispatch('checkStorage')
@@ -83,9 +123,35 @@ export default {
         })
         return {
           idPrefix: prefix,
-          name: course.name
+          name: course.name,
+          isLocked: this.lockedCourseGroups.includes(prefix),
+          isExcluded: this.excludedCourseGroups.includes(prefix)
         }
       })
+    }
+  },
+  methods: {
+    lockCourseGroup (group) {
+      if (!group.isExcluded) {
+        this.lockedCourseGroups.push(group.idPrefix)
+      }
+    },
+    unlockCourseGroup (prefix) {
+      const index = this.lockedCourseGroups.findIndex((lockedPrefix) => {
+        return lockedPrefix === prefix
+      })
+      this.lockedCourseGroups.splice(index, 1)
+    },
+    excludeCourseGroup (group) {
+      if (!group.isLocked) {
+        this.excludedCourseGroups.push(group.idPrefix)
+      }
+    },
+    unexcludeCourseGroup (prefix) {
+      const index = this.excludedCourseGroups.findIndex((excludedPrefix) => {
+        return excludedPrefix === prefix
+      })
+      this.excludedCourseGroups.splice(index, 1)
     }
   }
 }
