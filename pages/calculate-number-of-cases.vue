@@ -77,7 +77,40 @@
       <v-btn
         block
         color="info"
+        :disabled="isLoadingCases"
+        :loading="isLoadingCases"
+        @click="calculateCases"
       >계산</v-btn>
+    </v-flex>
+    <v-flex class="mt-3">
+      <v-card>
+        <v-card-title>
+          <v-spacer></v-spacer>
+          <v-text-field
+            ref="searchField"
+            v-model="keyword"
+            append-icon="fas fa-search"
+            label="결과 내 검색"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+          disable-initial-sort
+          :headers="headers"
+          :items="calculatedCases"
+          item-key="num"
+          :search="keyword"
+          :rows-per-page-items="rowsPerPage"
+        >
+          <template v-slot:items="props">
+            <td>{{ props.item.num }}</td>
+            <td>{{ props.item.totalCount }}</td>
+            <td>{{ props.item.totalCredit }}</td>
+            <td>{{ props.item.nameList }}</td>
+          </template>
+        </v-data-table>
+      </v-card>
     </v-flex>
   </v-layout>
 </template>
@@ -94,7 +127,17 @@ export default {
   data () {
     return {
       lockedCourseGroups: [],
-      excludedCourseGroups: []
+      excludedCourseGroups: [],
+      headers: [
+        { text: '번호', value: 'num', width: '90' },
+        { text: '과목개수', value: 'totalCount', width: '90' },
+        { text: '학점합계', value: 'totalCredit', width: '90' },
+        { text: '과목명', value: 'nameList', sortable: false, width: '990' }
+      ],
+      calculatedCases: [],
+      keyword: '',
+      rowsPerPage: [10, 20, 30],
+      isLoadingCases: false
     }
   },
   mounted () {
@@ -110,7 +153,27 @@ export default {
   },
   computed: {
     selectedCourses () {
-      return this.$store.state.selectedCourses
+      return this.$store.state.selectedCourses.map((course) => {
+        const timeSlots = []
+        const dailySchedules = course.timeData.match(/(D[T0-9]+)/g)
+        dailySchedules.forEach((schedule) => {
+          const fragments = schedule.match(/[DT]([0-9]+)/g)
+          const dayValue = Number(fragments.shift().slice(1))
+          const slotValues = fragments.map((fragment) => {
+            return dayValue * 100 + Number(fragment.slice(1))
+          })
+          timeSlots.push(...slotValues)
+        })
+        return {
+          ...course,
+          timeSlots
+        }
+      })
+    },
+    orderedCourses () {
+      return this.selectedCourses.slice().sort((former, latter) => {
+        return former.id.localeCompare(latter.id)
+      })
     },
     courseGroups () {
       const courseIdPrefixes = this.selectedCourses.map((course) => {
@@ -128,6 +191,24 @@ export default {
           isExcluded: this.excludedCourseGroups.includes(prefix)
         }
       })
+    },
+    activeGroups () {
+      return this.courseGroups
+        .filter((group) => {
+          return !group.isExcluded
+        })
+        .map((group) => {
+          const choices = this.orderedCourses.filter((course) => {
+            return course.id.startsWith(group.idPrefix)
+          })
+          if (!group.isLocked) {
+            choices.unshift(null)
+          }
+          return {
+            ...group,
+            choices
+          }
+        })
     }
   },
   methods: {
@@ -152,6 +233,64 @@ export default {
         return excludedPrefix === prefix
       })
       this.excludedCourseGroups.splice(index, 1)
+    },
+    calculateCases () {
+      this.isLoadingCases = true
+      return new Promise((resolve, reject) => {
+        const validCases = []
+        const reversedChoiceCounts = this.activeGroups
+          .map((group) => {
+            return group.choices.length
+          })
+          .reverse()
+        let maxCaseCount = 1
+        this.activeGroups.forEach((group) => {
+          maxCaseCount *= group.choices.length
+        })
+        for (let caseIndex = 0; caseIndex < maxCaseCount; caseIndex += 1) {
+          const choiceIndexes = []
+          const chosenCourseNames = []
+          const chosenTimeSlots = []
+          let uniqueSlots = []
+          let totalSlotCount = 0
+          let totalCourseCount = 0
+          let totalCredit = 0
+          let isOverlapped = false
+          let temp = caseIndex
+          reversedChoiceCounts.forEach((choiceCount) => {
+            choiceIndexes.unshift(temp % choiceCount)
+            temp = Math.floor(temp / choiceCount)
+          })
+          this.activeGroups.forEach((group, index) => {
+            const choice = group.choices[choiceIndexes[index]]
+            if (choice) {
+              chosenCourseNames.push(choice.name)
+              chosenTimeSlots.push(...choice.timeSlots)
+              totalSlotCount += choice.timeSlots.length
+              totalCourseCount += 1
+              totalCredit += Number(choice.credit)
+            }
+          })
+          uniqueSlots = [...(new Set(chosenTimeSlots))]
+          isOverlapped = (totalSlotCount !== uniqueSlots.length)
+          if (totalCourseCount > 0 && !isOverlapped) {
+            validCases.push({
+              num: 1 + validCases.length,
+              totalCount: totalCourseCount,
+              totalCredit: totalCredit.toFixed(1),
+              nameList: chosenCourseNames.join(', ')
+            })
+          }
+        }
+        resolve(validCases)
+      })
+        .then((cases) => {
+          this.calculatedCases = cases
+        })
+        .finally(() => {
+          this.$refs.searchField.$emit('input')
+          this.isLoadingCases = false
+        })
     }
   }
 }
