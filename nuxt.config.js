@@ -27,8 +27,7 @@ module.exports = {
   css: [
     '@fortawesome/fontawesome-free/css/all.css',
     'vuetify/dist/vuetify.min.css',
-    '~/assets/style/main.scss',
-    '~/assets/css/main.css'
+    '~/assets/style/main.scss'
   ],
   build: {
     vendor: [
