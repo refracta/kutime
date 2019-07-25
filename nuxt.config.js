@@ -34,6 +34,7 @@ module.exports = {
     vendor: [
       '@fortawesome/fontawesome-free',
       'axios',
+      'dayjs',
       'vuetify'
     ],
     /*

@@ -108,14 +108,77 @@
             <td>{{ props.item.totalCount }}</td>
             <td>{{ props.item.totalCredit }}</td>
             <td>{{ props.item.nameList }}</td>
+            <td class="px-1">
+              <v-btn
+                small
+                color="info"
+                @click="checkTimetable(props.item)"
+              >시간표</v-btn>
+            </td>
           </template>
         </v-data-table>
       </v-card>
     </v-flex>
+    <v-dialog
+      max-width="640"
+      v-model="isActiveTimetable"
+    >
+      <v-card>
+        <v-card-title class="subheading">#{{ activeCaseNumber }}</v-card-title>
+        <v-card-text>
+          <v-flex>
+            <v-sheet
+              height="1040"
+              max-height="calc(90vh - 141px)"
+            >
+              <v-calendar
+                hide-header
+                type="week"
+                :first-interval="17"
+                :interval-count="26"
+                :interval-minutes="30"
+                :weekdays="[1,2,3,4,5,6]"
+              >
+                <template v-slot:dayBody="{ weekday, timeToY, minutesToPixels }">
+                  <template v-for="(event, index) in eventsMap[weekday]">
+                    <v-tooltip top :key="index">
+                      <template v-slot:activator="{ on }">
+                        <div
+                          v-if="event.time"
+                          v-on="on"
+                          class="timetable-event"
+                          v-html="event.title"
+                          :style="{
+                            top: timeToY(event.time) + 'px',
+                            height: minutesToPixels(event.duration) + 'px',
+                            borderColor: event.themeColor,
+                            backgroundColor: event.themeColor
+                          }"
+                        ></div>
+                      </template>
+                      <span>{{ event.title }}</span>
+                    </v-tooltip>
+                  </template>
+                </template>
+              </v-calendar>
+            </v-sheet>
+          </v-flex>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="info"
+          >내 시간표로 저장</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 
 <script>
+import dayjs from '~/plugins/dayjs'
+
 export default {
   name: 'calculate-number-of-cases-page',
   layout: 'calculate-number-of-cases',
@@ -132,11 +195,15 @@ export default {
         { text: '번호', value: 'num', width: '90' },
         { text: '과목개수', value: 'totalCount', width: '90' },
         { text: '학점합계', value: 'totalCredit', width: '90' },
-        { text: '과목명', value: 'nameList', sortable: false, width: '990' }
+        { text: '과목명', value: 'nameList', sortable: false, width: '990' },
+        { sortable: false, width: '110' }
       ],
       calculatedCases: [],
       keyword: '',
       rowsPerPage: [10, 20, 30],
+      activeCaseNumber: null,
+      eventsMap: {},
+      isActiveTimetable: false,
       isLoadingCases: false
     }
   },
@@ -209,6 +276,35 @@ export default {
             choices
           }
         })
+    },
+    eventsPerCourse () {
+      const res = {}
+      this.$store.state.selectedCourses.forEach((course) => {
+        const matched = course.id.match(/^([a-z]+)([0-9]+-[0-9]+)$/i)
+        const x = parseInt(matched[1], 36)
+        const y = Number(matched[2].replace('-', ''))
+        const z = x * y
+        const themeColor = `#${z.toString(16).slice(-6)}`
+        const events = []
+        const dailySchedules = course.timeData.match(/(D[T0-9]+)/g)
+        dailySchedules.forEach((schedule) => {
+          const fragments = schedule.match(/[DT]([0-9]+)/g)
+          const dayValue = Number(fragments.shift().slice(1))
+          const startingTimeValue = Number(fragments[0].slice(1))
+          const instance = dayjs('09:00', 'HH:mm').add(30 * (startingTimeValue - 1), 'minute')
+          if (dayValue) {
+            events.push({
+              weekday: dayValue,
+              title: course.name,
+              time: instance.format('HH:mm'),
+              duration: 30 * fragments.length,
+              themeColor
+            })
+          }
+        })
+        res[course.id] = events
+      })
+      return res
     }
   },
   methods: {
@@ -249,6 +345,7 @@ export default {
         })
         for (let caseIndex = 0; caseIndex < maxCaseCount; caseIndex += 1) {
           const choiceIndexes = []
+          const chosenCourseIds = []
           const chosenCourseNames = []
           const chosenTimeSlots = []
           let uniqueSlots = []
@@ -264,6 +361,7 @@ export default {
           this.activeGroups.forEach((group, index) => {
             const choice = group.choices[choiceIndexes[index]]
             if (choice) {
+              chosenCourseIds.push(choice.id)
               chosenCourseNames.push(choice.name)
               chosenTimeSlots.push(...choice.timeSlots)
               totalSlotCount += choice.timeSlots.length
@@ -278,6 +376,7 @@ export default {
               num: 1 + validCases.length,
               totalCount: totalCourseCount,
               totalCredit: totalCredit.toFixed(1),
+              courseIds: chosenCourseIds,
               nameList: chosenCourseNames.join(', ')
             })
           }
@@ -291,6 +390,20 @@ export default {
           this.$refs.searchField.$emit('input')
           this.isLoadingCases = false
         })
+    },
+    checkTimetable ({ num, courseIds }) {
+      const events = []
+      const map = {}
+      courseIds.forEach((id) => {
+        events.push(...this.eventsPerCourse[id])
+      })
+      events.forEach((e) => {
+        map[e.weekday] = map[e.weekday] || []
+        map[e.weekday].push(e)
+      })
+      this.activeCaseNumber = num
+      this.eventsMap = map
+      this.isActiveTimetable = true
     }
   }
 }

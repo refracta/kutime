@@ -17,6 +17,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
+    "dayjs": "^1.8.15",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "graphql": "^14.4.2",
