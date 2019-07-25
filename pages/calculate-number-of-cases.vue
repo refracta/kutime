@@ -147,6 +147,9 @@
                           v-if="event.time"
                           v-on="on"
                           class="timetable-event"
+                          :class="{
+                            'grey--text text--darken-4': event.luminance > 0.5
+                          }"
                           v-html="event.title"
                           :style="{
                             top: timeToY(event.time) + 'px',
@@ -284,7 +287,27 @@ export default {
         const x = parseInt(matched[1], 36)
         const y = Number(matched[2].replace('-', ''))
         const z = x * y
-        const themeColor = `#${z.toString(16).slice(-6)}`
+        const hexValue = z.toString(16).slice(-6)
+        const themeColor = `#${hexValue}`
+        let luminance
+        {
+          // reference - https://www.w3.org/TR/WCAG20/#relativeluminancedef
+          const nonlinearRGB = {
+            red: parseInt(hexValue.slice(0, 2), 16) / 255,
+            green: parseInt(hexValue.slice(2, 4), 16) / 255,
+            blue: parseInt(hexValue.slice(4, 6), 16) / 255
+          }
+          const linearRGB = {}
+          for (let color in nonlinearRGB) {
+            const transformedValue = (
+              nonlinearRGB[color] <= 0.03928
+                ? nonlinearRGB[color] / 12.92
+                : ((nonlinearRGB[color] + 0.055) / 1.055) ** 2.4
+            )
+            linearRGB[color] = transformedValue
+          }
+          luminance = 0.2126 * linearRGB.red + 0.7152 * linearRGB.green + 0.0722 * linearRGB.blue
+        }
         const events = []
         const dailySchedules = course.timeData.match(/(D[T0-9]+)/g)
         dailySchedules.forEach((schedule) => {
@@ -298,7 +321,8 @@ export default {
               title: course.name,
               time: instance.format('HH:mm'),
               duration: 30 * fragments.length,
-              themeColor
+              themeColor,
+              luminance
             })
           }
         })
