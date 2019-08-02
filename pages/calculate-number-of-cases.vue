@@ -106,7 +106,7 @@
           <template v-slot:items="props">
             <td>{{ props.item.num }}</td>
             <td>{{ props.item.totalCount }}</td>
-            <td>{{ props.item.totalCredit }}</td>
+            <td>{{ props.item.totalCredit.toFixed(1) }}</td>
             <td>{{ props.item.nameList }}</td>
             <td class="px-1">
               <v-btn
@@ -124,12 +124,29 @@
       v-model="isActiveTimetable"
     >
       <v-card>
-        <v-card-title class="subheading">#{{ activeCaseNumber }}</v-card-title>
+        <v-card-title class="d-block subheading">
+          <v-layout align-center>
+            <span class="text-no-wrap">#{{ activeCase.num }} ({{ activeCase.totalCount }}과목, {{ activeCase.totalCredit }}학점)</span>
+            <span>&nbsp;-&nbsp;</span>
+            <v-flex class="text-truncate">{{ activeCase.nameList }}</v-flex>
+          </v-layout>
+          <v-alert
+            :value="activeCase.hasOnlineCourse"
+            color="info"
+            icon="fas fa-info-circle"
+            outline
+            class="pa-2"
+          >
+            <v-layout>
+              <v-flex class="text-truncate">웹강의 - {{ activeCase.onlineCourseNameList }}</v-flex>
+            </v-layout>
+          </v-alert>
+        </v-card-title>
         <v-card-text>
           <v-flex>
             <v-sheet
               height="1040"
-              max-height="calc(90vh - 141px)"
+              :max-height="maxSheetHeight"
             >
               <v-calendar
                 hide-header
@@ -150,16 +167,18 @@
                           :class="{
                             'grey--text text--darken-4': event.luminance > 0.5
                           }"
-                          v-html="event.title"
                           :style="{
                             top: timeToY(event.time) + 'px',
                             height: minutesToPixels(event.duration) + 'px',
                             borderColor: event.themeColor,
                             backgroundColor: event.themeColor
                           }"
-                        ></div>
+                        >
+                          <div>{{ event.title }}</div>
+                          <div>{{ event.professor }}</div>
+                        </div>
                       </template>
-                      <span>{{ event.title }}</span>
+                      <span>{{ event.courseId }} {{ event.title }}</span>
                     </v-tooltip>
                   </template>
                 </template>
@@ -204,7 +223,14 @@ export default {
       calculatedCases: [],
       keyword: '',
       rowsPerPage: [10, 20, 30],
-      activeCaseNumber: null,
+      activeCase: {
+        num: 0,
+        nameList: '',
+        totalCount: 0,
+        totalCredit: 0,
+        onlineCourseNameList: '',
+        hasOnlineCourse: false
+      },
       eventsMap: {},
       isActiveTimetable: false,
       isLoadingCases: false
@@ -315,20 +341,23 @@ export default {
           const dayValue = Number(fragments.shift().slice(1))
           const startingTimeValue = Number(fragments[0].slice(1))
           const instance = dayjs('09:00', 'HH:mm').add(30 * (startingTimeValue - 1), 'minute')
-          if (dayValue) {
-            events.push({
-              weekday: dayValue,
-              title: course.name,
-              time: instance.format('HH:mm'),
-              duration: 30 * fragments.length,
-              themeColor,
-              luminance
-            })
-          }
+          events.push({
+            weekday: dayValue,
+            courseId: course.id,
+            title: course.name,
+            professor: course.professor,
+            time: instance.format('HH:mm'),
+            duration: 30 * fragments.length,
+            themeColor,
+            luminance
+          })
         })
         res[course.id] = events
       })
       return res
+    },
+    maxSheetHeight () {
+      return (this.activeCase.hasOnlineCourse ? 'calc(90vh - 191px)' : 'calc(90vh - 141px)')
     }
   },
   methods: {
@@ -399,7 +428,7 @@ export default {
             validCases.push({
               num: 1 + validCases.length,
               totalCount: totalCourseCount,
-              totalCredit: totalCredit.toFixed(1),
+              totalCredit: totalCredit,
               courseIds: chosenCourseIds,
               nameList: chosenCourseNames.join(', ')
             })
@@ -415,20 +444,47 @@ export default {
           this.isLoadingCases = false
         })
     },
-    checkTimetable ({ num, courseIds }) {
+    checkTimetable ({ num, totalCount, totalCredit, courseIds, nameList }) {
       const events = []
       const map = {}
+      const onlineCourseNames = []
+      let hasOnlineCourse = false
       courseIds.forEach((id) => {
-        events.push(...this.eventsPerCourse[id])
+        const eventsPerCourse = this.eventsPerCourse[id]
+        const onlineEvents = eventsPerCourse.filter((event) => {
+          return event.weekday === 0
+        })
+        if (onlineEvents.length) {
+          hasOnlineCourse = true
+          onlineCourseNames.push(
+            ...onlineEvents.map((event) => {
+              return event.title
+            })
+          )
+        }
+        events.push(...eventsPerCourse)
       })
       events.forEach((e) => {
         map[e.weekday] = map[e.weekday] || []
         map[e.weekday].push(e)
       })
-      this.activeCaseNumber = num
+      this.activeCase = {
+        num,
+        nameList,
+        totalCount,
+        totalCredit,
+        onlineCourseNameList: onlineCourseNames.join(', '),
+        hasOnlineCourse
+      }
       this.eventsMap = map
       this.isActiveTimetable = true
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.v-alert /deep/ > div {
+  overflow: hidden;
+}
+</style>
