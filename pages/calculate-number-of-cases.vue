@@ -107,7 +107,7 @@
             <td>{{ props.item.num }}</td>
             <td>{{ props.item.totalCount }}</td>
             <td>{{ props.item.totalCredit.toFixed(1) }}</td>
-            <td>{{ props.item.nameList }}</td>
+            <td>{{ props.item.courseNames.join(', ') }}</td>
             <td class="px-1">
               <v-btn
                 small
@@ -128,7 +128,7 @@
           <v-layout align-center>
             <span class="text-no-wrap">#{{ activeCase.num }} ({{ activeCase.totalCount }}과목, {{ activeCase.totalCredit }}학점)</span>
             <span>&nbsp;-&nbsp;</span>
-            <v-flex class="text-truncate">{{ activeCase.nameList }}</v-flex>
+            <v-flex class="text-truncate">{{ activeCase.courseNames.join(', ') }}</v-flex>
           </v-layout>
           <v-alert
             :value="activeCase.hasOnlineCourse"
@@ -138,7 +138,18 @@
             class="pa-2"
           >
             <v-layout>
-              <v-flex class="text-truncate">웹강의 - {{ activeCase.onlineCourseNameList }}</v-flex>
+              <v-flex class="text-truncate">웹강의 - {{ activeCase.onlineCourseNames.join(', ') }}</v-flex>
+            </v-layout>
+          </v-alert>
+          <v-alert
+            :value="activeCase.hasEmptyCourse"
+            color="warning"
+            icon="fas fa-exclamation-circle"
+            outline
+            class="pa-2"
+          >
+            <v-layout>
+              <v-flex class="text-truncate">강의시간 없음 - {{ activeCase.emptyCourseNames.join(', ') }}</v-flex>
             </v-layout>
           </v-alert>
         </v-card-title>
@@ -225,10 +236,12 @@ export default {
       rowsPerPage: [10, 20, 30],
       activeCase: {
         num: 0,
-        nameList: '',
         totalCount: 0,
         totalCredit: 0,
-        onlineCourseNameList: '',
+        courseNames: [],
+        emptyCourseNames: [],
+        onlineCourseNames: [],
+        hasEmptyCourse: false,
         hasOnlineCourse: false
       },
       eventsMap: {},
@@ -251,7 +264,7 @@ export default {
     selectedCourses () {
       return this.$store.state.selectedCourses.map((course) => {
         const timeSlots = []
-        const dailySchedules = course.timeData.match(/(D[T0-9]+)/g)
+        const dailySchedules = course.timeData.match(/(D[T0-9]+)/g) || []
         dailySchedules.forEach((schedule) => {
           const fragments = schedule.match(/[DT]([0-9]+)/g)
           const dayValue = Number(fragments.shift().slice(1))
@@ -335,7 +348,7 @@ export default {
           luminance = 0.2126 * linearRGB.red + 0.7152 * linearRGB.green + 0.0722 * linearRGB.blue
         }
         const events = []
-        const dailySchedules = course.timeData.match(/(D[T0-9]+)/g)
+        const dailySchedules = course.timeData.match(/(D[T0-9]+)/g) || []
         dailySchedules.forEach((schedule) => {
           const fragments = schedule.match(/[DT]([0-9]+)/g)
           const dayValue = Number(fragments.shift().slice(1))
@@ -357,7 +370,13 @@ export default {
       return res
     },
     maxSheetHeight () {
-      return (this.activeCase.hasOnlineCourse ? 'calc(90vh - 191px)' : 'calc(90vh - 141px)')
+      if (this.activeCase.hasOnlineCourse && this.activeCase.hasEmptyCourse) {
+        return 'calc(90vh - 237px)'
+      } else if (!this.activeCase.hasOnlineCourse && !this.activeCase.hasEmptyCourse) {
+        return 'calc(90vh - 141px)'
+      } else {
+        return 'calc(90vh - 191px)'
+      }
     }
   },
   methods: {
@@ -430,7 +449,7 @@ export default {
               totalCount: totalCourseCount,
               totalCredit: totalCredit,
               courseIds: chosenCourseIds,
-              nameList: chosenCourseNames.join(', ')
+              courseNames: chosenCourseNames
             })
           }
         }
@@ -444,23 +463,25 @@ export default {
           this.isLoadingCases = false
         })
     },
-    checkTimetable ({ num, totalCount, totalCredit, courseIds, nameList }) {
+    checkTimetable ({ num, totalCount, totalCredit, courseIds, courseNames }) {
       const events = []
       const map = {}
+      const emptyCourseNames = []
       const onlineCourseNames = []
+      let hasEmptyCourse = false
       let hasOnlineCourse = false
-      courseIds.forEach((id) => {
+      courseIds.forEach((id, index) => {
         const eventsPerCourse = this.eventsPerCourse[id]
+        if (!eventsPerCourse.length) {
+          hasEmptyCourse = true
+          emptyCourseNames.push(courseNames[index])
+        }
         const onlineEvents = eventsPerCourse.filter((event) => {
           return event.weekday === 0
         })
         if (onlineEvents.length) {
           hasOnlineCourse = true
-          onlineCourseNames.push(
-            ...onlineEvents.map((event) => {
-              return event.title
-            })
-          )
+          onlineCourseNames.push(courseNames[index])
         }
         events.push(...eventsPerCourse)
       })
@@ -470,10 +491,12 @@ export default {
       })
       this.activeCase = {
         num,
-        nameList,
         totalCount,
         totalCredit,
-        onlineCourseNameList: onlineCourseNames.join(', '),
+        courseNames,
+        emptyCourseNames,
+        onlineCourseNames,
+        hasEmptyCourse,
         hasOnlineCourse
       }
       this.eventsMap = map
