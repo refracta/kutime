@@ -201,6 +201,11 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
+            v-show="$vuetify.breakpoint.xs"
+            color="info"
+            @click="isActiveTimetable = false"
+          >닫기</v-btn>
+          <v-btn
             color="info"
           >내 시간표로 저장</v-btn>
         </v-card-actions>
