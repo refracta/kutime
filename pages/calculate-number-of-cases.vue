@@ -104,7 +104,13 @@
           :rows-per-page-items="rowsPerPage"
         >
           <template v-slot:items="props">
-            <td>{{ props.item.num }}</td>
+            <td>
+              {{ props.item.num }}
+              <v-icon
+                v-if="JSON.stringify(props.item.courseIds) === timetableCourseIds"
+                small
+              >fas fa-calendar-week</v-icon>
+            </td>
             <td>{{ props.item.totalCount }}</td>
             <td>{{ props.item.totalCredit.toFixed(1) }}</td>
             <td>{{ props.item.courseNames.join(', ') }}</td>
@@ -206,7 +212,16 @@
             @click="isActiveTimetable = false"
           >닫기</v-btn>
           <v-btn
+            v-if="JSON.stringify(activeCase.courseIds) === timetableCourseIds"
             color="info"
+            disabled
+          >내 시간표에 저장됨</v-btn>
+          <v-btn
+            v-else
+            color="info"
+            :disabled="isSavingTimetable"
+            :loading="isSavingTimetable"
+            @click="saveTimetable"
           >내 시간표로 저장</v-btn>
         </v-card-actions>
       </v-card>
@@ -243,6 +258,7 @@ export default {
         num: 0,
         totalCount: 0,
         totalCredit: 0,
+        courseIds: [],
         courseNames: [],
         emptyCourseNames: [],
         onlineCourseNames: [],
@@ -251,6 +267,7 @@ export default {
       },
       eventsMap: {},
       isActiveTimetable: false,
+      isSavingTimetable: false,
       isLoadingCases: false
     }
   },
@@ -382,6 +399,9 @@ export default {
       } else {
         return 'calc(90vh - 191px)'
       }
+    },
+    timetableCourseIds () {
+      return JSON.stringify(this.$store.state.timetableCourseIds)
     }
   },
   methods: {
@@ -498,6 +518,7 @@ export default {
         num,
         totalCount,
         totalCredit,
+        courseIds,
         courseNames,
         emptyCourseNames,
         onlineCourseNames,
@@ -506,6 +527,18 @@ export default {
       }
       this.eventsMap = map
       this.isActiveTimetable = true
+    },
+    saveTimetable () {
+      this.isSavingTimetable = true
+      return new Promise((resolve, reject) => {
+        if (this.isActiveTimetable) {
+          this.$store.commit('saveTimetable', this.activeCase.courseIds)
+        }
+        resolve()
+      })
+        .finally(() => {
+          this.isSavingTimetable = false
+        })
     }
   }
 }

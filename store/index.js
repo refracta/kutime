@@ -27,6 +27,7 @@ function storageAvailable (type) {
 
 export const state = () => ({
   selectedCourses: [],
+  timetableCourseIds: [],
   isActiveLeftDrawer: false,
   isStorageAvailable: null
 })
@@ -79,6 +80,15 @@ export const mutations = {
         console.warn('Local storage is not available.')
       }
     }
+  },
+  saveTimetable (state, value) {
+    state.timetableCourseIds = value
+    if (state.isStorageAvailable) {
+      const storage = window.localStorage
+      storage.setItem('timetableCourseIds', JSON.stringify(value))
+    } else {
+      console.warn('Local storage is not available.')
+    }
   }
 }
 
@@ -98,16 +108,28 @@ export const actions = {
     return new Promise((resolve, reject) => {
       if (state.isStorageAvailable) {
         const storage = window.localStorage
-        const data = storage.getItem('starredCodes')
+        let storedData
         let courseIds = []
-        if (data) {
+        let timetableCourseIds = []
+        storedData = storage.getItem('starredCodes')
+        if (storedData) {
           try {
-            courseIds = JSON.parse(data)
+            courseIds = JSON.parse(storedData)
           } catch (e) {
             console.warn(e)
           }
         }
         storage.setItem('starredCodes', JSON.stringify(courseIds))
+        storedData = storage.getItem('timetableCourseIds')
+        if (storedData) {
+          try {
+            timetableCourseIds = JSON.parse(storedData)
+          } catch (e) {
+            console.warn(e)
+          }
+        }
+        storage.setItem('timetableCourseIds', JSON.stringify(timetableCourseIds))
+        commit('saveTimetable', timetableCourseIds)
         resolve(courseIds)
       } else {
         reject(new Error('Local storage is not available.'))
