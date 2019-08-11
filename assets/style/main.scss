@@ -5,6 +5,11 @@
   display: none;
 }
 
+.v-calendar-daily_head-day-label,
+.v-calendar-daily_head-weekday {
+  display: none;
+}
+
 .timetable-event {
   position: absolute;
   left: 4px;

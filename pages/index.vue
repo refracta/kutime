@@ -5,16 +5,18 @@
   >
     <v-flex>
       <v-sheet
-        height="1040"
+        height="1073"
         :max-height="maxSheetHeight"
       >
         <v-calendar
-          hide-header
           type="week"
           :first-interval="17"
           :interval-count="26"
           :interval-minutes="30"
         >
+          <template v-slot:dayHeader="{ date }">
+            <div class="subheading pa-1 pl-2">{{ dayjs(date, 'YYYY-MM-DD').format('ddd') }}</div>
+          </template>
           <template v-slot:dayBody="{ weekday, timeToY, minutesToPixels }">
             <template v-for="(event, index) in eventsMap[weekday]">
               <v-tooltip top :key="index">
@@ -60,6 +62,7 @@ export default {
   },
   data () {
     return {
+      dayjs,
       isPageMounted: false
     }
   },
