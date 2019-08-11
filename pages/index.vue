@@ -14,7 +14,6 @@
           :first-interval="17"
           :interval-count="26"
           :interval-minutes="30"
-          :weekdays="[1,2,3,4,5,6]"
         >
           <template v-slot:dayBody="{ weekday, timeToY, minutesToPixels }">
             <template v-for="(event, index) in eventsMap[weekday]">

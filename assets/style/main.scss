@@ -1,5 +1,10 @@
 @import "~/assets/style/variables.scss";
 
+.v-calendar-daily__intervals-head + .v-calendar-daily_head-day,
+.v-calendar-daily__intervals-body + .v-calendar-daily__day {
+  display: none;
+}
+
 .timetable-event {
   position: absolute;
   left: 4px;
