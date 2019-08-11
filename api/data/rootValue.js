@@ -39,7 +39,10 @@ const rootValue = {
     }
     if (unrefinedCourseIds.length > 0) {
       const uniqueCourseIds = [...(new Set(unrefinedCourseIds))]
-      return uniqueCourseIds.map((courseId) => {
+      const validCourseIds = uniqueCourseIds.filter((courseId) => {
+        return intimeData.lecture.list[courseId]
+      })
+      return validCourseIds.map((courseId) => {
         const course = intimeData.lecture.list[courseId]
         return {
           id: course[0],
