@@ -1,6 +1,6 @@
 {
   "name": "intime",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "인하대 시간표 (web app)",
   "main": "index.js",
   "repository": "https://github.com/ony3000/intime.git",
@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt build && nuxt start",
+    "start": "nuxt start",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
@@ -21,7 +21,7 @@
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "graphql": "^14.4.2",
-    "nuxt": "latest",
+    "nuxt": "^2.8.1",
     "source-map-support": "^0.4.18",
     "vuetify": "^1.5.16"
   },
