@@ -1,0 +1,32 @@
+@import "~/assets/style/variables.scss";
+
+.v-calendar-daily__intervals-head + .v-calendar-daily_head-day,
+.v-calendar-daily__intervals-body + .v-calendar-daily__day {
+  display: none;
+}
+
+.v-calendar-daily_head-day-label,
+.v-calendar-daily_head-weekday {
+  display: none;
+}
+
+.timetable-event {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  overflow: hidden;
+  margin-right: 0px;
+  margin-bottom: 1px;
+  border: 1px solid $emblem-bottom-color;
+  border-radius: 4px;
+  padding: 3px;
+  background-color: $emblem-bottom-color;
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  &.is-clickable {
+    cursor: pointer;
+  }
+}
