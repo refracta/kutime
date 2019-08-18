@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const intimeData = require('/data/intime/exported.json')
+const intimeData = require('/srv/intime/exported.json')
 
 const router = Router()
 

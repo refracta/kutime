@@ -1,4 +1,4 @@
-const intimeData = require('/data/intime/exported.json')
+const intimeData = require('/srv/intime/exported.json')
 
 const majorCategories = intimeData.department.map((category) => {
   return {
