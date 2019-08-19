@@ -6,13 +6,16 @@
 
 ``` bash
 # install dependencies
-$ npm install # Or yarn install
+$ yarn install
 
 # serve with hot reload at localhost:3000
 $ npm run dev
 
-# build for production and launch server
-$ npm start
+# build for production
+$ npm run build
+
+# launch server in production mode
+$ npm run start
 ```
 
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+For detailed explanation on how things work, checkout the [Nuxt.js docs](https://nuxtjs.org).
