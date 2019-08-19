@@ -1,0 +1,18 @@
+[Unit]
+Description=Nuxt for intime
+
+[Service]
+ExecStart=/usr/bin/npm run start
+WorkingDirectory=
+
+# Restart service after 10 seconds if service crashes
+Restart=always
+RestartSec=10
+
+# Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=intime-nuxt
+
+[Install]
+WantedBy=multi-user.target
