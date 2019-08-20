@@ -443,45 +443,48 @@ export default {
         this.activeGroups.forEach((group) => {
           maxCaseCount *= group.choices.length
         })
-        for (let caseIndex = 0; caseIndex < maxCaseCount; caseIndex += 1) {
-          const choiceIndexes = []
-          const chosenCourseIds = []
-          const chosenCourseNames = []
-          const chosenTimeSlots = []
-          let uniqueSlots = []
-          let totalSlotCount = 0
-          let totalCourseCount = 0
-          let totalCredit = 0
-          let isOverlapped = false
-          let temp = caseIndex
-          reversedChoiceCounts.forEach((choiceCount) => {
-            choiceIndexes.unshift(temp % choiceCount)
-            temp = Math.floor(temp / choiceCount)
-          })
-          this.activeGroups.forEach((group, index) => {
-            const choice = group.choices[choiceIndexes[index]]
-            if (choice) {
-              chosenCourseIds.push(choice.id)
-              chosenCourseNames.push(choice.name)
-              chosenTimeSlots.push(...choice.timeSlots)
-              totalSlotCount += choice.timeSlots.length
-              totalCourseCount += 1
-              totalCredit += Number(choice.credit)
-            }
-          })
-          uniqueSlots = [...(new Set(chosenTimeSlots))]
-          isOverlapped = (totalSlotCount !== uniqueSlots.length)
-          if (totalCourseCount > 0 && !isOverlapped) {
-            validCases.push({
-              num: 1 + validCases.length,
-              totalCount: totalCourseCount,
-              totalCredit: totalCredit,
-              courseIds: chosenCourseIds,
-              courseNames: chosenCourseNames
+        const delay = Math.max(30, Math.min(300, Math.sqrt(maxCaseCount)))
+        setTimeout(() => {
+          for (let caseIndex = 0; caseIndex < maxCaseCount; caseIndex += 1) {
+            const choiceIndexes = []
+            const chosenCourseIds = []
+            const chosenCourseNames = []
+            const chosenTimeSlots = []
+            let uniqueSlots = []
+            let totalSlotCount = 0
+            let totalCourseCount = 0
+            let totalCredit = 0
+            let isOverlapped = false
+            let temp = caseIndex
+            reversedChoiceCounts.forEach((choiceCount) => {
+              choiceIndexes.unshift(temp % choiceCount)
+              temp = Math.floor(temp / choiceCount)
             })
+            this.activeGroups.forEach((group, index) => {
+              const choice = group.choices[choiceIndexes[index]]
+              if (choice) {
+                chosenCourseIds.push(choice.id)
+                chosenCourseNames.push(choice.name)
+                chosenTimeSlots.push(...choice.timeSlots)
+                totalSlotCount += choice.timeSlots.length
+                totalCourseCount += 1
+                totalCredit += Number(choice.credit)
+              }
+            })
+            uniqueSlots = [...(new Set(chosenTimeSlots))]
+            isOverlapped = (totalSlotCount !== uniqueSlots.length)
+            if (totalCourseCount > 0 && !isOverlapped) {
+              validCases.push({
+                num: 1 + validCases.length,
+                totalCount: totalCourseCount,
+                totalCredit: totalCredit,
+                courseIds: chosenCourseIds,
+                courseNames: chosenCourseNames
+              })
+            }
           }
-        }
-        resolve(validCases)
+          resolve(validCases)
+        }, delay)
       })
         .then((cases) => {
           this.calculatedCases = cases
