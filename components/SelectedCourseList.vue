@@ -1,6 +1,6 @@
 <template>
   <v-list two-line subheader>
-    <v-subheader>내가 추가한 강의</v-subheader>
+    <v-subheader>내가 추가한 강의 ({{ selectedCourseCount }} / {{ maxSelectableCourseCount }})</v-subheader>
     <template v-for="(course, index) in selectedCourses">
       <v-divider
         v-if="index > 0"
@@ -34,6 +34,12 @@ export default {
   computed: {
     selectedCourses () {
       return this.$store.state.selectedCourses
+    },
+    selectedCourseCount () {
+      return this.$store.state.selectedCourses.length
+    },
+    maxSelectableCourseCount () {
+      return this.$store.state.maxSelectableCourseCount
     }
   },
   methods: {

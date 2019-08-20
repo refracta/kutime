@@ -26,6 +26,7 @@ function storageAvailable (type) {
 }
 
 export const state = () => ({
+  maxSelectableCourseCount: 20,
   selectedCourses: [],
   timetableCourseIds: [],
   isActiveLeftDrawer: false,

@@ -66,6 +66,7 @@
                 v-else
                 small
                 color="info"
+                :disabled="isSlotFull"
                 @click="selectCourse(props.item)"
               >추가</v-btn>
             </td>
@@ -169,6 +170,15 @@ export default {
       return this.$store.state.selectedCourses.map((course) => {
         return course.id
       })
+    },
+    selectedCourseCount () {
+      return this.$store.state.selectedCourses.length
+    },
+    maxSelectableCourseCount () {
+      return this.$store.state.maxSelectableCourseCount
+    },
+    isSlotFull () {
+      return this.selectedCourseCount >= this.maxSelectableCourseCount
     }
   },
   methods: {
@@ -203,7 +213,11 @@ export default {
         })
     },
     selectCourse (course) {
-      this.$store.commit('selectCourse', course)
+      if (this.isSlotFull) {
+        alert(`최대 ${this.maxSelectableCourseCount}개의 강의를 추가할 수 있습니다.`)
+      } else {
+        this.$store.commit('selectCourse', course)
+      }
     },
     removeSelectedCourse (courseId) {
       this.$store.commit('removeSelectedCourse', courseId)
