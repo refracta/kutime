@@ -13,13 +13,13 @@
 $ yarn install
 
 # serve with hot reload at localhost:3000
-$ npm run dev
+$ yarn dev
 
 # build for production
-$ npm run build
+$ yarn build
 
 # launch server in production mode
-$ npm run start
+$ yarn start
 ```
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://nuxtjs.org).
@@ -42,6 +42,6 @@ $ sudo systemctl start intime-nuxt.service
 ``` bash
 $ git fetch
 $ git checkout (RELEASE_VERSION)
-$ npm run build
+$ yarn build
 $ sudo systemctl restart intime-nuxt.service
 ```
