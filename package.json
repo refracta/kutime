@@ -1,6 +1,6 @@
 {
   "name": "intime",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-beta.0",
   "description": "인하대 시간표 (web app)",
   "main": "index.js",
   "repository": "https://github.com/ony3000/intime.git",
