@@ -75,7 +75,7 @@ data.forEach(l => {
         lastTime = currentTime;
     }
 
-    list[l.CODE] = [l.CODE, '', l.CORS_NM, l.SCH_YR, l.CREDIT, l.CORS_DIV_NM, (l.LECT_TM ? l.LECT_TM : '') + ((l.LECT_TM && l.LECT_RM) ? ' / ' : '') + (l.LECT_RM ? l.LECT_RM : ''), l.PROF_NM, '', l.REQ_DEPT_NM, '', '', timeString, ''].map(e => e ? e : '');
+    list[l.CODE] = [l.CODE, '', l.CORS_NM, l.SCH_YR, l.CREDIT, l.CORS_DIV_NM, (l.LECT_TM ? l.LECT_TM : '') + ((l.LECT_TM && l.LECT_RM) ? ' / ' : '') + (l.LECT_RM ? l.LECT_RM : ''), l.PROF_NM, '', l.REQ_DEPT_NM, '', '', timeString, (l.CLS_CNT ? '정원: ' + l.CLS_CNT : '') + ((l.CLS_CNT && l.LECT_HR) ? ', ' : '') + (l.LECT_HR ? '학강실설: ' + l.LECT_HR : '')].map(e => e ? e : '');
 });
 let lecture = {
     list
