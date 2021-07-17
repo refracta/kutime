@@ -13,19 +13,19 @@ const schema = buildSchema(`
   }
   type Course {
     id: ID!
-    classGroup: String
     name: String
+    professor: String
     grade: String
     credit: String
-    type: String
-    timePlace: String
-    professor: String
-    evaluation: String
-    note: String
-    lecPlan: String
-    glecPlan: String
+    type1: String
+    type2: String
+    targetDepartment: String
+    target: String
+    time: String
+    place: String
+    creditDetail: String
+    limit: String
     timeData: String
-    abeek: String
   }
 `)
 

@@ -4,7 +4,7 @@ module.exports = {
   */
   head: {
     titleTemplate (titleChunk) {
-      return (titleChunk ? `${titleChunk} - 인하대 시간표` : '인하대 시간표')
+      return (titleChunk ? `${titleChunk} - 한기대 시간표` : '한기대 시간표')
     },
     htmlAttrs: {
       lang: 'ko'

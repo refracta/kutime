@@ -46,19 +46,19 @@ const rootValue = {
         const course = intimeData.lecture.list[courseId]
         return {
           id: course[0],
-          classGroup: course[1],
-          name: course[2],
+          name: course[1],
+          professor: course[2],
           grade: course[3],
           credit: course[4],
-          type: course[5],
-          timePlace: course[6],
-          professor: course[7],
-          evaluation: course[8],
-          note: course[9],
-          lecPlan: course[10],
-          glecPlan: course[11],
-          timeData: course[12],
-          abeek: course[13]
+          type1: course[5],
+          type2: course[6],
+          targetDepartment: course[7],
+          target: course[8],
+          time: course[9],
+          place: course[10],
+          creditDetail: course[11],
+          limit: course[12],
+          timeData: course[13]
         }
       })
     } else {

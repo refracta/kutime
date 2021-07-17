@@ -256,7 +256,7 @@ export default {
       ],
       calculatedCases: [],
       keyword: '',
-      rowsPerPage: [10, 20, 30],
+      rowsPerPage: [10, 20, 30, 50, 100],
       activeCase: {
         num: 0,
         totalCount: 0,
@@ -347,7 +347,8 @@ export default {
     eventsPerCourse () {
       const res = {}
       this.$store.state.selectedCourses.forEach((course) => {
-        const matched = course.id.match(/^([a-z]+)([0-9]+-[0-9]+)$/i)
+        let matched = course.id.match(/^([a-z]+)([0-9]+-[0-9]+)$/i)
+        matched = matched !== null ? matched : course.id.match(/^([a-z0-9]+)([0-9]+-[0-9]+)$/i)
         const x = parseInt(matched[1], 36)
         const y = Number(matched[2].replace('-', ''))
         const z = x * y

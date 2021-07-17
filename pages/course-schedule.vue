@@ -46,15 +46,18 @@
         >
           <template v-slot:items="props">
             <td>{{ props.item.id }}</td>
-            <td>{{ props.item.classGroup }}</td>
             <td>{{ props.item.name }}</td>
+            <td>{{ props.item.professor }}</td>
             <td>{{ props.item.grade }}</td>
             <td>{{ props.item.credit }}</td>
-            <td>{{ props.item.type }}</td>
-            <td>{{ props.item.timePlace }}</td>
-            <td>{{ props.item.professor }}</td>
-            <td>{{ props.item.evaluation }}</td>
-            <td>{{ props.item.note }}</td>
+            <td>{{ props.item.type1 }}</td>
+            <td>{{ props.item.type2 }}</td>
+            <td>{{ props.item.targetDepartment }}</td>
+            <td>{{ props.item.target}}</td>
+            <td>{{ props.item.time }}</td>
+            <td>{{ props.item.place }}</td>
+            <td>{{ props.item.creditDetail }}</td>
+            <td>{{ props.item.limit }}</td>
             <td class="px-1">
               <v-btn
                 v-if="selectedCourseIds.includes(props.item.id)"
@@ -136,21 +139,24 @@ export default {
       majorCategories: [],
       otherCategories: [],
       headers: [
-        { text: '학수번호', value: 'id', width: '130' },
-        { text: '분반그룹', value: 'classGroup', width: '130' },
-        { text: '과목명', value: 'name', width: '240' },
-        { text: '학년', value: 'grade', width: '90' },
-        { text: '학점', value: 'credit', width: '90' },
-        { text: '과목구분', value: 'type', width: '110' },
-        { text: '시간 및 강의실', value: 'timePlace', width: '240' },
-        { text: '담당교수', value: 'professor', width: '130' },
-        { text: '평가방식', value: 'evaluation', width: '110' },
-        { text: '비고', value: 'note', width: '170' },
+        { text: '코드 및 분반', value: 'id', width: '130' },
+        { text: '교과목명', value: 'name', width: '240' },
+        { text: '담당교수', value: 'professor', width: '100' },
+        { text: '학년', value: 'grade', width: '40' },
+        { text: '학점', value: 'credit', width: '40' },
+        { text: '이수구분', value: 'type1', width: '110' },
+        { text: '강의구분', value: 'type2', width: '130' },
+        { text: '대상학부', value: 'targetDepartment', width: '240' },
+        { text: '대상', value: 'target', width: '170' },
+        { text: '시간', value: 'time', width: '240' },
+        { text: '장소', value: 'place', width: '240' },
+        { text: '학강실설', value: 'creditDetail', width: '90' },
+        { text: '정원', value: 'limit', width: '40' },
         { sortable: false, width: '110' }
       ],
       courses: [],
       keyword: '',
-      rowsPerPage: [10, 20, 30],
+      rowsPerPage: [10, 20, 30, 50, 100],
       isLoadingCourses: false
     }
   },
@@ -187,15 +193,18 @@ export default {
       const query = `{
         courses(categoryId: "${this.selectedCategoryId}") {
           id
-          classGroup
           name
+          professor
           grade
           credit
-          type
-          timePlace
-          professor
-          evaluation
-          note
+          type1
+          type2
+          targetDepartment
+          target
+          time
+          place
+          creditDetail
+          limit
           timeData
         }
       }`

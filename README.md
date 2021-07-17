@@ -1,6 +1,6 @@
-# intime
+# kutime
 
-> 인하대 시간표 (web app)
+> 한기대 시간표 (web app)
 
 ## Requirements
 
