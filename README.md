@@ -1,4 +1,4 @@
-# intime
+# kutime
 
 > 한기대 시간표 (web app)
 
