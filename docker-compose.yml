@@ -9,7 +9,7 @@ services:
       - "43000:3000"
     restart: unless-stopped
     command: >
-      /bin/sh -c "if [ ! -d node_modules ]; then sh /usr/src/scripts/install.sh && sh /usr/src/scripts/update.sh; else sh /usr/src/scripts/run.sh; fi &&
+      /bin/sh -c "if [ ! -d node_modules ]; then sh /usr/src/scripts/install.sh && sh /usr/src/scripts/update.sh; else sh /usr/src/scripts/run-server.sh; fi &&
       (
       echo '0 6 * * * /bin/bash -c \"cd /usr/src && sh /usr/src/scripts/update.sh >> /usr/src/cron.log 2>&1\"';
       ) | crontab - &&
