@@ -1,35 +1,18 @@
-/**
- * TypeScript-style type definition.
- *
- * type Category = {
- *   id: string;
- *   name: string;
- *   lectureIds: string[];
- * };
- *
- * type KutimeData = {
- *   departments: Category[];
- *   rests: Category[];
- *   lectureHeaders: string[];
- *   lectures: Record<string, string[]>;
- * };
- */
+const kutimeData = require('../../tools/exported.json')
 
-const kutimeData = require('/srv/kutime/exported.json')
-
-const majorCategories = kutimeData.departments.map(({ id, name, lectureIds }) => {
+const majorCategories = kutimeData.department.map((category) => {
   return {
-    id,
-    name,
-    courses: lectureIds,
+    id: category.code,
+    name: category.name,
+    courses: category.lect_code_list,
     isCollege: true
   }
 })
-const otherCategories = kutimeData.rests.map(({ id, name, lectureIds }) => {
+const otherCategories = kutimeData.additional.map((category) => {
   return {
-    id,
-    name,
-    courses: lectureIds,
+    id: category.code,
+    name: category.name,
+    courses: category.lect_code_list,
     isCollege: false
   }
 })
@@ -57,10 +40,10 @@ const rootValue = {
     if (unrefinedCourseIds.length > 0) {
       const uniqueCourseIds = [...(new Set(unrefinedCourseIds))]
       const validCourseIds = uniqueCourseIds.filter((courseId) => {
-        return kutimeData.lectures[courseId]
+        return kutimeData.lecture.list[courseId]
       })
       return validCourseIds.map((courseId) => {
-        const course = kutimeData.lectures[courseId]
+        const course = kutimeData.lecture.list[courseId]
         return {
           id: course[0],
           name: course[1],

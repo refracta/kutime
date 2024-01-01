@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const kutimeData = require('/srv/kutime/exported.json')
+const kutimeData = require('../../tools/exported.json')
 
 const router = Router()
 

@@ -21,8 +21,12 @@
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "graphql": "^14.4.2",
+    "node-fetch": "2",
     "nuxt": "^2.8.1",
     "source-map-support": "^0.4.18",
+    "vue": "^3.4.3",
+    "vue-meta": "^2.4.0",
+    "vue-router": "^4.2.5",
     "vuetify": "^1.5.16"
   },
   "devDependencies": {
