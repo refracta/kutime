@@ -5,7 +5,6 @@ const fs = require('fs');
 const convert = require('xml-js');
 const nodeFetch = require('node-fetch');
 const tough = require('tough-cookie');
-const kutimeData = require("./exported.json");
 const cookie = new tough.CookieJar();
 const fetch = require('fetch-cookie')(nodeFetch, cookie);
 
