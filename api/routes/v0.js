@@ -1,18 +1,18 @@
 const { Router } = require('express')
-const intimeData = require('/srv/intime/exported.json')
+const kutimeData = require('/srv/kutime/exported.json')
 
 const router = Router()
 
 router.get('/categories', function (req, res, next) {
   const responseData = {
-    departments: intimeData.department.map((category) => {
+    departments: kutimeData.department.map((category) => {
       const { code, name } = category
       return {
         code,
         name
       }
     }),
-    others: intimeData.additional.map((category) => {
+    others: kutimeData.additional.map((category) => {
       const { code, name } = category
       return {
         code,
@@ -24,10 +24,10 @@ router.get('/categories', function (req, res, next) {
 })
 
 router.get('/lectures/:code', function (req, res, next) {
-  const categoryFromDepartments = intimeData.department.find((category) => {
+  const categoryFromDepartments = kutimeData.department.find((category) => {
     return (category.code === req.params.code)
   })
-  const categoryFromOthers = intimeData.additional.find((category) => {
+  const categoryFromOthers = kutimeData.additional.find((category) => {
     return (category.code === req.params.code)
   })
   if (categoryFromDepartments || categoryFromOthers) {
@@ -39,7 +39,7 @@ router.get('/lectures/:code', function (req, res, next) {
       lectures: []
     }
     responseData.lectures = category.lect_code_list.map((code) => {
-      return intimeData.lecture.list[code]
+      return kutimeData.lecture.list[code]
     })
     res.json(responseData)
   } else {
@@ -60,10 +60,10 @@ router.get('/candidates', function (req, res, next) {
     name: '수강 예정 리스트',
     lectures: []
   }
-  const headerCount = intimeData.lecture.header.length
+  const headerCount = kutimeData.lecture.header.length
   responseData.lectures = starredCodes.map((code) => {
-    if (intimeData.lecture.list[code]) {
-      return intimeData.lecture.list[code]
+    if (kutimeData.lecture.list[code]) {
+      return kutimeData.lecture.list[code]
     } else {
       const dummyData = Array(headerCount).fill(null)
       dummyData[0] = code

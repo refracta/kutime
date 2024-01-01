@@ -32,9 +32,9 @@ For detailed explanation on how things work, checkout the [Nuxt.js docs](https:/
 # First, you need to fill in the empty WorkingDirectory value in the service file.
 
 # Then do the following:
-$ sudo cp intime-nuxt.service /etc/systemd/system
-$ sudo systemctl enable intime-nuxt.service
-$ sudo systemctl start intime-nuxt.service
+$ sudo cp kutime-nuxt.service /etc/systemd/system
+$ sudo systemctl enable kutime-nuxt.service
+$ sudo systemctl start kutime-nuxt.service
 ```
 
 2. Deploy
@@ -43,5 +43,5 @@ $ sudo systemctl start intime-nuxt.service
 $ git fetch
 $ git checkout (RELEASE_VERSION)
 $ pnpm run build
-$ sudo systemctl restart intime-nuxt.service
+$ sudo systemctl restart kutime-nuxt.service
 ```
