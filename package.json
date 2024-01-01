@@ -1,9 +1,9 @@
 {
-  "name": "intime",
+  "name": "kutime",
   "version": "1.0.0-beta.0",
   "description": "한기대 시간표 (web app)",
   "main": "index.js",
-  "repository": "https://github.com/ony3000/intime.git",
+  "repository": "https://github.com/ony3000/kutime.git",
   "author": "Hyeonjong <nianelo4@gmail.com>",
   "license": "MIT",
   "private": true,
@@ -36,7 +36,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^7.1.0"
+    "sass": "^1.49.8",
+    "sass-loader": "^10.2.1"
   }
 }

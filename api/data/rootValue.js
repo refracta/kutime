@@ -1,6 +1,6 @@
-const intimeData = require('/srv/intime/exported.json')
+const kutimeData = require('../../tools/exported.json')
 
-const majorCategories = intimeData.department.map((category) => {
+const majorCategories = kutimeData.department.map((category) => {
   return {
     id: category.code,
     name: category.name,
@@ -8,7 +8,7 @@ const majorCategories = intimeData.department.map((category) => {
     isCollege: true
   }
 })
-const otherCategories = intimeData.additional.map((category) => {
+const otherCategories = kutimeData.additional.map((category) => {
   return {
     id: category.code,
     name: category.name,
@@ -40,10 +40,10 @@ const rootValue = {
     if (unrefinedCourseIds.length > 0) {
       const uniqueCourseIds = [...(new Set(unrefinedCourseIds))]
       const validCourseIds = uniqueCourseIds.filter((courseId) => {
-        return intimeData.lecture.list[courseId]
+        return kutimeData.lecture.list[courseId]
       })
       return validCourseIds.map((courseId) => {
-        const course = intimeData.lecture.list[courseId]
+        const course = kutimeData.lecture.list[courseId]
         return {
           id: course[0],
           name: course[1],

@@ -1,5 +1,5 @@
 [Unit]
-Description=Nuxt for intime
+Description=Nuxt for kutime
 
 [Service]
 ExecStart=/usr/bin/npm run start
@@ -12,7 +12,7 @@ RestartSec=10
 # Output to syslog
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=intime-nuxt
+SyslogIdentifier=kutime-nuxt
 
 [Install]
 WantedBy=multi-user.target
