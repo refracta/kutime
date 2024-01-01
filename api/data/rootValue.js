@@ -1,4 +1,4 @@
-const kutimeData = require('../../tools/exported.json')
+const kutimeData = require('../exported.json')
 
 const majorCategories = kutimeData.department.map((category) => {
   return {

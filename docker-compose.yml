@@ -1,0 +1,14 @@
+version: '3'
+services:
+  node:
+    build: .
+    volumes:
+      - .:/usr/src
+    working_dir: /usr/src
+    restart: unless-stopped
+    command: >
+      /bin/sh -c "if [ ! -d node_modules ]; then sh /usr/src/update.sh; fi &&
+      (
+      echo '0 6 * * * /bin/bash -c \"cd /usr/src && sh /usr/src/update.sh >> /usr/src/cron.log 2>&1\"';
+      ) | crontab - &&
+      cron -f"

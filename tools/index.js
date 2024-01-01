@@ -56,16 +56,11 @@ async function getLectureXML(view, year, term) {
 }
 
 function x2j(x) {
-  // console.log(x, x.Root.Dataset.Rows.Row[0].Col);
   let target = x.Root.Dataset.Rows.Row;
   if (!target) return {};
   if (!target.map) {
     target = [target];
   }
-  // console.log(target);
-  // console.log(target);
-  //console.log(x.Root.Dataset.Rows);
-  // if(!target) {console.log(target);}
   return target.map(r => r.Col.reduce((a, c) => (a[c._attributes.id] = c._text, a), {}));
 }
 

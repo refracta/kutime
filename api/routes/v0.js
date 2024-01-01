@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const kutimeData = require('../../tools/exported.json')
+const kutimeData = require('../exported.json')
 const router = Router()
 
 router.get('/info', function (req, res, next) {
