@@ -3,8 +3,8 @@
   "version": "1.0.0-beta.0",
   "description": "한기대 시간표 (web app)",
   "main": "index.js",
-  "repository": "https://github.com/ony3000/kutime.git",
-  "author": "Hyeonjong <nianelo4@gmail.com>",
+  "repository": "https://github.com/refracta/kutime",
+  "author": "refracta",
   "license": "MIT",
   "private": true,
   "scripts": {
