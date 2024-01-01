@@ -5,4 +5,4 @@ node converter.js
 cp /usr/src/tools/exported.json /usr/src/api/exported.json
 cd /usr/src
 yarn run build
-sh /usr/src/run-server.sh
+sh /usr/src/scripts/run-server.sh
