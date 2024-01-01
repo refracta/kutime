@@ -1,4 +1,5 @@
 #!/bin/sh
+export PATH=/usr/local/bin:$PATH
 cd /usr/src/tools
 node index.js ID PW
 node converter.js
