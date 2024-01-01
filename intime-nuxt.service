@@ -2,7 +2,7 @@
 Description=Nuxt for intime
 
 [Service]
-ExecStart=/usr/bin/npm run start
+ExecStart=/usr/bin/pnpm run start
 WorkingDirectory=
 
 # Restart service after 10 seconds if service crashes

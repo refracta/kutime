@@ -1,6 +1,6 @@
 {
   "name": "intime",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "한기대 시간표 (web app)",
   "main": "index.js",
   "repository": "https://github.com/ony3000/intime.git",
@@ -11,7 +11,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "precommit": "npm run lint",
+    "precommit": "pnpm run lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
@@ -36,7 +36,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^7.1.0"
+    "sass": "^1.49.8",
+    "sass-loader": "^10.2.1"
   }
 }

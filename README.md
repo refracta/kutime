@@ -10,16 +10,16 @@
 
 ``` bash
 # install dependencies
-$ yarn install
+$ pnpm install
 
 # serve with hot reload at localhost:3000
-$ yarn dev
+$ pnpm run dev
 
 # build for production
-$ yarn build
+$ pnpm run build
 
 # launch server in production mode
-$ yarn start
+$ pnpm run start
 ```
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://nuxtjs.org).
@@ -42,6 +42,6 @@ $ sudo systemctl start intime-nuxt.service
 ``` bash
 $ git fetch
 $ git checkout (RELEASE_VERSION)
-$ yarn build
+$ pnpm run build
 $ sudo systemctl restart intime-nuxt.service
 ```

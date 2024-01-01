@@ -1,18 +1,35 @@
+/**
+ * TypeScript-style type definition.
+ *
+ * type Category = {
+ *   id: string;
+ *   name: string;
+ *   lectureIds: string[];
+ * };
+ *
+ * type IntimeData = {
+ *   departments: Category[];
+ *   rests: Category[];
+ *   lectureHeaders: string[];
+ *   lectures: Record<string, string[]>;
+ * };
+ */
+
 const intimeData = require('/srv/intime/exported.json')
 
-const majorCategories = intimeData.department.map((category) => {
+const majorCategories = intimeData.departments.map(({ id, name, lectureIds }) => {
   return {
-    id: category.code,
-    name: category.name,
-    courses: category.lect_code_list,
+    id,
+    name,
+    courses: lectureIds,
     isCollege: true
   }
 })
-const otherCategories = intimeData.additional.map((category) => {
+const otherCategories = intimeData.rests.map(({ id, name, lectureIds }) => {
   return {
-    id: category.code,
-    name: category.name,
-    courses: category.lect_code_list,
+    id,
+    name,
+    courses: lectureIds,
     isCollege: false
   }
 })
@@ -40,10 +57,10 @@ const rootValue = {
     if (unrefinedCourseIds.length > 0) {
       const uniqueCourseIds = [...(new Set(unrefinedCourseIds))]
       const validCourseIds = uniqueCourseIds.filter((courseId) => {
-        return intimeData.lecture.list[courseId]
+        return intimeData.lectures[courseId]
       })
       return validCourseIds.map((courseId) => {
-        const course = intimeData.lecture.list[courseId]
+        const course = intimeData.lectures[courseId]
         return {
           id: course[0],
           name: course[1],

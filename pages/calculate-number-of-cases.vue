@@ -552,7 +552,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-alert /deep/ > div {
+.v-alert::v-deep > div {
   overflow: hidden;
 }
 </style>
