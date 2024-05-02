@@ -9,28 +9,46 @@ const cookie = new tough.CookieJar();
 const fetch = require('fetch-cookie')(nodeFetch, cookie);
 
 async function login(user_id, user_pwd) {
-  // initFetch();
   user_id = encodeURIComponent(user_id);
   user_pwd = encodeURIComponent(user_pwd);
-
-  let loginPage = await fetch('https://kut90.koreatech.ac.kr/login/LoginPage.do').then(r => r.text());
-  let csrf = /(?<="_csrf" value=").+?(?=")/.exec(loginPage)[0];
-  await fetch("https://kut90.koreatech.ac.kr/login/Login.do", {
-    "headers": {
-      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+  await fetch(`https://portal.koreatech.ac.kr/sso/sso_login.jsp`, {
+    'body': `user_id=${user_id}&user_pwd=${user_pwd}&RelayState=%2Findex.jsp&id=PORTAL&targetId=PORTAL&user_password=${user_pwd}`,
+    'method': 'POST',
+  });
+  await fetch(`https://portal.koreatech.ac.kr/ktp/login/checkLoginId.do`, {
+    'headers': {
+      'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
     },
-    "body": `id=${user_id}&pwd=${user_pwd}&userdiv=emp&_csrf=${csrf}`,
-    "method": "POST",
+    'body': `login_id=${user_id}&login_pwd=${user_pwd}&login_type=&login_empno=&login_certDn=&login_certChannel=`,
+    'method': 'POST',
+  });
+  await fetch(`https://portal.koreatech.ac.kr/ktp/login/checkSecondLoginCert.do`, {
+    'body': `login_id=${user_id}`, 'method': 'POST',
+  });
+  const manualRedirection = res => fetch(res.headers.get('location'), {
+    'method': 'GET', redirect: 'manual'
+  });
+  cookie.setCookieSync("kut_login_type=id; Domain=koreatech.ac.kr; Path=/; hostOnly=false;", "https://koreatech.ac.kr");
+  await fetch(`https://portal.koreatech.ac.kr/exsignon/sso/sso_assert.jsp`, {
+    'body': 'certUserId=&certLoginId=&certEmpNo=&certType=&secondCert=&langKo=&langEn=',
+    'method': 'POST',
+    redirect: 'manual'
+  }).then(manualRedirection).then(manualRedirection).then(manualRedirection).then(manualRedirection);
+  await fetch("https://kut90.koreatech.ac.kr/", {
+    "method": "GET", redirect: 'manual'
+  });
+  await fetch("https://kut90.koreatech.ac.kr/ssologin.jsp?POSI_DIV=120&DVC_DIV=10", {
+    "referrer": "https://portal.koreatech.ac.kr/", "method": "GET",
   });
 }
+
 
 // view = 12, 14, 15
 // year = 20xx
 // term = 1학기:10, 여름학기:11, 2학기:20, 겨울학기:21
 async function getLectureXML(view, year, term) {
   return await fetch('https://kut90.koreatech.ac.kr/nexacroController.do', {
-    'body':
-      `
+    'body': `
 <?xml version="1.0" encoding="UTF-8"?>
 <Root xmlns="http://www.nexacroplatform.com/platform/dataset">
 	<Parameters>
@@ -50,8 +68,7 @@ async function getLectureXML(view, year, term) {
 		</Rows>
 	</Dataset>
 </Root>
-`.trim(),
-    'method': 'POST'
+`.trim(), 'method': 'POST'
   }).then(r => r.text());
 }
 
@@ -66,8 +83,7 @@ function x2j(x) {
 
 const views = [12, 14, 15];
 const options = {
-  compact: true,
-  spaces: 4
+  compact: true, spaces: 4
 };
 
 async function getLectureData(year, term) {
@@ -76,8 +92,7 @@ async function getLectureData(year, term) {
   lectureData = lectureData.reduce((a, l) => {
     let k = l['CORS_CD'] + l['CLS_NO'];
     a[k] = {
-      ...a[k],
-      ...l
+      ...a[k], ...l
     };
     return a;
   }, {});
@@ -85,16 +100,10 @@ async function getLectureData(year, term) {
 }
 
 const DAY_TIME = {
-  "월": 0,
-  "화": 100,
-  "수": 200,
-  "목": 300,
-  "금": 400,
-  "토": 500
+  "월": 0, "화": 100, "수": 200, "목": 300, "금": 400, "토": 500
 };
 const AB_TIME = {
-  "A": 0,
-  "B": 1
+  "A": 0, "B": 1
 };
 
 function splitLectureTM(str) {
@@ -125,7 +134,8 @@ function splitLectureTM(str) {
 }
 
 const JSD_FORMAT_KEYS = ['CORS_CD', 'CORS_NM', 'CLS_NO', 'REQ_DEPT_NM', 'LECT_RM', 'CREDIT', 'LECT_DES', 'DEPT_NM', 'PROF_NM', 'CLS_CNT', 'LECT_TMA'];
-const TERMS = {10: '1학기', 11: '여름학기', 20: '2학기', 21: '겨울학기'};
+let TERMS = {10: '1학기', 11: '여름학기', 20: '2학기', 21: '겨울학기'};
+TERMS = {10: '1학기', 20: '2학기'}
 !async function () {
   await login(process.env.KOREATECH_ID || process.argv[2], process.env.KOREATECH_PW || process.argv[3]);
   let year = new Date().getFullYear();
@@ -135,7 +145,7 @@ const TERMS = {10: '1학기', 11: '여름학기', 20: '2학기', 21: '겨울학�
     let termKorean = TERMS[term];
     try {
       let ld = await getLectureData(year, term);
-      if(ld.length === 0) {
+      if (ld.length === 0) {
         break;
       }
       fs.writeFileSync('latest.json', JSON.stringify(ld), 'utf8');
@@ -146,10 +156,7 @@ const TERMS = {10: '1학기', 11: '여름학기', 20: '2학기', 21: '겨울학�
       ld = ld.map(e => JSD_FORMAT_KEYS.map(k => e[k]));
       ld = ld.map(e => e.map(v => v ? (typeof v === 'object' ? v : String(v)) : ''));
       let update = {
-        time: new Date(),
-        year,
-        term: termKorean,
-        size: Buffer.byteLength(JSON.stringify(ld))
+        time: new Date(), year, term: termKorean, size: Buffer.byteLength(JSON.stringify(ld))
       };
       fs.writeFileSync('update.json', JSON.stringify(update), 'utf8');
       console.log(`${year}년 ${termKorean} 갱신 완료!`);
@@ -159,5 +166,4 @@ const TERMS = {10: '1학기', 11: '여름학기', 20: '2학기', 21: '겨울학�
       break;
     }
   }
-}
-();
+}();
